@@ -1,0 +1,12 @@
+#+TITLE:       How to make a blog with emacs
+#+AUTHOR:      Diego Berrocal
+#+EMAIL:       io@Jupiter
+#+DATE:        2015-05-25 Mon
+#+URI:         /blog/%y/%m/%d/how-to-make-a-blog-with-emacs
+#+KEYWORDS:    blog, org-page, emacs, Diego Berrocal
+#+TAGS:        emacs, blog
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Or how to use org-page and emacs to publish a blog with GitHub Pages
+
+* Comenzamos
