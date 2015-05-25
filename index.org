@@ -1,3 +1,6 @@
-#+TITLE: Index
+#+TITLE: Hi
 
-This is the home page of Diego Berrocal.
+I'm a Peruvian physics undergrad and developer interested in programming, linux
+desktop theming, music, astronomy and AI. I tackle on challenging problems and
+try to solve them with code, I also spend a high amount of time in Emacs. If you
+want to know more about me check out the [[file:about][about]] page.
