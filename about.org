@@ -17,7 +17,7 @@ ac dolor vitae urna tincidunt varius. Cras at cursus nulla. Duis sit amet ex vel
 est vehicula maximus dignissim vitae neque. Ut id magna a turpis vehicula
 ultrices nec in orci. Etiam metus erat.
 
-@@html:<cite>@@ Diego Berrocal @@html:</cite>@@
+@@html:<p class="author">@@ Diego Berrocal @@html:</p>@@
 #+end_quote
 
 * Fun Facts
