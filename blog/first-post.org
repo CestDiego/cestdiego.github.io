@@ -1,4 +1,4 @@
-#+TITLE:       How to make =this= blog with emacs
+#+TITLE:       How to /make/ *this* =blog= with emacs
 #+AUTHOR:      Diego Berrocal
 #+EMAIL:       io@Jupiter
 #+DATE:        2015-05-25 Mon
