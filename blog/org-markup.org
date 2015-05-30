@@ -1,0 +1,44 @@
+#+TITLE:       Trying =org= /markup/
+#+AUTHOR:      Diego Berrocal
+#+EMAIL:       io@Jupiter
+#+DATE:        2015-05-30 Sat
+#+URI:         /blog/%y/%m/%d/trying-org-markup
+#+KEYWORDS:    these, are, tags
+#+TAGS:        wat, not
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: yeah
+
+* Lists
+
+#+begin_src org-mode
+** Lord of the Rings
+My favorite scenes are (in this order)
+1. The attack of the Rohirrim
+2. Eowyn's fight with the witch king
+    + this was already my favorite scene in the book
+    + I really like Miranda Otto.
+3. Peter Jackson being shot by Legolas
+    - on DVD only
+    He makes a really funny face when it happens.
+But in the end, no individual scenes matter but the film as a whole.
+Important actors in this film are:
+- Elijah Wood :: He plays Frodo
+- Sean Austin :: He plays Sam, Frodo's friend.  I still remember
+    him very well from his role as Mikey Walsh in The Goonies.
+#+end_src
+
+** Lord of the Rings
+My favorite scenes are (in this order)
+1. The attack of the Rohirrim
+2. Eowyn's fight with the witch king
+    + this was already my favorite scene in the book
+    + I really like Miranda Otto.
+3. Peter Jackson being shot by Legolas
+    - on DVD only
+    He makes a really funny face when it happens.
+But in the end, no individual scenes matter but the film as a whole.
+Important actors in this film are:
+- Elijah Wood :: He plays Frodo
+- Sean Austin :: He plays Sam, Frodo's friend.  I still remember
+    him very well from his role as Mikey Walsh in The Goonies.

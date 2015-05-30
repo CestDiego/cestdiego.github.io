@@ -20,8 +20,8 @@
 
 * Setup
 
-Assuming you got your configuration for org-mode up and running (whether using
-=spacemacs= or not) and also have installed the =org-page= package let's get
+Assuming you got your configuration for org-mode up and running whether
+using *spacemacs* or not) and also have installed the =org-page= package let's get
 started with what you may need to setup manually:
 
 
