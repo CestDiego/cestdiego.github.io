@@ -1,6 +1,6 @@
 body {
-    background: #2d2d2d;
-    color: #e3e3e3;
+    background: #1b1c17;
+    color: #d3d4d2;
 }
 
 ::-moz-selection {
@@ -11,6 +11,14 @@ body {
 ::selection {
     background: #e3e3e3;
     color: #373737;
+}
+
+.org-src-container ::-moz-selection {
+    background: #2b2b2b;
+}
+
+.org-src-container ::selection {
+    background: #2b2b2b;
 }
 
 .about-me a::after,
@@ -28,15 +36,14 @@ body {
 } /* this targets the default scrollbar (compulsory) */
 
 ::-webkit-scrollbar-track {
-      background-color: rgba(63, 63, 63, 0.5);
-      /* background-color: #3F3F3F;  */
+    background-color: inherit;
 } /* the new scrollbar will have a flat appearance with the set background color */
  
 ::-webkit-scrollbar-thumb {
-      background-color: #242424; 
-      border-radius: 3px;
-      -webkit-border-radius: 3px;
-      -moz-border-radius: 3px;
+      background-color: #3c3d38;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
 } /* this will style the thumb, ignoring the track */
  
 ::-webkit-scrollbar-button {
@@ -44,5 +51,160 @@ body {
 } /* optionally, you can style the top and the bottom buttons (left and right for horizontal bars) */
  
 ::-webkit-scrollbar-corner {
-      background-color: #3F3F3F;
+      background-color: inherit;
 } /* if both the vertical and the horizontal bars appear, then perhaps the right bottom corner also needs to be styled */
+
+
+/* color theme generated from htmlize (uses zenburn faces) */
+
+.org-src-container pre {
+    color: #DCDCCC;
+    background-color: #272822;
+}
+.org-builtin {
+    /* font-lock-builtin-face */
+    color: #DCDCCC;
+    font-weight: bold;
+}
+.org-c-annotation {
+    /* c-annotation-face */
+    color: #BFEBBF;
+}
+.org-clojure-interop-method {
+    /* clojure-interop-method-face */
+    color: #94BFF3;
+}
+.org-clojure-keyword {
+    /* clojure-keyword-face */
+    color: #BFEBBF;
+}
+.org-comment {
+    /* font-lock-comment-face */
+    color: #75715E;
+}
+.org-comment-delimiter {
+    /* font-lock-comment-delimiter-face */
+    color: #75715E;
+}
+.org-constant {
+    /* font-lock-constant-face */
+    color: #BFEBBF;
+}
+.org-css-property {
+    /* css-property */
+    color: #DFAF8F;
+}
+.org-css-selector {
+    /* css-selector */
+    color: #93E0E3;
+}
+.org-doc {
+    /* font-lock-doc-face */
+    color: #9FC59F;
+}
+.org-function-name {
+    /* font-lock-function-name-face */
+    color: #93E0E3;
+}
+.org-haskell-constructor {
+    /* haskell-constructor-face */
+    color: #7CB8BB;
+}
+.org-haskell-definition {
+    /* haskell-definition-face */
+    color: #93E0E3;
+}
+.org-haskell-keyword {
+    /* haskell-keyword-face */
+    color: #F0DFAF;
+    font-weight: bold;
+}
+.org-haskell-operator {
+    /* haskell-operator-face */
+    color: #DFAF8F;
+}
+.org-highlight-numbers-number {
+    /* highlight-numbers-number */
+    color: #BFEBBF;
+}
+.org-julia-macro {
+    /* julia-macro-face */
+    color: #94BFF3;
+}
+.org-keyword {
+    /* font-lock-keyword-face */
+    color: #F0DFAF;
+    font-weight: bold;
+}
+.org-negation-char {
+    /* font-lock-negation-char-face */
+    color: #F0DFAF;
+    font-weight: bold;
+}
+.org-org-default {
+    /* org-default */
+    color: #DCDCCC;
+    background-color: #3F3F3F;
+}
+.org-preprocessor {
+    /* font-lock-preprocessor-face */
+    color: #94BFF3;
+}
+.org-rainbow-delimiters-depth-1 {
+    /* rainbow-delimiters-depth-1-face */
+    color: #DCDCCC;
+}
+.org-rainbow-delimiters-depth-2 {
+    /* rainbow-delimiters-depth-2-face */
+    color: #BFEBBF;
+}
+.org-rainbow-delimiters-depth-3 {
+    /* rainbow-delimiters-depth-3-face */
+    color: #D0BF8F;
+}
+.org-rainbow-delimiters-depth-4 {
+    /* rainbow-delimiters-depth-4-face */
+    color: #93E0E3;
+}
+.org-rainbow-delimiters-depth-5 {
+    /* rainbow-delimiters-depth-5-face */
+    color: #9FC59F;
+}
+.org-rainbow-delimiters-unmatched {
+    /* rainbow-delimiters-unmatched-face */
+    color: #88090B;
+}
+.org-string {
+    /* font-lock-string-face */
+    color: #CC9393;
+}
+.org-tuareg-font-lock-constructor {
+    /* tuareg-font-lock-constructor-face */
+    color: #DCDCCC;
+    background-color: #3F3F3F;
+}
+.org-tuareg-font-lock-governing {
+    /* tuareg-font-lock-governing-face */
+    color: #f5deb3;
+    font-weight: bold;
+}
+.org-tuareg-font-lock-module {
+    /* tuareg-font-lock-module-face */
+    color: #7CB8BB;
+}
+.org-tuareg-font-lock-operator {
+    /* tuareg-font-lock-operator-face */
+    color: #f0e68c;
+}
+.org-type {
+    /* font-lock-type-face */
+    color: #7CB8BB;
+}
+.org-underline {
+    /* underline */
+    text-decoration: underline;
+}
+.org-variable-name {
+    /* font-lock-variable-name-face */
+    color: #DFAF8F;
+}

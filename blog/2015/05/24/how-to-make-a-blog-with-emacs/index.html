@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>How to make =this= blog with emacs - Diego Berrocal</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Diego Berrocal" />
+    <meta name="description" content="Or how to use org-page and emacs to publish a blog with GitHub Pages" />
+    <meta name="keywords" content="blog, org-page, emacs, Diego Berrocal" />
+    <link rel="stylesheet" href="/media/css/normalize.css">
+    <link rel="stylesheet" href="/media/css/main.css">
+    <link rel="stylesheet" href="/media/css/dark.css" id="darkTheme">
+    <link rel="stylesheet" href="/media/css/light.css" id="lightTheme">
+    <link rel="stylesheet" href="//cloud.typography.com/6145712/799966/css/fonts.css">
+    <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400'>
+    <noscript>
+        <style>
+         .toggle-colors{
+             display: none;
+         }
+        </style>
+    </noscript>
+  </head>
+
+  <body>
+    <div id="wrapper">
+    <nav class="site-nav">
+      <ul class="links">
+        <li><a href="/">Diego Berrocal</a></li>
+         <li><a href="/about/">about</a></li>
+        <li><a href="/blog/">blog</a></li>
+        <li><a href="/rss.xml">rss</a></li>
+        <li><button class="switch-lights">lights off</button></li>
+      </ul>
+    </nav>
+
+    <article class="post">
+      <header>
+          <h1 class="post-title">How to make =this= blog with emacs</h1>
+          <time class="post-date">May 24, 2015</time>
+      </header>
+      
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">What I used</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li>Emacs 24.4
+</li>
+<li><a href="http://orgmode.org/">Org-mode</a> 8.2
+</li>
+<li><a href="https://github.com/syl20bnr/spacemacs">Spacemacs</a>
+</li>
+<li><a href="https://github.com/kelvinh/org-page">org-page</a> package
+</li>
+<li>(optional) custom theme <code>just_right</code>
+</li>
+<li><a href="https://pages.github.com/">GitHub Pages</a>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Setup</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Assuming you got your configuration for org-mode up and running (whether using
+<code>spacemacs</code> or not) and also have installed the <code>org-page</code> package let's get
+started with what you may need to setup manually:
+</p>
+</div>
+
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">Config Org-page</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Org-page has a nice quick-start guide <a href="https://github.com/kelvinh/org-page/blob/master/doc/quick-guide.org">here</a> but I will put what I have setted up
+for my blog:
+</p>
+
+<ul class="org-ul">
+<li>Mandatory stuff
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq op/site-domain <span class="org-string">"https://cestdiego.github.com/"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>add-to-list 'op/category-ignore-list <span class="org-string">"temp"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>setq op/repository-directory <span class="org-string">"~/Projects/le_blog/"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>Only do if you have a custom theme
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">This two are optional , only if you want have a custom theme</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>setq op/theme-root-directory <span class="org-string">"~/spacemacs_conf/org-cestdiego/org-page-themes/"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>setq op/theme 'just_right<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>Optional stuff
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq op/personal-github-link <span class="org-string">"https://github.com/CestDiego/"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>setq op/site-main-title <span class="org-string">"Diego Berrocal"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>setq op/site-sub-title <span class="org-string">"it's personal"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>setq op/personal-avatar <span class="org-string">"https://avatars0.githubusercontent.com/u/3291619?v=3&amp;s=460"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2">Set up some function</h3>
+<div class="outline-text-3" id="text-2-2">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>evil-leader/set-key
+  <span class="org-string">"opo"</span> '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-3">()</span> <span class="org-rainbow-delimiters-depth-3">(</span>interactive<span class="org-rainbow-delimiters-depth-3">)</span>
+           <span class="org-rainbow-delimiters-depth-3">(</span>magit-status op/repository-directory<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-string">"opp"</span> '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span><span class="org-rainbow-delimiters-depth-3">()</span> <span class="org-rainbow-delimiters-depth-3">(</span>interactive<span class="org-rainbow-delimiters-depth-3">)</span>
+           <span class="org-rainbow-delimiters-depth-3">(</span>op/do-publication t nil t nil<span class="org-rainbow-delimiters-depth-3">)</span>
+           <span class="org-rainbow-delimiters-depth-3">(</span>find-file op/repository-directory<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-string">"opP"</span> '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span><span class="org-rainbow-delimiters-depth-3">()</span> <span class="org-rainbow-delimiters-depth-3">(</span>interactive<span class="org-rainbow-delimiters-depth-3">)</span>
+           <span class="org-rainbow-delimiters-depth-3">(</span>op/do-publication t t <span class="org-rainbow-delimiters-depth-4">(</span>concat op/repository-directory <span class="org-string">"temp/build"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3">Dotspacemacs init</h3>
+<div class="outline-text-3" id="text-2-3">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">dotspacemacs/layers</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+  <span class="org-doc">"Configuration Layers declaration."</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>setq-default
+   <span class="org-comment-delimiter">;; </span><span class="org-comment">List of additional paths where to look for configuration layers.</span>
+
+   <span class="org-comment-delimiter">;; </span><span class="org-comment">Paths must have a trailing slash (ie. `</span><span class="org-comment"><span class="org-constant">~/.mycontribs/</span></span><span class="org-comment">')</span>
+   dotspacemacs-configuration-layer-path '<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"~/spacemacs_conf/"</span><span class="org-rainbow-delimiters-depth-3">)</span>
+   <span class="org-comment-delimiter">;; </span><span class="org-comment">List of configuration layers to load. If it is the symbol `</span><span class="org-comment"><span class="org-constant">all</span></span><span class="org-comment">' instead</span>
+   <span class="org-comment-delimiter">;; </span><span class="org-comment">of a list then all discovered layers will be installed.</span>
+   dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-3">(</span>appearance
+                                       <span class="org-comment-delimiter">;;</span><span class="org-comment">Test;;</span>
+                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">ocodo-svg-modeline</span>
+                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">vim-powerline</span>
+                                       spaceppets
+                                       <span class="org-rainbow-delimiters-depth-4">(</span>git <span class="org-builtin">:variables</span>
+                                            git-magit-status-fullscreen t
+                                            git-enable-github-support t
+                                            git-gutter-use-fringe t<span class="org-rainbow-delimiters-depth-4">)</span>
+                                       prodigy
+                                       <span class="org-rainbow-delimiters-depth-4">(</span>colors <span class="org-builtin">:variables</span>
+                                               colors-enable-nyan-cat-progress-bar ,<span class="org-rainbow-delimiters-depth-5">(</span>display-graphic-p<span class="org-rainbow-delimiters-depth-5">)</span>
+                                               colors-enable-rainbow-identifiers nil<span class="org-rainbow-delimiters-depth-4">)</span>
+                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">(perspectives :variables</span>
+                                       <span class="org-comment-delimiter">;;               </span><span class="org-comment">perspective-enable-persp-projectile t)</span>
+                                       eyebrowse
+                                       chrome
+                                       erc
+                                      <span class="org-rainbow-delimiters-depth-4">(</span>rcirc <span class="org-builtin">:variables</span>
+                                             rcirc-default-nick <span class="org-string">"cestdiego"</span>
+                                             rcirc-default-user-name <span class="org-string">"cestdiego"</span>
+                                             rcirc-default-full-name <span class="org-string">"Diego Berrocal"</span>
+                                             rcirc-enable-znc-support t<span class="org-rainbow-delimiters-depth-4">)</span>
+                                       html
+                                       restclient
+                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">Org</span>
+                                       org
+                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">org-notify</span>
+                                       org-cestdiego
+                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">Helm</span>
+                                       helm
+                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">Code Navigation</span>
+                                       ecb
+                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">multimedia</span>
+                                       presentations
+                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">Miscellaneous</span>
+                                       emoji
+                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">webkit</span>
+                                       wakatime
+                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">Media</span>
+                                       bongo
+                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">Completings Stuff</span>
+                                       <span class="org-rainbow-delimiters-depth-4">(</span>auto-completion
+                                        <span class="org-builtin">:variables</span>
+                                        auto-completion-enable-help-tooltip t
+                                        auto-completion-return-key-behavior complete
+                                        auto-completion-complete-with-key-sequence <span class="org-string">"jk"</span><span class="org-rainbow-delimiters-depth-4">)</span>
+                                       slime
+                                       ycmd
+                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">Syntax Checking Stuff</span>
+                                       syntax-checking
+                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">LaTeX</span>
+                                       auctex
+                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">Shells</span>
+                                       eshell
+                                       <span class="org-rainbow-delimiters-depth-4">(</span>shell <span class="org-builtin">:variables</span>
+                                              shell-default-shell ansi-term
+                                              shell-pop-autocd-to-working-dir nil
+                                              shell-default-term-shell <span class="org-string">"/bin/zsh"</span><span class="org-rainbow-delimiters-depth-4">)</span>
+                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">Lang</span>
+                                       ansible
+                                       markdown
+                                       clojure
+                                       cp2k
+                                       emacs-lisp
+                                       html
+                                       c-c++
+                                       python
+                                       ipython
+                                       sql
+                                       haskell
+                                       javascript
+                                       ruby
+                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">Utils</span>
+                                       search-engine
+                                       calfw
+                                       floobits
+                                       utils
+                                       xkcd
+                                       vagrant
+                                       <span class="org-rainbow-delimiters-depth-3">)</span>
+   <span class="org-comment-delimiter">;; </span><span class="org-comment">List of additional packages that will be installed wihout being</span>
+   <span class="org-comment-delimiter">;; </span><span class="org-comment">wrapped in a layer. If you need some configuration for these</span>
+   <span class="org-comment-delimiter">;; </span><span class="org-comment">packages then consider to create a layer, you can also put the</span>
+   <span class="org-comment-delimiter">;; </span><span class="org-comment">configuration in `</span><span class="org-comment"><span class="org-constant">dostspacemacs/config</span></span><span class="org-comment">'.</span>
+   dotspacemacs-additional-packages '<span class="org-rainbow-delimiters-depth-3">()</span>
+   <span class="org-comment-delimiter">;; </span><span class="org-comment">A list of packages and/or extensions that will not be install and loaded.</span>
+   dotspacemacs-excluded-packages '<span class="org-rainbow-delimiters-depth-3">(</span>evil-org<span class="org-rainbow-delimiters-depth-3">)</span>
+   <span class="org-comment-delimiter">;; </span><span class="org-comment">If non-nil spacemacs will delete any orphan packages, i.e. packages that</span>
+   <span class="org-comment-delimiter">;; </span><span class="org-comment">are declared in a layer which is not a member of</span>
+   <span class="org-comment-delimiter">;; </span><span class="org-comment">the list `</span><span class="org-comment"><span class="org-constant">dotspacemacs-configuration-layers</span></span><span class="org-comment">'</span>
+   dotspacemacs-delete-orphan-packages t<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+    </article>
+
+    <footer class="site-footer">
+      <div class="back-to-top">
+        <a href="#">back to top</a>
+      </div>
+      <script src="/media/js/main.js"></script>
+    </footer>
+
+    </div>
+  </body>
+</html>
