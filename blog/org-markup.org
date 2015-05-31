@@ -6,29 +6,32 @@
 #+KEYWORDS:    these, are, tags
 #+TAGS:        wat, not
 #+LANGUAGE:    en
-#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t p:t tags:t
 #+DESCRIPTION: yeah
 
 * Lists
 
-#+begin_src org-mode
-** Lord of the Rings
-My favorite scenes are (in this order)
-1. The attack of the Rohirrim
-2. Eowyn's fight with the witch king
-    + this was already my favorite scene in the book
-    + I really like Miranda Otto.
-3. Peter Jackson being shot by Legolas
-    - on DVD only
-    He makes a really funny face when it happens.
-But in the end, no individual scenes matter but the film as a whole.
-Important actors in this film are:
-- Elijah Wood :: He plays Frodo
-- Sean Austin :: He plays Sam, Frodo's friend.  I still remember
-    him very well from his role as Mikey Walsh in The Goonies.
+#+begin_src org
+,* Lord of the Rings                                               :wat:not:
+  My favorite scenes are (in this order)
+  1. The attack of the Rohirrim
+  2. Eowyn's fight with the witch king
+      + this was already my favorite scene in the book
+      + I really like Miranda Otto.
+  3. Peter Jackson being shot by Legolas
+      - on DVD only
+      He makes a really funny face when it happens.
+  But in the end, no individual scenes matter but the film as a whole.
+  Important actors in this film are:
+  - Elijah Wood :: He plays Frodo
+  - Sean Austin :: He plays Sam, Frodo's friend.  I still remember
+      him very well from his role as Mikey Walsh in The Goonies.
+,** asdadasd
+,*** asdadasd 
+,**** fafasfsd
 #+end_src
 
-** Lord of the Rings
+** Lord of the Rings                                               :wat:not:
 My favorite scenes are (in this order)
 1. The attack of the Rohirrim
 2. Eowyn's fight with the witch king
@@ -42,3 +45,172 @@ Important actors in this film are:
 - Elijah Wood :: He plays Frodo
 - Sean Austin :: He plays Sam, Frodo's friend.  I still remember
     him very well from his role as Mikey Walsh in The Goonies.
+
+* Emphasis and Monospace
+#+begin_src org
+  You can make words *bold*, /italic/, _underlined_, =verbatim= and ~code~, and,
+  if you must, +strike-through+. Text in the code and verbatim string is not
+  processed for Org mode specific syntax, it is exported verbatim
+#+end_src
+
+You can make words *bold*, /italic/, _underlined_, =verbatim= and ~code~, and,
+if you must, +strike-through+. Text in the code and verbatim string is not
+processed for Org mode specific syntax, it is exported verbatim
+
+* Horizontal rules
+
+A line consisting of only dashes, and at least 5 of them, will be exported as a horizontal line.
+
+#+begin_src org
+  ----------
+#+end_src
+
+----------
+
+             
+* Le_Footnote [[http://orgmode.org/manual/Footnotes.html#Footnotes][⛢]]
+#+begin_src org
+   The Org homepage[fn:1] now looks a lot better than it used to. Also inline
+  definition: [fn:name: a definition]. Or Anonymous definition of footnotes: [fn::
+  This is the inline definition of this footnote]
+#+end_src
+
+ The Org homepage[fn:1] now looks a lot better than it used to. Also inline
+definition: [fn:name: a definition]. Or Anonymous definition of footnotes: [fn::
+This is the inline definition of this footnote]
+
+* Using TODO items
+#+begin_src org
+,** DONE Complete IBM Application
+CLOSED: [2015-05-23 Sat 20:24]
+,** TODO Ubuntu Packaging for Horton
+- Check [[http://packaging.ubuntu.com/html/][ubuntu packaging guide]]
+,** TODO Complete the customization 
+- [X] Have some kind of top panel bar that goes well with the current icons.
+- [ ] Battery Indicator!!!!
+- [ ] Using Mopidy/Ncmpcpp to listen to music? Soundcloud music perhaps?
+- [ ] Mpv Video! if possible control with emacs.
+- [ ] Script to change keyboard layout with =S-SPC= and an indicator of it in the panel
+#+end_src
+ 
+** DONE Complete IBM Application
+CLOSED: [2015-05-23 Sat 20:24]
+** TODO Ubuntu Packaging for Horton
+- Check [[http://packaging.ubuntu.com/html/][ubuntu packaging guide]]
+** TODO Complete the customization 
+- [X] Have some kind of top panel bar that goes well with the current icons.
+- [ ] Battery Indicator!!!!
+- [ ] Using Mopidy/Ncmpcpp to listen to music? Soundcloud music perhaps?
+- [ ] Mpv Video! if possible control with emacs.
+- [ ] Script to change keyboard layout with =S-SPC= and an indicator of it in the panel
+
+* Evaluating python
+#+begin_src org
+,#+TITLE: this is me
+#+tblname: le_data
+| Voltage | Current |  Power | Efficiency |
+|---------+---------+--------+------------|
+|       0 |     1.5 |     0. |         0. |
+|    0.27 |    1.53 | 0.4131 |  7.4432432 |
+|    0.27 |    1.40 |  0.378 |  6.8108108 |
+|    0.36 |    1.12 | 0.4032 |  7.2648649 |
+|    0.37 |    1.11 | 0.4107 |        7.4 |
+|    0.38 |    0.98 | 0.3724 |  6.7099099 |
+|    0.38 |    0.88 | 0.3344 |  6.0252252 |
+|    0.39 |    0.74 | 0.2886 |        5.2 |
+|    0.40 |    0.64 |  0.256 |  4.6126126 |
+|    0.40 |    0.60 |   0.24 |  4.3243243 |
+|    0.40 |    0.63 |  0.252 |  4.5405405 |
+|    0.41 |    0.57 | 0.2337 |  4.2108108 |
+|    0.42 |     0.0 |     0. |         0. |
+#+TBLFM: $3=$2*$1
+#+TBLFM: $4=($3/5.55 )*100.00
+
+#+NAME: oholi
+#+begin_src python :noweb-ref smart_plot
+  import matplotlib.pyplot as plt
+
+  def smart_plot(x, y, le_filename, title='default'):
+      plt.title(title)
+      plt.ylabel('Corriente (A)', fontsize = 16)
+      plt.xlabel('Voltage (V)', fontsize = 6)
+      fig=plt.figure(figsize=(4,2))
+      plt.plot(x,y)
+      fig.tight_layout()
+      filepath = le_filename + '.png'
+      plt.savefig(filepath)
+      return filepath
+,#+end_src
+
+#+name: IvsV
+#+begin_src python :noweb yes :var data=le_data :results file :exports both
+  <<smart_plot>>
+  import numpy as np
+  data = np.array(data)
+  x = data[:, 0]
+  y = data[:, 1]
+  le_filename = "IvsV"
+  return smart_plot(x, y, le_filename)
+,#+end_src
+
+#+RESULTS: IvsV
+[[file:IvsV.png]]
+
+#+end_src
+
+
+#+tblname: le_data
+| Voltage | Current |  Power | Efficiency |
+|---------+---------+--------+------------|
+|       0 |     1.5 |     0. |         0. |
+|    0.27 |    1.53 | 0.4131 |  7.4432432 |
+|    0.27 |    1.40 |  0.378 |  6.8108108 |
+|    0.36 |    1.12 | 0.4032 |  7.2648649 |
+|    0.37 |    1.11 | 0.4107 |        7.4 |
+|    0.38 |    0.98 | 0.3724 |  6.7099099 |
+|    0.38 |    0.88 | 0.3344 |  6.0252252 |
+|    0.39 |    0.74 | 0.2886 |        5.2 |
+|    0.40 |    0.64 |  0.256 |  4.6126126 |
+|    0.40 |    0.60 |   0.24 |  4.3243243 |
+|    0.40 |    0.63 |  0.252 |  4.5405405 |
+|    0.41 |    0.57 | 0.2337 |  4.2108108 |
+|    0.42 |     0.0 |     0. |         0. |
+#+TBLFM: $3=$2*$1
+#+TBLFM: $4=($3/5.55 )*100.00
+
+#+NAME: oholi
+#+begin_src python :noweb-ref smart_plot
+  import matplotlib.pyplot as plt
+
+  def smart_plot(x, y, le_filename, title='default'):
+      plt.title(title)
+      plt.ylabel('Corriente (A)', fontsize = 16)
+      plt.xlabel('Voltage (V)', fontsize = 6)
+      fig=plt.figure(figsize=(4,2))
+      plt.plot(x,y)
+      fig.tight_layout()
+      filepath = le_filename + '.png'
+      plt.savefig(filepath)
+      return filepath
+#+end_src
+
+#+name: IvsV
+#+begin_src python :noweb yes :var data=le_data :results file :exports both
+  <<smart_plot>>
+  import numpy as np
+  data = np.array(data)
+  x = data[:, 0]
+  y = data[:, 1]
+  le_filename = "IvsV"
+  return smart_plot(x, y, le_filename)
+#+end_src
+
+#+RESULTS: IvsV
+[[file:IvsV.png]]
+
+
+
+* Footnotes
+
+[fn:1] The link is: http://orgmode.org
+
