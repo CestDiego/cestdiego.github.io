@@ -10,9 +10,20 @@ body {
     padding: 0 24px;
 }
 
-body, .src,
+body, .src, 
 .post a::after,
 .links a::after,
+.ATTRLIST,
+.org-org-document-info-keyword,
+.org-org-meta-line,
+.org-org-table,
+.org-org-level-1,
+.org-org-level-2,
+.org-org-level-3,
+.org-org-level-4,
+.org-org-level-5,
+.org-org-level-6,
+.org-org-verbatim,
 .switch-lights::after,
 .back-to-top a::after {
     -webkit-transition-property: background, color;
@@ -43,7 +54,6 @@ p {
 
 ul, ol {
     padding: 0;
-    list-style-position: inside;
 }
 
 figcaption {
@@ -87,16 +97,15 @@ hr:before {
     letter-spacing: 1em;
 }
 
-.post a::after,
-.links a::after,
-.switch-lights::after,
-.back-to-top a::after {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    content: '';
+.post a,
+.links a,
+.switch-lights,
+.back-to-top a,
+.org-org-date,
+.org-underline,
+.org-org-footnote
+ {
+    border-bottom: solid 1px;
 }
 
 .back-to-top {
@@ -156,12 +165,16 @@ hr:before {
     font-size: 0.9em;
 }
 
-h1, .post-date {
+h1, .post-date, .org-org-document-title {
     font-family: 'Whitney SSm A', 'Whitney SSm B';
 }
 
 .not-found {
     text-align: center;
+}
+
+code {
+    font-family: "Source Code Pro";
 }
 
 .org-src-container ::-moz-selection {
@@ -175,13 +188,21 @@ h1, .post-date {
 .org-src-container pre {
     font-family: "Source Code Pro";
     font-weight: 400;
-    font-size: 0.8em;
+    font-size: 0.7em;
     padding: 1em;
 }
 
+.org-src-container {
+    position: relative;
+    left: -17px;
+    margin-right: -34px;
+    line-height: 1.1em;
+}
+
+
 @media screen {
     .org-src-container pre {
-        max-height: 600px;
+        max-height: 500px;
         overflow-y: scroll;
     }
 }
@@ -197,10 +218,28 @@ h1, .post-date {
     body {
         font-size: 16px;
     }
+
+    .org-src-container {
+        position: static;
+        left: 0px;
+        margin-right: 0px;
+    }
+
+    ul, ol {
+        list-style-position: inside;
+    }
 }
 
 @media print {
     .site-nav, .site-footer {
         display: none;
+    }
+
+    pre {
+        white-space: pre-wrap;       /* css-3 */
+        white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+        white-space: -pre-wrap;      /* Opera 4-6 */
+        white-space: -o-pre-wrap;    /* Opera 7 */
+        word-wrap: break-word;       /* Internet Explorer 5.5+ */
     }
 }

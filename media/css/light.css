@@ -1,5 +1,5 @@
 body {
-    background: #fdfdfd;
+    background: #FDFDFD;
     color: #373737;
 }
 
@@ -36,11 +36,11 @@ body {
 } /* this targets the default scrollbar (compulsory) */
 
 ::-webkit-scrollbar-track {
-    background-color: inherit;
+    background: inherit;
 } /* the new scrollbar will have a flat appearance with the set background color */
 
 ::-webkit-scrollbar-thumb {
-    background-color: #cacaca;
+    background: #cacaca;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -51,7 +51,7 @@ body {
 } /* optionally, you can style the top and the bottom buttons (left and right for horizontal bars) */
 
 ::-webkit-scrollbar-corner {
-    background-color: inherit;
+    background: inherit;
 } /* if both the vertical and the horizontal bars appear, then perhaps the right bottom corner also needs to be styled */
 
 
@@ -59,7 +59,7 @@ body {
 
 .org-src-container pre {
     color: #333333;
-    background-color: #FFFFFF;
+    background-color: #FBFBFB;
 }
 
 .org-builtin {
@@ -199,9 +199,169 @@ body {
 }
 .org-underline {
     /* underline */
-    text-decoration: underline;
 }
 .org-variable-name {
     /* font-lock-variable-name-face */
     color: #BA36A5;
+}
+.org-bold {
+    /* bold */
+    color: #000000;
+    font-weight: bold;
+}
+.org-italic {
+    /* italic */
+    color: #1A1A1A;
+    font-style: italic;
+}
+.org-strike-through {
+    text-decoration: line-through;
+}
+.org-org-block-begin-line {
+    /* org-block-begin-line */
+    color: #555555;
+    background-color: #E2E1D5;
+}
+.org-org-block-end-line {
+    /* org-block-end-line */
+    color: #555555;
+    background-color: #E2E1D5;
+}
+.org-org-checkbox {
+    /* org-checkbox */
+    color: #434343;
+    font-weight: bold;
+}
+.org-org-code {
+    /* org-code */
+    color: #006400;
+    background-color: #FDFFF7;
+}
+.org-org-date {
+    /* org-date */
+    color: #00459E;
+}
+.org-org-done {
+    /* org-done */
+    color: #BBBBBB;
+    background-color: #F0F0F0;
+    font-weight: bold;
+}
+.org-org-footnote {
+    /* org-footnote */
+    color: #008ED1;
+}
+.org-org-level-1 {
+    /* org-level-1 */
+    color: #3C3C3C;
+    background-color: #F0F0F0;
+    font-size: 130%;
+    font-weight: bold;
+    text-decoration: overline;
+}
+.org-org-level-2 {
+    /* org-level-2 */
+    color: #123555;
+    background-color: #E5F4FB;
+    font-weight: bold;
+}
+.org-org-level-3 {
+    /* org-level-3 */
+    color: #005522;
+    background-color: #EFFFEF;
+    font-weight: bold;
+}
+.org-org-level-4 {
+    /* org-level-4 */
+    color: #EA6300;
+    font-weight: bold;
+}
+.org-org-level-5 {
+    /* org-level-5 */
+    color: #E3258D;
+    font-weight: bold;
+}
+.org-org-level-6 {
+    /* org-level-6 */
+    color: #0077CC;
+    font-weight: bold;
+    font-style: italic;
+}
+.org-org-level-7 {
+    /* org-level-7 */
+    color: #2EAE2C;
+    font-weight: bold;
+    font-style: italic;
+}
+.org-org-level-8 {
+    /* org-level-8 */
+    color: #FD8008;
+    font-weight: bold;
+    font-style: italic;
+}
+.org-org-link {
+    /* org-link */
+    color: #006DAF;
+}
+.org-org-list-dt {
+    /* org-list-dt */
+    color: #335EA8;
+    font-weight: bold;
+}
+.org-org-meta-line {
+    /* org-meta-line */
+    color: #008ED1;
+    background-color: #EAEAFF;
+}
+.org-org-special-keyword {
+    /* org-special-keyword */
+    color: #00BB00;
+    background-color: #EAFFEA;
+    font-weight: bold;
+}
+.org-org-table {
+    /* org-table */
+    color: #006400;
+    background-color: #EAFFEA;
+}
+.org-org-todo {
+    /* org-todo */
+    color: #D8ABA7;
+    background-color: #FFE6E4;
+    font-weight: bold;
+}
+.org-org-verbatim {
+    /* org-verbatim */
+    color: #0066CC;
+    background-color: #F7FDFF;
+}
+.org-org-document-info {
+    /* org-document-info */
+    color: #484848;
+}
+.org-org-document-info-keyword {
+    /* org-document-info-keyword */
+    color: #008ED1;
+    background-color: #EAEAFF;
+}
+.org-org-document-title {
+    /* org-document-title */
+    color: #000000;
+    font-size: 180%;
+    font-weight: bold;
+}
+.ATTRLIST {
+    /* (:foreground "#3F3F3F") */
+    color: #F2F2F2;
+}
+.org-org-tag {
+    /* org-tag */
+    color: #9A9FA4;
+    background-color: #ffffff;
+    font-style: italic;
+}
+.org-org-done, .org-org-todo {
+    padding: 0px 3px;
+    border-left: solid 1px;
+    border-right: solid 1px;
 }

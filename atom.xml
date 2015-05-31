@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>http://cestdiego.github.com/</id>
+  <title>Diego Berrocal</title>
+  <subtitle>it&#39;s personal</subtitle>
+  <link href="http://cestdiego.github.com/"/>
+  <updated>Sat, 30 May 2015 20:37:33 PET</updated>
+  <entry>
+    <title>How to &lt;i&gt;make&lt;/i&gt; &lt;b&gt;this&lt;/b&gt; &lt;code&gt;blog&lt;/code&gt; with emacs</title>
+    <link>http://cestdiego.github.com/blog/2015/05/24/how-to-make-a-blog-with-emacs</link>
+    <summary>Or how to use org-page and emacs to publish a blog with GitHub Pages</summary>
+    <updated>2015-05-30</updated>
+    <id>http://cestdiego.github.com/blog/2015/05/24/how-to-make-a-blog-with-emacs</id>
+  </entry>
+  <entry>
+    <title>Trying &lt;code&gt;org&lt;/code&gt; &lt;i&gt;markup&lt;/i&gt;</title>
+    <link>http://cestdiego.github.com/blog/2015/05/29/trying-org-markup</link>
+    <summary>yeah</summary>
+    <updated>2015-05-30</updated>
+    <id>http://cestdiego.github.com/blog/2015/05/29/trying-org-markup</id>
+  </entry>
+</feed>
