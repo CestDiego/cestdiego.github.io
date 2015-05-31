@@ -1,13 +1,13 @@
 #+TITLE: About Diego Berrocal
 #+OPTIONS: H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 
-I was born in one of Saturn's moons, maybe Pan or Pandora (Just kidding!). The
-truth is that I was born in Comas, a Lima district whose humble beginnings were
-a consequence of the so called “invasions” led by immigrants from the Peruvian
-highlands. When I was a boy, Comas was still considered a Pueblo Jóven (a shanty
-town surrounding Lima), but in spite of these atmosphere of poverty and
-segregation, I always managed to travel to different worlds through my
-imagination.
+# I was born in one of Saturn's moons, maybe Pan or Pandora (Just kidding!). The
+# truth is that I was born in Comas, a Lima district whose humble beginnings were
+# a consequence of the so called “invasions” led by immigrants from the Peruvian
+# highlands. When I was a boy, Comas was still considered a Pueblo Jóven (a shanty
+# town surrounding Lima), but in spite of these atmosphere of poverty and
+# segregation, I always managed to travel to different worlds through my
+# imagination.
 
 #+begin_quote
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget purus sit
