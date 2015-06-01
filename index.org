@@ -1,6 +1,32 @@
 #+TITLE: Hi
+#+OPTIONS: H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+
+# I was born in one of Saturn's moons, maybe Pan or Pandora (Just kidding!). The
+# truth is that I was born in Comas, a Lima district whose humble beginnings were
+# a consequence of the so called “invasions” led by immigrants from the Peruvian
+# highlands. When I was a boy, Comas was still considered a Pueblo Jóven (a shanty
+# town surrounding Lima), but in spite of these atmosphere of poverty and
+# segregation, I always managed to travel to different worlds through my
+# imagination.
 
 I'm a Peruvian physics undergrad and developer interested in programming, linux
 desktop theming, music, astronomy and AI. I tackle on challenging problems and
 try to solve them with code, I also spend a high amount of time in Emacs. If you
 want to know more about me check out the [[file:about][about]] page.
+
+#+begin_quote
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget purus sit
+amet ex accumsan posuere id et orci. Nam viverra pharetra volutpat. Aenean sed
+diam tempor, sagittis ante vel, dignissim quam. Vivamus in tristique nisi. Duis
+ac dolor vitae urna tincidunt varius. Cras at cursus nulla. Duis sit amet ex vel
+est vehicula maximus dignissim vitae neque. Ut id magna a turpis vehicula
+ultrices nec in orci. Etiam metus erat.
+
+@@html:<p class="author">@@ Diego Berrocal @@html:</p>@@
+#+end_quote
+
+* Fun Facts
+
+- President of the [[http://astronomia.uni.edu.pe][Astronomy Group]] @ [[http://www.uni.edu.pe][Universidad Nacional de Ingeniería]]
+- Facilitator at [[http://hackspace.pe][Hack Space Peru]]. (check [[https://www.youtube.com/watch?v%3D4uc6cwG3BCk][video]])
+- [[https://www.youtube.com/watch?v=Oh-7M798k24][Attempted]] to reproduce a [[https://www.youtube.com/watch?v=s1eNjUgaB-g][Youscope]] at 16.
