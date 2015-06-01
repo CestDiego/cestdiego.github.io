@@ -90,7 +90,7 @@ CLOSED: [2015-05-23 Sat 20:24]
 - [ ] Battery Indicator!!!!
 - [ ] Using Mopidy/Ncmpcpp to listen to music? Soundcloud music perhaps?
 - [ ] Mpv Video! if possible control with emacs.
-- [ ] Script to change keyboard layout with =S-SPC= and an indicator of it in the panel
+- [ ] Script to change keyboard layout with =S-SPC= and an indicator of it in the panel[fn:1]
 #+end_src
  
 ** DONE Complete IBM Application
@@ -102,7 +102,7 @@ CLOSED: [2015-05-23 Sat 20:24]
 - [ ] Battery Indicator!!!!
 - [ ] Using Mopidy/Ncmpcpp to listen to music? Soundcloud music perhaps?
 - [ ] Mpv Video! if possible control with emacs.
-- [ ] Script to change keyboard layout with =S-SPC= and an indicator of it in the panel
+- [ ] Script to change keyboard layout with =S-SPC= and an indicator of it in the panel[fn:1]
 
 * Evaluating python
 #+begin_src org
@@ -153,6 +153,8 @@ CLOSED: [2015-05-23 Sat 20:24]
   return smart_plot(x, y, le_filename)
 ,#+end_src
 
+#+CAPTION: A black cat stalking a spider
+#+ATTR_HTML: :alt cat/spider image :title Action!
 #+RESULTS: IvsV
 [[file:IvsV.png]]
 
@@ -205,6 +207,8 @@ CLOSED: [2015-05-23 Sat 20:24]
   return smart_plot(x, y, le_filename)
 #+end_src
 
+#+CAPTION: A black cat stalking a spider
+#+ATTR_HTML: :alt cat/spider image :title Action!
 #+RESULTS: IvsV
 [[file:IvsV.png]]
 
