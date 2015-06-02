@@ -4,19 +4,19 @@
   <title>Diego Berrocal</title>
   <subtitle>it&#39;s personal</subtitle>
   <link href="http://cestdiego.github.com/"/>
-  <updated>Sun, 31 May 2015 09:28:20 PET</updated>
+  <updated>Tue, 02 Jun 2015 04:18:50 PET</updated>
   <entry>
     <title>How to &lt;i&gt;make&lt;/i&gt; &lt;b&gt;this&lt;/b&gt; &lt;code&gt;blog&lt;/code&gt; with emacs</title>
-    <link>http://cestdiego.github.com/blog/2015/05/24/how-to-make-a-blog-with-emacs</link>
+    <link href="http://cestdiego.github.com/blog/2015/05/24/how-to-make-a-blog-with-emacs"/>
     <summary>Or how to use org-page and emacs to publish a blog with GitHub Pages</summary>
-    <updated>2015-05-31</updated>
+    <updated>2015-06-02</updated>
     <id>http://cestdiego.github.com/blog/2015/05/24/how-to-make-a-blog-with-emacs</id>
   </entry>
   <entry>
     <title>Trying &lt;code&gt;org&lt;/code&gt; &lt;i&gt;markup&lt;/i&gt;</title>
-    <link>http://cestdiego.github.com/blog/2015/05/29/trying-org-markup</link>
+    <link href="http://cestdiego.github.com/blog/2015/05/29/trying-org-markup"/>
     <summary>yeah</summary>
-    <updated>2015-05-30</updated>
+    <updated>2015-06-02</updated>
     <id>http://cestdiego.github.com/blog/2015/05/29/trying-org-markup</id>
   </entry>
 </feed>

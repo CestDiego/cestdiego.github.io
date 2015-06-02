@@ -2,10 +2,11 @@
 <html lang="en-us">
   <head>
     <title>Trying =org= /markup/ - Diego Berrocal</title>
-    <meta charset="utf-8" />
-    <meta name="author" content="Diego Berrocal" />
-    <meta name="description" content="yeah" />
-    <meta name="keywords" content="these, are, tags" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Diego Berrocal">
+    <meta name="description" content="yeah">
+    <meta name="keywords" content="these, are, tags">
     <link rel="stylesheet" href="/media/css/normalize.css">
     <link rel="stylesheet" href="/media/css/main.css">
     <link rel="stylesheet" href="/media/css/dark.css" id="darkTheme">
@@ -113,7 +114,7 @@ him very well from his role as Mikey Walsh in The Goonies.
 <div class="org-src-container">
 
 <pre class="src src-org">You can make words <span class="org-bold">*bold*</span>, <span class="org-italic">/italic/</span>, <span class="org-underline">_underlined_</span>, <span class="org-org-verbatim">=verbatim=</span> and <span class="org-org-code">~code~</span>, and,
-if you must, <span class="org-strike-through">+strike-through+</span>. Text in the code and verbatim string is not
+if you must, <span class="ATTRLIST">+strike-through+</span>. Text in the code and verbatim string is not
 processed for Org mode specific syntax, it is exported verbatim
 </pre>
 </div>
@@ -139,7 +140,7 @@ A line consisting of only dashes, and at least 5 of them, will be exported as a 
 </pre>
 </div>
 
-<hr  />
+<hr >
 </div>
 </div>
 
@@ -176,7 +177,7 @@ definition: <sup><a id="fnr.2" name="fnr.2" class="footref" href="#fn.2">2</a></
 - <span class="org-org-checkbox">[ ]</span> Battery Indicator!!!!
 - <span class="org-org-checkbox">[ ]</span> Using Mopidy/Ncmpcpp to listen to music? Soundcloud music perhaps?
 - <span class="org-org-checkbox">[ ]</span> Mpv Video! if possible control with emacs.
-- <span class="org-org-checkbox">[ ]</span> Script to change keyboard layout with <span class="org-org-verbatim">=S-SPC=</span> and an indicator of it in the panel
+- <span class="org-org-checkbox">[ ]</span> Script to change keyboard layout with <span class="org-org-verbatim">=S-SPC=</span> and an indicator of it in the panel<span class="org-org-footnote">[fn:1]</span>
 </pre>
 </div>
 </div>
@@ -208,7 +209,7 @@ definition: <sup><a id="fnr.2" name="fnr.2" class="footref" href="#fn.2">2</a></
 </li>
 <li><code>[&#xa0;]</code> Mpv Video! if possible control with emacs.
 </li>
-<li><code>[&#xa0;]</code> Script to change keyboard layout with <code>S-SPC</code> and an indicator of it in the panel
+<li><code>[&#xa0;]</code> Script to change keyboard layout with <code>S-SPC</code> and an indicator of it in the panel<sup><a id="fnr.1.100" name="fnr.1.100" class="footref" href="#fn.1">1</a></sup>
 </li>
 </ul>
 </div>
@@ -221,6 +222,9 @@ definition: <sup><a id="fnr.2" name="fnr.2" class="footref" href="#fn.2">2</a></
 <div class="org-src-container">
 
 <pre class="src src-org"><span class="org-org-document-info-keyword">#+TITLE:</span> <span class="org-org-document-title">this is me</span>
+
+<span class="org-org-meta-line">#+CAPTION: A black cat stalking a spider</span>
+<span class="org-org-meta-line">#+ATTR_HTML: :alt cat/spider image :title Action!</span>
 <span class="org-org-meta-line">#+tblname: le_data</span>
 <span class="org-org-table">| Voltage | Current |  Power | Efficiency |</span>
 <span class="org-org-table">|---------+---------+--------+------------|</span>
@@ -267,23 +271,32 @@ definition: <sup><a id="fnr.2" name="fnr.2" class="footref" href="#fn.2">2</a></
   </span><span class="org-keyword"><span class="org-org-block-background">return</span></span><span class="org-org-block-background"> smart_plot</span><span class="org-rainbow-delimiters-depth-1"><span class="org-org-block-background">(</span></span><span class="org-org-block-background">x, y, le_filename</span><span class="org-rainbow-delimiters-depth-1"><span class="org-org-block-background">)</span></span><span class="org-org-block-background">
 </span><span class="org-org-block-end-line">#+end_src</span>
 
+<span class="org-org-meta-line">#+CAPTION: A black cat stalking a spider</span>
+<span class="org-org-meta-line">#+ATTR_HTML: :alt cat/spider image :title Action!</span>
 <span class="org-org-meta-line">#+RESULTS: IvsV</span>
-<span class="org-org-link"><a href="file:/assets/blog/2015/05/29/trying-org-markup/IvsV.png">file:/assets/blog/2015/05/29/trying-org-markup/IvsV.png</a></span>
+<span class="org-org-link"><a href="file:IvsV.png">file:IvsV.png</a></span>
 </pre>
 </div>
 
 
-<table id="le_data" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<p>
+<a id="ledata" name="ledata"></a>
+</p>
+<table id="ledata">
 
 
 <colgroup>
-<col  class="right" />
+<col  class="right">
 
-<col  class="right" />
+<col  class="right">
+</colgroup>
 
-<col  class="right" />
+<colgroup>
+<col  class="right">
+</colgroup>
 
-<col  class="right" />
+<colgroup>
+<col  class="right">
 </colgroup>
 <thead>
 <tr>
@@ -386,7 +399,6 @@ definition: <sup><a id="fnr.2" name="fnr.2" class="footref" href="#fn.2">2</a></
 </tr>
 </tbody>
 </table>
-
 <div class="org-src-container">
 
 <pre class="src src-python" id="oholi"><span class="org-keyword">import</span> matplotlib.pyplot <span class="org-keyword">as</span> plt
@@ -404,34 +416,9 @@ definition: <sup><a id="fnr.2" name="fnr.2" class="footref" href="#fn.2">2</a></
 </pre>
 </div>
 
-<div class="org-src-container">
-
-<pre class="src src-python" id="IvsV"><span class="org-keyword">import</span> matplotlib.pyplot <span class="org-keyword">as</span> plt
-
-<span class="org-keyword">def</span> <span class="org-function-name">smart_plot</span><span class="org-rainbow-delimiters-depth-1">(</span>x, y, le_filename, title=<span class="org-string">'default'</span><span class="org-rainbow-delimiters-depth-1">)</span>:
-    plt.title<span class="org-rainbow-delimiters-depth-1">(</span>title<span class="org-rainbow-delimiters-depth-1">)</span>
-    plt.ylabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Corriente (A)'</span>, fontsize = <span class="org-highlight-numbers-number">16</span><span class="org-rainbow-delimiters-depth-1">)</span>
-    plt.xlabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Voltage (V)'</span>, fontsize = <span class="org-highlight-numbers-number">6</span><span class="org-rainbow-delimiters-depth-1">)</span>
-    <span class="org-variable-name">fig</span>=plt.figure<span class="org-rainbow-delimiters-depth-1">(</span>figsize=<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-highlight-numbers-number">4</span>,<span class="org-highlight-numbers-number">2</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-    plt.plot<span class="org-rainbow-delimiters-depth-1">(</span>x,y<span class="org-rainbow-delimiters-depth-1">)</span>
-    fig.tight_layout<span class="org-rainbow-delimiters-depth-1">()</span>
-    <span class="org-variable-name">filepath</span> = le_filename + <span class="org-string">'.png'</span>
-    plt.savefig<span class="org-rainbow-delimiters-depth-1">(</span>filepath<span class="org-rainbow-delimiters-depth-1">)</span>
-    <span class="org-keyword">return</span> filepath
-<span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
-<span class="org-variable-name">data</span> = np.array<span class="org-rainbow-delimiters-depth-1">(</span>data<span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-variable-name">x</span> = data<span class="org-rainbow-delimiters-depth-1">[</span>:, <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-1">]</span>
-<span class="org-variable-name">y</span> = data<span class="org-rainbow-delimiters-depth-1">[</span>:, <span class="org-highlight-numbers-number">1</span><span class="org-rainbow-delimiters-depth-1">]</span>
-<span class="org-variable-name">le_filename</span> = <span class="org-string">"IvsV"</span>
-<span class="org-keyword">return</span> smart_plot<span class="org-rainbow-delimiters-depth-1">(</span>x, y, le_filename<span class="org-rainbow-delimiters-depth-1">)</span>
-</pre>
-</div>
-
-
-<div class="figure">
-<p><img src="/assets/blog/2015/05/29/trying-org-markup/IvsV.png" alt="/assets/blog/2015/05/29/trying-org-markup/IvsV.png" />
+<p>
+check <a href="#ledata">Table 1</a>
 </p>
-</div>
 </div>
 </div>
 <div id="footnotes">

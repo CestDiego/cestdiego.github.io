@@ -2,19 +2,18 @@ body {
     font-family: 'Sentinel SSm A', 'Sentinel SSm B';
     font-weight: 300;
     font-size: 20px;
+    letter-spacing: -0.2px;
 }
 
 #wrapper {
-    max-width: 672px;
+    max-width: 705px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 20px;
 }
 
-body, .src, 
-.post a::after,
-.links a::after,
-.switch-lights::after,
-.back-to-top a::after,
+body,
+.src,
+table tr,
 .org-builtin,
 .org-c-annotation,
 .org-clojure-interop-method,
@@ -78,19 +77,25 @@ body, .src,
 .ATTRLIST,
 .org-org-tag {
     -webkit-transition-property: background, color;
-    -webkit-transition-duration: 600ms;
+    -webkit-transition-duration: 1300ms;
     -webkit-transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
     transition-property: background, color;
-    transition-duration: 600ms;
+    transition-duration: 1300ms;
     transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-h1, h2, h3, h4, h5 ,h6 {
-    font-weight: 800;
+table tr {
+    -webkit-transition-property: border, background-color;
+    transition-property: border, background-color;
+}
+
+h1, h2, h3, h4, h5, h6, table {
+    font-family: 'Whitney SSm A', 'Whitney SSm B';
 }
 
 h1 {
     font-size: 1.7em;
+    font-weight: 800;
 }
 
 a {
@@ -100,16 +105,41 @@ a {
 }
 
 p {
-    line-height: 1.8;
+    line-height: 1.5;
 }
 
 ul, ol {
     padding: 0;
 }
 
+figure {
+    margin: 0;
+}
+
+sub, sup {
+    font-size: 0.66em;
+}
+
 figcaption {
     font-size: 1em;
     text-align: center;
+}
+
+table {
+    width: 100%;
+    font-size: 0.7em;
+}
+
+th {
+    text-align: left;
+}
+
+thead tr {
+  border-bottom: 1px solid;
+}
+
+th, td {
+  padding: 0.3em 0px;
 }
 
 blockquote {
@@ -158,6 +188,10 @@ hr:before {
     outline: 0;
 }
 
+.right {
+    text-align: right;
+}
+
 .post a,
 .links a,
 .switch-lights,
@@ -166,6 +200,28 @@ hr:before {
 .org-underline,
 .org-org-footnote {
     border-bottom: 1px solid;
+}
+
+.footdef > sup {
+    display: table-cell;
+    position: static;
+    font-size: 1em;
+}
+
+.footdef > p {
+    display: table-cell;
+}
+
+.footnum {
+    margin-right: 0.5em;
+}
+
+.footnotes {
+    display: none;
+}
+
+#footnotes {
+    margin: 2em 0;
 }
 
 .back-to-top {
@@ -215,7 +271,11 @@ hr:before {
     font-size: 0.9em;
 }
 
-h1, .post-date, .org-org-document-title {
+.site-nav {
+    font-weight: 700;
+}
+
+.post-date, .org-org-document-title, .site-nav {
     font-family: 'Whitney SSm A', 'Whitney SSm B';
 }
 
@@ -237,15 +297,13 @@ code {
 
 .org-src-container pre {
     font-family: "Source Code Pro";
+    letter-spacing: 0;
     font-weight: 400;
     font-size: 0.7em;
     padding: 1em;
 }
 
 .org-src-container {
-    position: relative;
-    left: -16px;
-    margin-right: -32px;
     line-height: 1em;
 }
 
@@ -254,15 +312,16 @@ code {
     .org-src-container pre {
         max-height: 500px;
         overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
     }
 }
 
-/* @media (max-width: 720px) { */
-/*     body { */
-/*         font-size: 18px; */
-/*         max-width: 492px; */
-/*     } */
-/* } */
+
+@media (max-width: 800px) {
+    ul, ol {
+        list-style-position: inside;
+    }
+}
 
 @media (max-width: 540px) {
     body {
@@ -277,10 +336,6 @@ code {
 
     .org-src-container pre {
         max-height: 330px;
-    }
-
-    ul, ol {
-        list-style-position: inside;
     }
 }
 
