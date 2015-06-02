@@ -107,6 +107,9 @@ CLOSED: [2015-05-23 Sat 20:24]
 * Evaluating python
 #+begin_src org
 ,#+TITLE: this is me
+
+,#+CAPTION: A black cat stalking a spider
+,#+ATTR_HTML: :alt cat/spider image :title Action!
 #+tblname: le_data
 | Voltage | Current |  Power | Efficiency |
 |---------+---------+--------+------------|
@@ -161,9 +164,11 @@ CLOSED: [2015-05-23 Sat 20:24]
 #+end_src
 
 
+<<ledata>>
 #+tblname: le_data
 | Voltage | Current |  Power | Efficiency |
 |---------+---------+--------+------------|
+|       / |       > |      > |          < |
 |       0 |     1.5 |     0. |         0. |
 |    0.27 |    1.53 | 0.4131 |  7.4432432 |
 |    0.27 |    1.40 |  0.378 |  6.8108108 |
@@ -179,6 +184,8 @@ CLOSED: [2015-05-23 Sat 20:24]
 |    0.42 |     0.0 |     0. |         0. |
 #+TBLFM: $3=$2*$1
 #+TBLFM: $4=($3/5.55 )*100.00
+#+CAPTION: A black cat stalking a spider
+#+ATTR_HTML: :alt cat/spider image :title Action!
 
 #+NAME: oholi
 #+begin_src python :noweb-ref smart_plot
@@ -212,6 +219,8 @@ CLOSED: [2015-05-23 Sat 20:24]
 #+RESULTS: IvsV
 [[file:IvsV.png]]
 
+
+check [[`le_data`][Table 1]]
 
 
 * Footnotes
