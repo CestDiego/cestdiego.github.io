@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <id>http://cestdiego.github.com/</id>
+  <id>http://cestdiego.github.io/</id>
   <title>Diego Berrocal</title>
   <subtitle>it&#39;s personal</subtitle>
-  <link href="http://cestdiego.github.com/"/>
-  <updated>Tue, 02 Jun 2015 04:18:50 PET</updated>
+  <link href="http://cestdiego.github.io/"/>
+  <updated>Wed, 03 Jun 2015 19:11:37 PET</updated>
   <entry>
     <title>How to &lt;i&gt;make&lt;/i&gt; &lt;b&gt;this&lt;/b&gt; &lt;code&gt;blog&lt;/code&gt; with emacs</title>
-    <link href="http://cestdiego.github.com/blog/2015/05/24/how-to-make-a-blog-with-emacs"/>
+    <link href="http://cestdiego.github.io/blog/2015/05/24/how-to-make-a-blog-with-emacs"/>
     <summary>Or how to use org-page and emacs to publish a blog with GitHub Pages</summary>
     <updated>2015-06-02</updated>
-    <id>http://cestdiego.github.com/blog/2015/05/24/how-to-make-a-blog-with-emacs</id>
+    <id>http://cestdiego.github.io/blog/2015/05/24/how-to-make-a-blog-with-emacs</id>
   </entry>
   <entry>
     <title>Trying &lt;code&gt;org&lt;/code&gt; &lt;i&gt;markup&lt;/i&gt;</title>
-    <link href="http://cestdiego.github.com/blog/2015/05/29/trying-org-markup"/>
+    <link href="http://cestdiego.github.io/blog/2015/05/29/trying-org-markup"/>
     <summary>yeah</summary>
     <updated>2015-06-02</updated>
-    <id>http://cestdiego.github.com/blog/2015/05/29/trying-org-markup</id>
+    <id>http://cestdiego.github.io/blog/2015/05/29/trying-org-markup</id>
   </entry>
 </feed>

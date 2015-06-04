@@ -114,7 +114,7 @@ him very well from his role as Mikey Walsh in The Goonies.
 <div class="org-src-container">
 
 <pre class="src src-org">You can make words <span class="org-bold">*bold*</span>, <span class="org-italic">/italic/</span>, <span class="org-underline">_underlined_</span>, <span class="org-org-verbatim">=verbatim=</span> and <span class="org-org-code">~code~</span>, and,
-if you must, <span class="ATTRLIST">+strike-through+</span>. Text in the code and verbatim string is not
+if you must, <span class="org-strike-through"><span class="org-org-table">+strike-through+</span></span>. Text in the code and verbatim string is not
 processed for Org mode specific syntax, it is exported verbatim
 </pre>
 </div>
@@ -438,12 +438,46 @@ The link is: <a href="http://orgmode.org">http://orgmode.org</a>
 </div>
     </article>
 
-    <footer class="site-footer">
-      <div class="back-to-top">
+<footer class="site-footer">
+    <div class="back-to-top">
         <a href="#">back to top</a>
-      </div>
-      <script src="/media/js/main.js"></script>
-    </footer>
+    </div>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+             /* * * CONFIGURATION VARIABLES * * */
+             var disqus_identifier = "/blog/2015/05/30/trying-org-markup";
+             var disqus_url = "http://cestdiego.github.io/blog/2015/05/30/trying-org-markup";
+             var disqus_shortname = 'cestdiego';
+
+             /* * * DON'T EDIT BELOW THIS LINE * * */
+             (function() {
+                 var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                 dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+             })();
+
+             var reload_disqus = function(){
+                 DISQUS.reset({
+                     reload: true,
+                     config: function () {
+                         this.page.identifier = cestdiego;
+                     }
+                 });
+             }
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="/media/js/main.js"></script>
+        <script>
+         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                                  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+         ga('create', 'UA-40864129-3', 'auto');
+         ga('send', 'pageview');
+        </script>
+</footer>
 
     </div>
   </body>
