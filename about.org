@@ -1,8 +1,16 @@
-#+TITLE:       le about
+#+TITLE:       Diego Berrocal
 #+AUTHOR:      Diego Berrocal
 #+EMAIL:       cestdiego@gmail.com
 #+URI:         /about/
-#+KEYWORDS:    About, Kelvin Hu, 关于
+#+KEYWORDS:    About, Diego Berrocal
 #+LANGUAGE:    en
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
-#+DESCRIPTION: About Diego
+
+
+He was born in one of Saturn's moons, maybe Pan or Pandora (Just kidding!). The
+truth is that he was born in Comas, a Lima district whose humble beginnings were
+a consequence of the so called “invasions” led by immigrants from the Peruvian
+highlands. When he was a boy, Comas was still considered a Pueblo Jóven (a shanty
+town surrounding Lima), but in spite of these atmosphere of poverty and
+segregation, he always managed to travel to different worlds through his
+imagination.
