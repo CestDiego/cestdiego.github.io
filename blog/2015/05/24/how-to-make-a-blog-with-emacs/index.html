@@ -7,12 +7,30 @@
     <meta name="author" content="Diego Berrocal">
     <meta name="description" content="Or how to use org-page and emacs to publish a blog with GitHub Pages">
     <meta name="keywords" content="blog, org-page, emacs, Diego Berrocal">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Fira+Sans:400,700,400italic,700italic|Lora:400,700|Source+Code+Pro:400,700">
     <link rel="stylesheet" href="/media/css/normalize.css">
-    <link rel="stylesheet" href="/media/css/main.css">
     <link rel="stylesheet" href="/media/css/dark.css" id="darkTheme">
     <link rel="stylesheet" href="/media/css/light.css" id="lightTheme">
-    <link rel="stylesheet" href="//cloud.typography.com/6145712/799966/css/fonts.css">
-    <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400,700'>
+    <script>
+     var lightTheme = document.querySelector("#lightTheme");
+     var darkTheme = document.querySelector("#darkTheme");
+
+     var toggleTheme = function () {
+         var isDefaultDisabled = lightTheme.disabled;
+         darkTheme.disabled = isDefaultDisabled;
+         lightTheme.disabled = !isDefaultDisabled;
+
+         var switchLights = document.querySelector(".switch-lights");
+         switchLights.textContent = "lights " + (isDefaultDisabled ? "off" : "on");
+
+         return !isDefaultDisabled;
+     };
+
+     if (localStorage.darkTheme === "1") {
+         toggleTheme();
+     }
+    </script>
+    <link rel="stylesheet" href="/media/css/main.css">
     <noscript>
         <style>
          .toggle-colors{
@@ -738,6 +756,17 @@ String.<span class="org-constant">prototype</span>.firstCharacter = <span class=
     <div class="back-to-top">
         <a href="#">back to top</a>
     </div>
+    <script src="/media/js/main.js"></script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+        <script>
+         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                                  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+         ga('create', 'UA-40864129-3', 'auto');
+         ga('send', 'pageview');
+        </script>
             <div id="disqus_thread"></div>
             <script type="text/javascript">
              /* * * CONFIGURATION VARIABLES * * */
@@ -746,11 +775,22 @@ String.<span class="org-constant">prototype</span>.firstCharacter = <span class=
              var disqus_shortname = 'cestdiego';
 
              /* * * DON'T EDIT BELOW THIS LINE * * */
-             (function() {
-                 var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                 dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-             })();
+             var ds_loaded = false;
+             var le_top = document.getElementById("disqus_thread").offsetTop;
+
+             function check(){
+                 if ( !ds_loaded && window.scrollY + document.documentElement.clientHeight >= le_top ) {
+                     ds_loaded = true;
+                     (function() {
+                         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                     })();
+                 }
+             }
+
+             window.onscroll = check;
+             check();
 
              var reload_disqus = function(){
                  DISQUS.reset({
@@ -762,17 +802,6 @@ String.<span class="org-constant">prototype</span>.firstCharacter = <span class=
              }
             </script>
             <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script src="/media/js/main.js"></script>
-        <script>
-         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                                  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-         ga('create', 'UA-40864129-3', 'auto');
-         ga('send', 'pageview');
-        </script>
 </footer>
 
     </div>

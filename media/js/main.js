@@ -66,23 +66,12 @@ function scroll(from, to, duration) {
 }
 
 (function() {
-    var lightTheme = document.querySelector("#lightTheme");
-    var darkTheme = document.querySelector("#darkTheme");
-
-    var toggleTheme = function () {
-        var isDefaultDisabled = lightTheme.disabled;
-        darkTheme.disabled = isDefaultDisabled;
-        lightTheme.disabled = !isDefaultDisabled;
-
-        var switchLights = document.querySelector(".switch-lights");
-        switchLights.textContent = "lights " + (isDefaultDisabled ? "off" : "on");
-
-        return !isDefaultDisabled;
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [["\\(","\\)"]],
+            displayMath: [['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}", "\\end{displaymath}"]]
+        }
     };
-
-    if (localStorage.darkTheme === "1") {
-        toggleTheme();
-    }
 
     var viewportHeight = document.documentElement.clientHeight,
         documentHeight = document.body.clientHeight,
@@ -99,6 +88,12 @@ function scroll(from, to, duration) {
             setTimeout(function(){
                 if (typeof reload_disqus == 'function') { reload_disqus(); }
             }, 400);
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if(event.keyCode == 222) {
+                document.querySelector(".switch-lights").click();
+            }
         });
 
         Array.prototype.forEach.call(document.querySelectorAll('a[href^="#"]'), function (el) {
@@ -122,9 +117,4 @@ function scroll(from, to, duration) {
         });
     });
 
-    document.addEventListener('keydown', function(event) {
-        if(event.keyCode == 222) {
-            document.querySelector(".switch-lights").click();
-        }
-    });
 }());

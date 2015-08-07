@@ -1,14 +1,14 @@
 body {
-    font-family: 'Sentinel SSm A', 'Sentinel SSm B';
-    font-weight: 300;
-    font-size: 20px;
-    letter-spacing: -0.2px;
+    font-family: 'Lora', 'serif';
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.2em;
 }
 
 #wrapper {
-    max-width: 705px;
+    max-width: 700px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 18px;
 }
 
 body,
@@ -90,12 +90,12 @@ table tr {
 }
 
 h1, h2, h3, h4, h5, h6, table {
-    font-family: 'Whitney SSm A', 'Whitney SSm B';
+    font-family: 'Fira Sans', sans-serif;
 }
 
 h1 {
     font-size: 1.7em;
-    font-weight: 800;
+    font-weight: 700;
 }
 
 a {
@@ -105,11 +105,7 @@ a {
 }
 
 p {
-    line-height: 1.5;
-}
-
-ul, ol {
-    padding: 0;
+    line-height: 1.5em;
 }
 
 figure {
@@ -135,11 +131,20 @@ th {
 }
 
 thead tr {
-  border-bottom: 1px solid;
+    border-bottom: 1px solid;
 }
 
 th, td {
-  padding: 0.3em 0px;
+    padding: 0.3em 0px;
+}
+
+dt {
+    font-weight: bold;
+}
+
+dd {
+    padding: 0.2em 0em;
+    font-size: 16px;
 }
 
 blockquote {
@@ -147,24 +152,24 @@ blockquote {
 }
 
 blockquote:before {
-  display: block;
-  height: 0;
-  content: "“";
-  margin-left: -.75em;
-  font: italic 400%/1 "Source Code Pro";
-  color: #999;
+    display: block;
+    height: 0;
+    content: "“";
+    margin-left: -.75em;
+    font: italic 400%/1 "Source Code Pro";
+    color: #999;
 }
 
 blockquote p {
     display: inline;
-    line-height: 0.3;
+    line-height: 0.3em;
 }
 
 blockquote .author {
-  display: block;
-  text-align: right;
-  font-style: italic;
-  color: #666;
+    display: block;
+    text-align: right;
+    font-style: italic;
+    color: #666;
 }
 
 hr {
@@ -176,6 +181,15 @@ hr {
 hr:before {
     content: "***";
     letter-spacing: 1em;
+}
+
+li {
+    margin: 0.5em 0;
+}
+
+.outline-2,
+.outline-3 {
+    margin-top: 2.5em;
 }
 
 .switch-lights {
@@ -200,6 +214,14 @@ hr:before {
 .org-underline,
 .org-org-footnote {
     border-bottom: 1px solid;
+}
+
+.links {
+    margin-left: 0;
+}
+
+.links a {
+    display: block;
 }
 
 .footdef > sup {
@@ -233,17 +255,14 @@ hr:before {
     margin: 0 0 2em;
 }
 
-.links {
-    list-style: none;
-}
-
 .links > li {
     display: inline-block;
-    margin-right: 1em;
+    margin: 0 1em 0 0;
 }
 
 .post-list {
     list-style: none;
+    margin-left: 0;
 }
 
 .post-time {
@@ -269,6 +288,7 @@ hr:before {
 .post-date {
     display: block;
     font-size: 0.9em;
+    margin-top: 0.5em;
 }
 
 .site-nav {
@@ -276,7 +296,7 @@ hr:before {
 }
 
 .post-date, .org-org-document-title, .site-nav {
-    font-family: 'Whitney SSm A', 'Whitney SSm B';
+    font-family: 'Fira Sans', sans-serif;
 }
 
 .not-found {
@@ -285,6 +305,17 @@ hr:before {
 
 code {
     font-family: "Source Code Pro";
+}
+
+.done, .todo {
+    line-height: 1em;
+    display: inline-block;
+    font-weight: 700;
+    padding: 4px 3px 2px;
+    font-size: 0.7em;
+    border: solid 1px;
+    position: relative;
+    top: -2px;
 }
 
 .org-src-container ::-moz-selection {
@@ -307,6 +338,10 @@ code {
     line-height: 1em;
 }
 
+ul, ol {
+    padding: 0;
+    margin-left: 1em;
+}
 
 @media screen {
     .org-src-container pre {
@@ -316,26 +351,17 @@ code {
     }
 }
 
-
-@media (max-width: 800px) {
-    ul, ol {
-        list-style-position: inside;
-    }
-}
-
 @media (max-width: 540px) {
     body {
-        font-size: 16px;
-    }
-
-    .org-src-container {
-        position: static;
-        left: 0px;
-        margin-right: 0px;
+        font-size: 14px;
     }
 
     .org-src-container pre {
         max-height: 330px;
+    }
+
+    .done, .todo {
+        top: -1px;
     }
 }
 
