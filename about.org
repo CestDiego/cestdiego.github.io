@@ -1,0 +1,8 @@
+#+TITLE:       le about
+#+AUTHOR:      Diego Berrocal
+#+EMAIL:       cestdiego@gmail.com
+#+URI:         /about/
+#+KEYWORDS:    About, Kelvin Hu, 关于
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
+#+DESCRIPTION: About Diego
