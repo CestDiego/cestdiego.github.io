@@ -103,9 +103,9 @@ for my blog:
 </ul>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq op/site-domain <span class="org-string">"https://cestdiego.github.com/"</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>add-to-list 'op/category-ignore-list <span class="org-string">"temp"</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>setq op/repository-directory <span class="org-string">"~/Projects/le_blog/"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span>setq op/site-domain <span style="color: #E6DB74;">"https://cestdiego.github.com/"</span><span style="color: #A1EFE4;">)</span>
+<span style="color: #A1EFE4;">(</span>add-to-list 'op/category-ignore-list <span style="color: #E6DB74;">"temp"</span><span style="color: #A1EFE4;">)</span>
+<span style="color: #A1EFE4;">(</span>setq op/repository-directory <span style="color: #E6DB74;">"~/Projects/le_blog/"</span><span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
 
@@ -115,9 +115,9 @@ for my blog:
 </ul>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">This two are optional , only if you want have a custom theme</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>setq op/theme-root-directory <span class="org-string">"~/spacemacs_conf/org-cestdiego/org-page-themes/"</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>setq op/theme 'just_right<span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #75715E;">;; </span><span style="color: #75715E;">This two are optional , only if you want have a custom theme</span>
+<span style="color: #A1EFE4;">(</span>setq op/theme-root-directory <span style="color: #E6DB74;">"~/spacemacs_conf/org-cestdiego/org-page-themes/"</span><span style="color: #A1EFE4;">)</span>
+<span style="color: #A1EFE4;">(</span>setq op/theme 'just_right<span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
 
@@ -127,10 +127,10 @@ for my blog:
 </ul>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq op/personal-github-link <span class="org-string">"https://github.com/CestDiego/"</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>setq op/site-main-title <span class="org-string">"Diego Berrocal"</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>setq op/site-sub-title <span class="org-string">"it's personal"</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>setq op/personal-avatar <span class="org-string">"https://avatars0.githubusercontent.com/u/3291619?v=3&amp;s=460"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span>setq op/personal-github-link <span style="color: #E6DB74;">"https://github.com/CestDiego/"</span><span style="color: #A1EFE4;">)</span>
+<span style="color: #A1EFE4;">(</span>setq op/site-main-title <span style="color: #E6DB74;">"Diego Berrocal"</span><span style="color: #A1EFE4;">)</span>
+<span style="color: #A1EFE4;">(</span>setq op/site-sub-title <span style="color: #E6DB74;">"it's personal"</span><span style="color: #A1EFE4;">)</span>
+<span style="color: #A1EFE4;">(</span>setq op/personal-avatar <span style="color: #E6DB74;">"https://avatars0.githubusercontent.com/u/3291619?v=3&amp;s=460"</span><span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
 </div>
@@ -141,14 +141,14 @@ for my blog:
 <div class="outline-text-3" id="text-2-2">
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>evil-leader/set-key
-  <span class="org-string">"opo"</span> '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-3">()</span> <span class="org-rainbow-delimiters-depth-3">(</span>interactive<span class="org-rainbow-delimiters-depth-3">)</span>
-           <span class="org-rainbow-delimiters-depth-3">(</span>magit-status op/repository-directory<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-string">"opp"</span> '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span><span class="org-rainbow-delimiters-depth-3">()</span> <span class="org-rainbow-delimiters-depth-3">(</span>interactive<span class="org-rainbow-delimiters-depth-3">)</span>
-           <span class="org-rainbow-delimiters-depth-3">(</span>op/do-publication t nil t nil<span class="org-rainbow-delimiters-depth-3">)</span>
-           <span class="org-rainbow-delimiters-depth-3">(</span>find-file op/repository-directory<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-string">"opP"</span> '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span><span class="org-rainbow-delimiters-depth-3">()</span> <span class="org-rainbow-delimiters-depth-3">(</span>interactive<span class="org-rainbow-delimiters-depth-3">)</span>
-           <span class="org-rainbow-delimiters-depth-3">(</span>op/do-publication t t <span class="org-rainbow-delimiters-depth-4">(</span>concat op/repository-directory <span class="org-string">"temp/build"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span>evil-leader/set-key
+  <span style="color: #E6DB74;">"opo"</span> '<span style="color: #E6DB74;">(</span><span style="color: #F92672;">lambda</span> <span style="color: #66D9EF;">()</span> <span style="color: #66D9EF;">(</span>interactive<span style="color: #66D9EF;">)</span>
+           <span style="color: #66D9EF;">(</span>magit-status op/repository-directory<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span>
+  <span style="color: #E6DB74;">"opp"</span> '<span style="color: #E6DB74;">(</span><span style="color: #F92672;">lambda</span><span style="color: #66D9EF;">()</span> <span style="color: #66D9EF;">(</span>interactive<span style="color: #66D9EF;">)</span>
+           <span style="color: #66D9EF;">(</span>op/do-publication t nil t nil<span style="color: #66D9EF;">)</span>
+           <span style="color: #66D9EF;">(</span>find-file op/repository-directory<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span>
+  <span style="color: #E6DB74;">"opP"</span> '<span style="color: #E6DB74;">(</span><span style="color: #F92672;">lambda</span><span style="color: #66D9EF;">()</span> <span style="color: #66D9EF;">(</span>interactive<span style="color: #66D9EF;">)</span>
+           <span style="color: #66D9EF;">(</span>op/do-publication t t <span style="color: #FD971F;">(</span>concat op/repository-directory <span style="color: #E6DB74;">"temp/build"</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
 </div>
@@ -159,75 +159,75 @@ for my blog:
 <div class="outline-text-3" id="text-2-3">
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">dotspacemacs/layers</span> <span class="org-rainbow-delimiters-depth-2">()</span>
-  <span class="org-doc">"Configuration Layers declaration."</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>setq-default
-   <span class="org-comment-delimiter">;; </span><span class="org-comment">List of additional paths where to look for configuration layers.</span>
+<pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">dotspacemacs/layers</span> <span style="color: #E6DB74;">()</span>
+  <span style="color: #75715E;">"Configuration Layers declaration."</span>
+  <span style="color: #E6DB74;">(</span>setq-default
+   <span style="color: #75715E;">;; </span><span style="color: #75715E;">List of additional paths where to look for configuration layers.</span>
 
-   <span class="org-comment-delimiter">;; </span><span class="org-comment">Paths must have a trailing slash (ie. `</span><span class="org-comment"><span class="org-constant">~/.mycontribs/</span></span><span class="org-comment">')</span>
-   dotspacemacs-configuration-layer-path '<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"~/spacemacs_conf/"</span><span class="org-rainbow-delimiters-depth-3">)</span>
-   <span class="org-comment-delimiter">;; </span><span class="org-comment">List of configuration layers to load. If it is the symbol `</span><span class="org-comment"><span class="org-constant">all</span></span><span class="org-comment">' instead</span>
-   <span class="org-comment-delimiter">;; </span><span class="org-comment">of a list then all discovered layers will be installed.</span>
-   dotspacemacs-configuration-layers '<span class="org-rainbow-delimiters-depth-3">(</span>appearance
-                                       <span class="org-comment-delimiter">;;</span><span class="org-comment">Test;;</span>
-                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">ocodo-svg-modeline</span>
-                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">vim-powerline</span>
+   <span style="color: #75715E;">;; </span><span style="color: #75715E;">Paths must have a trailing slash (ie. `</span><span style="color: #AE81FF;">~/.mycontribs/</span><span style="color: #75715E;">')</span>
+   dotspacemacs-configuration-layer-path '<span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"~/spacemacs_conf/"</span><span style="color: #66D9EF;">)</span>
+   <span style="color: #75715E;">;; </span><span style="color: #75715E;">List of configuration layers to load. If it is the symbol `</span><span style="color: #AE81FF;">all</span><span style="color: #75715E;">' instead</span>
+   <span style="color: #75715E;">;; </span><span style="color: #75715E;">of a list then all discovered layers will be installed.</span>
+   dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>appearance
+                                       <span style="color: #75715E;">;;</span><span style="color: #75715E;">Test;;</span>
+                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">ocodo-svg-modeline</span>
+                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">vim-powerline</span>
                                        spaceppets
-                                       <span class="org-rainbow-delimiters-depth-4">(</span>git <span class="org-builtin">:variables</span>
+                                       <span style="color: #FD971F;">(</span>git <span style="color: #F92672;">:variables</span>
                                             git-magit-status-fullscreen t
                                             git-enable-github-support t
-                                            git-gutter-use-fringe t<span class="org-rainbow-delimiters-depth-4">)</span>
+                                            git-gutter-use-fringe t<span style="color: #FD971F;">)</span>
                                        prodigy
-                                       <span class="org-rainbow-delimiters-depth-4">(</span>colors <span class="org-builtin">:variables</span>
-                                               colors-enable-nyan-cat-progress-bar ,<span class="org-rainbow-delimiters-depth-5">(</span>display-graphic-p<span class="org-rainbow-delimiters-depth-5">)</span>
-                                               colors-enable-rainbow-identifiers nil<span class="org-rainbow-delimiters-depth-4">)</span>
-                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">(perspectives :variables</span>
-                                       <span class="org-comment-delimiter">;;               </span><span class="org-comment">perspective-enable-persp-projectile t)</span>
+                                       <span style="color: #FD971F;">(</span>colors <span style="color: #F92672;">:variables</span>
+                                               colors-enable-nyan-cat-progress-bar ,<span style="color: #A6E22E;">(</span>display-graphic-p<span style="color: #A6E22E;">)</span>
+                                               colors-enable-rainbow-identifiers nil<span style="color: #FD971F;">)</span>
+                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">(perspectives :variables</span>
+                                       <span style="color: #75715E;">;;               </span><span style="color: #75715E;">perspective-enable-persp-projectile t)</span>
                                        eyebrowse
                                        chrome
                                        erc
-                                      <span class="org-rainbow-delimiters-depth-4">(</span>rcirc <span class="org-builtin">:variables</span>
-                                             rcirc-default-nick <span class="org-string">"cestdiego"</span>
-                                             rcirc-default-user-name <span class="org-string">"cestdiego"</span>
-                                             rcirc-default-full-name <span class="org-string">"Diego Berrocal"</span>
-                                             rcirc-enable-znc-support t<span class="org-rainbow-delimiters-depth-4">)</span>
+                                      <span style="color: #FD971F;">(</span>rcirc <span style="color: #F92672;">:variables</span>
+                                             rcirc-default-nick <span style="color: #E6DB74;">"cestdiego"</span>
+                                             rcirc-default-user-name <span style="color: #E6DB74;">"cestdiego"</span>
+                                             rcirc-default-full-name <span style="color: #E6DB74;">"Diego Berrocal"</span>
+                                             rcirc-enable-znc-support t<span style="color: #FD971F;">)</span>
                                        html
                                        restclient
-                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">Org</span>
+                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">Org</span>
                                        org
-                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">org-notify</span>
+                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">org-notify</span>
                                        org-cestdiego
-                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">Helm</span>
+                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">Helm</span>
                                        helm
-                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">Code Navigation</span>
+                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">Code Navigation</span>
                                        ecb
-                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">multimedia</span>
+                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">multimedia</span>
                                        presentations
-                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">Miscellaneous</span>
+                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">Miscellaneous</span>
                                        emoji
-                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">webkit</span>
+                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">webkit</span>
                                        wakatime
-                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">Media</span>
+                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">Media</span>
                                        bongo
-                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">Completings Stuff</span>
-                                       <span class="org-rainbow-delimiters-depth-4">(</span>auto-completion
-                                        <span class="org-builtin">:variables</span>
+                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">Completings Stuff</span>
+                                       <span style="color: #FD971F;">(</span>auto-completion
+                                        <span style="color: #F92672;">:variables</span>
                                         auto-completion-enable-help-tooltip t
                                         auto-completion-return-key-behavior complete
-                                        auto-completion-complete-with-key-sequence <span class="org-string">"jk"</span><span class="org-rainbow-delimiters-depth-4">)</span>
+                                        auto-completion-complete-with-key-sequence <span style="color: #E6DB74;">"jk"</span><span style="color: #FD971F;">)</span>
                                        slime
                                        ycmd
-                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">Syntax Checking Stuff</span>
+                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">Syntax Checking Stuff</span>
                                        syntax-checking
-                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">LaTeX</span>
+                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">LaTeX</span>
                                        auctex
-                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">Shells</span>
+                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">Shells</span>
                                        eshell
-                                       <span class="org-rainbow-delimiters-depth-4">(</span>shell <span class="org-builtin">:variables</span>
+                                       <span style="color: #FD971F;">(</span>shell <span style="color: #F92672;">:variables</span>
                                               shell-default-shell ansi-term
                                               shell-pop-autocd-to-working-dir nil
-                                              shell-default-term-shell <span class="org-string">"/bin/zsh"</span><span class="org-rainbow-delimiters-depth-4">)</span>
-                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">Lang</span>
+                                              shell-default-term-shell <span style="color: #E6DB74;">"/bin/zsh"</span><span style="color: #FD971F;">)</span>
+                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">Lang</span>
                                        ansible
                                        markdown
                                        clojure
@@ -241,509 +241,509 @@ for my blog:
                                        haskell
                                        javascript
                                        ruby
-                                       <span class="org-comment-delimiter">;; </span><span class="org-comment">Utils</span>
+                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">Utils</span>
                                        search-engine
                                        calfw
                                        floobits
                                        utils
                                        xkcd
                                        vagrant
-                                       <span class="org-rainbow-delimiters-depth-3">)</span>
-   <span class="org-comment-delimiter">;; </span><span class="org-comment">List of additional packages that will be installed wihout being</span>
-   <span class="org-comment-delimiter">;; </span><span class="org-comment">wrapped in a layer. If you need some configuration for these</span>
-   <span class="org-comment-delimiter">;; </span><span class="org-comment">packages then consider to create a layer, you can also put the</span>
-   <span class="org-comment-delimiter">;; </span><span class="org-comment">configuration in `</span><span class="org-comment"><span class="org-constant">dostspacemacs/config</span></span><span class="org-comment">'.</span>
-   dotspacemacs-additional-packages '<span class="org-rainbow-delimiters-depth-3">()</span>
-   <span class="org-comment-delimiter">;; </span><span class="org-comment">A list of packages and/or extensions that will not be install and loaded.</span>
-   dotspacemacs-excluded-packages '<span class="org-rainbow-delimiters-depth-3">(</span>evil-org<span class="org-rainbow-delimiters-depth-3">)</span>
-   <span class="org-comment-delimiter">;; </span><span class="org-comment">If non-nil spacemacs will delete any orphan packages, i.e. packages that</span>
-   <span class="org-comment-delimiter">;; </span><span class="org-comment">are declared in a layer which is not a member of</span>
-   <span class="org-comment-delimiter">;; </span><span class="org-comment">the list `</span><span class="org-comment"><span class="org-constant">dotspacemacs-configuration-layers</span></span><span class="org-comment">'</span>
-   dotspacemacs-delete-orphan-packages t<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+                                       <span style="color: #66D9EF;">)</span>
+   <span style="color: #75715E;">;; </span><span style="color: #75715E;">List of additional packages that will be installed wihout being</span>
+   <span style="color: #75715E;">;; </span><span style="color: #75715E;">wrapped in a layer. If you need some configuration for these</span>
+   <span style="color: #75715E;">;; </span><span style="color: #75715E;">packages then consider to create a layer, you can also put the</span>
+   <span style="color: #75715E;">;; </span><span style="color: #75715E;">configuration in `</span><span style="color: #AE81FF;">dostspacemacs/config</span><span style="color: #75715E;">'.</span>
+   dotspacemacs-additional-packages '<span style="color: #66D9EF;">()</span>
+   <span style="color: #75715E;">;; </span><span style="color: #75715E;">A list of packages and/or extensions that will not be install and loaded.</span>
+   dotspacemacs-excluded-packages '<span style="color: #66D9EF;">(</span>evil-org<span style="color: #66D9EF;">)</span>
+   <span style="color: #75715E;">;; </span><span style="color: #75715E;">If non-nil spacemacs will delete any orphan packages, i.e. packages that</span>
+   <span style="color: #75715E;">;; </span><span style="color: #75715E;">are declared in a layer which is not a member of</span>
+   <span style="color: #75715E;">;; </span><span style="color: #75715E;">the list `</span><span style="color: #AE81FF;">dotspacemacs-configuration-layers</span><span style="color: #75715E;">'</span>
+   dotspacemacs-delete-orphan-packages t<span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
 <div class="org-src-container">
 
-<pre class="src src-javascript"><span class="org-comment-delimiter">// </span><span class="org-comment">Comments are like C. Single-line comments start with two slashes,</span>
-<span class="org-comment-delimiter">/* </span><span class="org-comment">and multiline comments start with slash-star</span>
-<span class="org-comment">   and end with star-slash */</span>
+<pre class="src src-javascript"><span style="color: #75715E;">// </span><span style="color: #75715E;">Comments are like C. Single-line comments start with two slashes,</span>
+<span style="color: #75715E;">/* </span><span style="color: #75715E;">and multiline comments start with slash-star</span>
+<span style="color: #75715E;">   and end with star-slash */</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">Statements can be terminated by ;</span>
-doStuff<span class="org-rainbow-delimiters-depth-1">()</span>;
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Statements can be terminated by ;</span>
+doStuff<span style="color: #A1EFE4;">()</span>;
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">... but they don't have to be, as semicolons are automatically inserted</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">wherever there's a newline, except in certain cases.</span>
-doStuff<span class="org-rainbow-delimiters-depth-1">()</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">... but they don't have to be, as semicolons are automatically inserted</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">wherever there's a newline, except in certain cases.</span>
+doStuff<span style="color: #A1EFE4;">()</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">Because those cases can cause unexpected results, we'll keep on using</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">semicolons in this guide.</span>
-
-<span class="org-comment-delimiter">///////////////////////////////////</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">1. Numbers, Strings and Operators</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Because those cases can cause unexpected results, we'll keep on using</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">semicolons in this guide.</span>
+
+<span style="color: #75715E;">///////////////////////////////////</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">1. Numbers, Strings and Operators</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">JavaScript has one number type (which is a 64-bit IEEE 754 double).</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">Doubles have a 52-bit mantissa, which is enough to store integers</span>
-<span class="org-comment-delimiter">//    </span><span class="org-comment">up to about 9&#10005;10&#185;&#8309; precisely.</span>
-<span class="org-highlight-numbers-number">3</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= 3</span>
-<span class="org-highlight-numbers-number">1</span>.<span class="org-highlight-numbers-number">5</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= 1.5</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">JavaScript has one number type (which is a 64-bit IEEE 754 double).</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Doubles have a 52-bit mantissa, which is enough to store integers</span>
+<span style="color: #75715E;">//    </span><span style="color: #75715E;">up to about 9&#10005;10&#185;&#8309; precisely.</span>
+<span style="color: #AE81FF;">3</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 3</span>
+<span style="color: #AE81FF;">1</span>.<span style="color: #AE81FF;">5</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 1.5</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">Some basic arithmetic works as you'd expect.</span>
-<span class="org-highlight-numbers-number">1</span> + <span class="org-highlight-numbers-number">1</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= 2</span>
-<span class="org-highlight-numbers-number">0</span>.<span class="org-highlight-numbers-number">1</span> + <span class="org-highlight-numbers-number">0</span>.<span class="org-highlight-numbers-number">2</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= 0.30000000000000004</span>
-<span class="org-highlight-numbers-number">8</span> - <span class="org-highlight-numbers-number">1</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= 7</span>
-<span class="org-highlight-numbers-number">10</span> * <span class="org-highlight-numbers-number">2</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= 20</span>
-<span class="org-highlight-numbers-number">35</span> / <span class="org-highlight-numbers-number">5</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= 7</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Some basic arithmetic works as you'd expect.</span>
+<span style="color: #AE81FF;">1</span> + <span style="color: #AE81FF;">1</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 2</span>
+<span style="color: #AE81FF;">0</span>.<span style="color: #AE81FF;">1</span> + <span style="color: #AE81FF;">0</span>.<span style="color: #AE81FF;">2</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 0.30000000000000004</span>
+<span style="color: #AE81FF;">8</span> - <span style="color: #AE81FF;">1</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 7</span>
+<span style="color: #AE81FF;">10</span> * <span style="color: #AE81FF;">2</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 20</span>
+<span style="color: #AE81FF;">35</span> / <span style="color: #AE81FF;">5</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 7</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">Including uneven division.</span>
-<span class="org-highlight-numbers-number">5</span> / <span class="org-highlight-numbers-number">2</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= 2.5</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Including uneven division.</span>
+<span style="color: #AE81FF;">5</span> / <span style="color: #AE81FF;">2</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 2.5</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">Bitwise operations also work; when you perform a bitwise operation your float</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">is converted to a signed int *up to* 32 bits.</span>
-<span class="org-highlight-numbers-number">1</span> &lt;&lt; <span class="org-highlight-numbers-number">2</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= 4</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Bitwise operations also work; when you perform a bitwise operation your float</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">is converted to a signed int *up to* 32 bits.</span>
+<span style="color: #AE81FF;">1</span> &lt;&lt; <span style="color: #AE81FF;">2</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 4</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">Precedence is enforced with parentheses.</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-highlight-numbers-number">1</span> + <span class="org-highlight-numbers-number">3</span><span class="org-rainbow-delimiters-depth-1">)</span> * <span class="org-highlight-numbers-number">2</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= 8</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Precedence is enforced with parentheses.</span>
+<span style="color: #A1EFE4;">(</span><span style="color: #AE81FF;">1</span> + <span style="color: #AE81FF;">3</span><span style="color: #A1EFE4;">)</span> * <span style="color: #AE81FF;">2</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 8</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">There are three special not-a-real-number values:</span>
-<span class="org-constant">Infinity</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">result of e.g. 1/0</span>
-    -<span class="org-constant">Infinity</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">result of e.g. -1/0</span>
-<span class="org-constant">NaN</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">result of e.g. 0/0</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">There are three special not-a-real-number values:</span>
+<span style="color: #AE81FF;">Infinity</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">result of e.g. 1/0</span>
+    -<span style="color: #AE81FF;">Infinity</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">result of e.g. -1/0</span>
+<span style="color: #AE81FF;">NaN</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">result of e.g. 0/0</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">There's also a boolean type.</span>
-<span class="org-constant">true</span>;
-<span class="org-constant">false</span>;
+<span style="color: #75715E;">// </span><span style="color: #75715E;">There's also a boolean type.</span>
+<span style="color: #AE81FF;">true</span>;
+<span style="color: #AE81FF;">false</span>;
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">Strings are created with ' or ".</span>
-<span class="org-string">'abc'</span>;
-<span class="org-string">"Hello, world"</span>;
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Strings are created with ' or ".</span>
+<span style="color: #E6DB74;">'abc'</span>;
+<span style="color: #E6DB74;">"Hello, world"</span>;
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">Negation uses the ! symbol</span>
-!<span class="org-constant">true</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= false</span>
-!<span class="org-constant">false</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= true</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Negation uses the ! symbol</span>
+!<span style="color: #AE81FF;">true</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= false</span>
+!<span style="color: #AE81FF;">false</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= true</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">Equality is ===</span>
-<span class="org-highlight-numbers-number">1</span> === <span class="org-highlight-numbers-number">1</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= true</span>
-<span class="org-highlight-numbers-number">2</span> === <span class="org-highlight-numbers-number">1</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= false</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Equality is ===</span>
+<span style="color: #AE81FF;">1</span> === <span style="color: #AE81FF;">1</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= true</span>
+<span style="color: #AE81FF;">2</span> === <span style="color: #AE81FF;">1</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= false</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">Inequality is !==</span>
-<span class="org-highlight-numbers-number">1</span> !== <span class="org-highlight-numbers-number">1</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= false</span>
-<span class="org-highlight-numbers-number">2</span> !== <span class="org-highlight-numbers-number">1</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= true</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Inequality is !==</span>
+<span style="color: #AE81FF;">1</span> !== <span style="color: #AE81FF;">1</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= false</span>
+<span style="color: #AE81FF;">2</span> !== <span style="color: #AE81FF;">1</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= true</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">More comparisons</span>
-<span class="org-highlight-numbers-number">1</span> &lt; <span class="org-highlight-numbers-number">10</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= true</span>
-<span class="org-highlight-numbers-number">1</span> &gt; <span class="org-highlight-numbers-number">10</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= false</span>
-<span class="org-highlight-numbers-number">2</span> &lt;= <span class="org-highlight-numbers-number">2</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= true</span>
-<span class="org-highlight-numbers-number">2</span> &gt;= <span class="org-highlight-numbers-number">2</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= true</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">More comparisons</span>
+<span style="color: #AE81FF;">1</span> &lt; <span style="color: #AE81FF;">10</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= true</span>
+<span style="color: #AE81FF;">1</span> &gt; <span style="color: #AE81FF;">10</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= false</span>
+<span style="color: #AE81FF;">2</span> &lt;= <span style="color: #AE81FF;">2</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= true</span>
+<span style="color: #AE81FF;">2</span> &gt;= <span style="color: #AE81FF;">2</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= true</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">Strings are concatenated with +</span>
-<span class="org-string">"Hello "</span> + <span class="org-string">"world!"</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= "Hello world!"</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Strings are concatenated with +</span>
+<span style="color: #E6DB74;">"Hello "</span> + <span style="color: #E6DB74;">"world!"</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= "Hello world!"</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">and are compared with &lt; and &gt;</span>
-<span class="org-string">"a"</span> &lt; <span class="org-string">"b"</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= true</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">and are compared with &lt; and &gt;</span>
+<span style="color: #E6DB74;">"a"</span> &lt; <span style="color: #E6DB74;">"b"</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= true</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">Type coercion is performed for comparisons with double equals...</span>
-<span class="org-string">"5"</span> == <span class="org-highlight-numbers-number">5</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= true</span>
-<span class="org-constant">null</span> == <span class="org-constant">undefined</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= true</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Type coercion is performed for comparisons with double equals...</span>
+<span style="color: #E6DB74;">"5"</span> == <span style="color: #AE81FF;">5</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= true</span>
+<span style="color: #AE81FF;">null</span> == <span style="color: #AE81FF;">undefined</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= true</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">...unless you use ===</span>
-<span class="org-string">"5"</span> === <span class="org-highlight-numbers-number">5</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= false</span>
-<span class="org-constant">null</span> === <span class="org-constant">undefined</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= false </span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">...unless you use ===</span>
+<span style="color: #E6DB74;">"5"</span> === <span style="color: #AE81FF;">5</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= false</span>
+<span style="color: #AE81FF;">null</span> === <span style="color: #AE81FF;">undefined</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= false </span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">...which can result in some weird behaviour...</span>
-<span class="org-highlight-numbers-number">13</span> + !<span class="org-highlight-numbers-number">0</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">14</span>
-<span class="org-string">"13"</span> + !<span class="org-highlight-numbers-number">0</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">'13true'</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">...which can result in some weird behaviour...</span>
+<span style="color: #AE81FF;">13</span> + !<span style="color: #AE81FF;">0</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">14</span>
+<span style="color: #E6DB74;">"13"</span> + !<span style="color: #AE81FF;">0</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">'13true'</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">You can access characters in a string with `charAt`</span>
-<span class="org-string">"This is a string"</span>.charAt<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-1">)</span>;  <span class="org-comment-delimiter">// </span><span class="org-comment">= 'T'</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">You can access characters in a string with `charAt`</span>
+<span style="color: #E6DB74;">"This is a string"</span>.charAt<span style="color: #A1EFE4;">(</span><span style="color: #AE81FF;">0</span><span style="color: #A1EFE4;">)</span>;  <span style="color: #75715E;">// </span><span style="color: #75715E;">= 'T'</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">...or use `substring` to get larger pieces.</span>
-<span class="org-string">"Hello world"</span>.substring<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-highlight-numbers-number">0</span>, <span class="org-highlight-numbers-number">5</span><span class="org-rainbow-delimiters-depth-1">)</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= "Hello"</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">...or use `substring` to get larger pieces.</span>
+<span style="color: #E6DB74;">"Hello world"</span>.substring<span style="color: #A1EFE4;">(</span><span style="color: #AE81FF;">0</span>, <span style="color: #AE81FF;">5</span><span style="color: #A1EFE4;">)</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= "Hello"</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">`length` is a property, so don't use ().</span>
-<span class="org-string">"Hello"</span>.length; <span class="org-comment-delimiter">// </span><span class="org-comment">= 5</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">`length` is a property, so don't use ().</span>
+<span style="color: #E6DB74;">"Hello"</span>.length; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 5</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">There's also `null` and `undefined`.</span>
-<span class="org-constant">null</span>;      <span class="org-comment-delimiter">// </span><span class="org-comment">used to indicate a deliberate non-value</span>
-<span class="org-constant">undefined</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">used to indicate a value is not currently present (although</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">`undefined` is actually a value itself)</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">false, null, undefined, NaN, 0 and "" are falsy; everything else is truthy.</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">Note that 0 is falsy and "0" is truthy, even though 0 == "0".</span>
-
-<span class="org-comment-delimiter">///////////////////////////////////</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">2. Variables, Arrays and Objects</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">There's also `null` and `undefined`.</span>
+<span style="color: #AE81FF;">null</span>;      <span style="color: #75715E;">// </span><span style="color: #75715E;">used to indicate a deliberate non-value</span>
+<span style="color: #AE81FF;">undefined</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">used to indicate a value is not currently present (although</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">`undefined` is actually a value itself)</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">false, null, undefined, NaN, 0 and "" are falsy; everything else is truthy.</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Note that 0 is falsy and "0" is truthy, even though 0 == "0".</span>
+
+<span style="color: #75715E;">///////////////////////////////////</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">2. Variables, Arrays and Objects</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">Variables are declared with the `var` keyword. JavaScript is dynamically</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">typed, so you don't need to specify type. Assignment uses a single `=`</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">character.</span>
-<span class="org-keyword">var</span> <span class="org-variable-name">someVar</span> = <span class="org-highlight-numbers-number">5</span>;
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">if you leave the var keyword off, you won't get an error...</span>
-someOtherVar = <span class="org-highlight-numbers-number">10</span>;
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">...but your variable will be created in the global scope, not in the scope</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">you defined it in.</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">Variables declared without being assigned to are set to undefined.</span>
-<span class="org-keyword">var</span> <span class="org-variable-name">someThirdVar</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= undefined</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">There's shorthand for performing math operations on variables:</span>
-someVar += <span class="org-highlight-numbers-number">5</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">equivalent to someVar = someVar + 5; someVar is 10 now</span>
-someVar *= <span class="org-highlight-numbers-number">10</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">now someVar is 100</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">and an even-shorter-hand for adding or subtracting 1</span>
-someVar++; <span class="org-comment-delimiter">// </span><span class="org-comment">now someVar is 101</span>
-someVar--; <span class="org-comment-delimiter">// </span><span class="org-comment">back to 100</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">Arrays are ordered lists of values, of any type.</span>
-<span class="org-keyword">var</span> <span class="org-variable-name">myArray</span> = <span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">"Hello"</span>, <span class="org-highlight-numbers-number">45</span>, <span class="org-constant">true</span><span class="org-rainbow-delimiters-depth-1">]</span>;
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">Their members can be accessed using the square-brackets subscript syntax.</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">Array indices start at zero.</span>
-myArray<span class="org-rainbow-delimiters-depth-1">[</span><span class="org-highlight-numbers-number">1</span><span class="org-rainbow-delimiters-depth-1">]</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= 45</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">Arrays are mutable and of variable length.</span>
-myArray.push<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"World"</span><span class="org-rainbow-delimiters-depth-1">)</span>;
-myArray.length; <span class="org-comment-delimiter">// </span><span class="org-comment">= 4</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">Add/Modify at specific index</span>
-myArray<span class="org-rainbow-delimiters-depth-1">[</span><span class="org-highlight-numbers-number">3</span><span class="org-rainbow-delimiters-depth-1">]</span> = <span class="org-string">"Hello"</span>;
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">JavaScript's objects are equivalent to "dictionaries" or "maps" in other</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">languages: an unordered collection of key-value pairs.</span>
-<span class="org-keyword">var</span> <span class="org-variable-name">myObj</span> = <span class="org-rainbow-delimiters-depth-1">{</span>key1: <span class="org-string">"Hello"</span>, key2: <span class="org-string">"World"</span><span class="org-rainbow-delimiters-depth-1">}</span>;
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">Keys are strings, but quotes aren't required if they're a valid</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">JavaScript identifier. Values can be any type.</span>
-<span class="org-keyword">var</span> <span class="org-variable-name">myObj</span> = <span class="org-rainbow-delimiters-depth-1">{</span>myKey: <span class="org-string">"myValue"</span>, <span class="org-string">"my other key"</span>: <span class="org-highlight-numbers-number">4</span><span class="org-rainbow-delimiters-depth-1">}</span>;
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">Object attributes can also be accessed using the subscript syntax,</span>
-myObj<span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">"my other key"</span><span class="org-rainbow-delimiters-depth-1">]</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= 4</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">... or using the dot syntax, provided the key is a valid identifier.</span>
-myObj.myKey; <span class="org-comment-delimiter">// </span><span class="org-comment">= "myValue"</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">Objects are mutable; values can be changed and new keys added.</span>
-myObj.myThirdKey = <span class="org-constant">true</span>;
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">If you try to access a value that's not yet set, you'll get undefined.</span>
-myObj.myFourthKey; <span class="org-comment-delimiter">// </span><span class="org-comment">= undefined</span>
-
-<span class="org-comment-delimiter">///////////////////////////////////</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">3. Logic and Control Structures</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">The syntax for this section is almost identical to Java's. </span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">The `if` structure works as you'd expect.</span>
-<span class="org-keyword">var</span> <span class="org-variable-name">count</span> = <span class="org-highlight-numbers-number">1</span>;
-<span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-1">(</span>count == <span class="org-highlight-numbers-number">3</span><span class="org-rainbow-delimiters-depth-1">){</span>
-    <span class="org-comment-delimiter">// </span><span class="org-comment">evaluated if count is 3</span>
-<span class="org-rainbow-delimiters-depth-1">}</span> <span class="org-keyword">else</span> <span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-1">(</span>count == <span class="org-highlight-numbers-number">4</span><span class="org-rainbow-delimiters-depth-1">){</span>
-    <span class="org-comment-delimiter">// </span><span class="org-comment">evaluated if count is 4</span>
-<span class="org-rainbow-delimiters-depth-1">}</span> <span class="org-keyword">else</span> <span class="org-rainbow-delimiters-depth-1">{</span>
-    <span class="org-comment-delimiter">// </span><span class="org-comment">evaluated if it's not either 3 or 4</span>
-<span class="org-rainbow-delimiters-depth-1">}</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">As does `while`.</span>
-<span class="org-keyword">while</span> <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-constant">true</span><span class="org-rainbow-delimiters-depth-1">){</span>
-    <span class="org-comment-delimiter">// </span><span class="org-comment">An infinite loop!</span>
-<span class="org-rainbow-delimiters-depth-1">}</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">Do-while loops are like while loops, except they always run at least once.</span>
-<span class="org-keyword">var</span> <span class="org-variable-name">input</span>;
-<span class="org-keyword">do</span> <span class="org-rainbow-delimiters-depth-1">{</span>
-    input = getInput<span class="org-rainbow-delimiters-depth-2">()</span>;
-<span class="org-rainbow-delimiters-depth-1">}</span> <span class="org-keyword">while</span> <span class="org-rainbow-delimiters-depth-1">(</span>!isValid<span class="org-rainbow-delimiters-depth-2">(</span>input<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">The `for` loop is the same as C and Java:</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">initialisation; continue condition; iteration.</span>
-<span class="org-keyword">for</span> <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">var</span> <span class="org-variable-name">i</span> = <span class="org-highlight-numbers-number">0</span>; i &lt; <span class="org-highlight-numbers-number">5</span>; i++<span class="org-rainbow-delimiters-depth-1">){</span>
-    <span class="org-comment-delimiter">// </span><span class="org-comment">will run 5 times</span>
-<span class="org-rainbow-delimiters-depth-1">}</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">&amp;&amp; is logical and, || is logical or</span>
-<span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-1">(</span>house.size == <span class="org-string">"big"</span> &amp;&amp; house.colour == <span class="org-string">"blue"</span><span class="org-rainbow-delimiters-depth-1">){</span>
-    house.contains = <span class="org-string">"bear"</span>;
-<span class="org-rainbow-delimiters-depth-1">}</span>
-<span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-1">(</span>colour == <span class="org-string">"red"</span> || colour == <span class="org-string">"blue"</span><span class="org-rainbow-delimiters-depth-1">){</span>
-    <span class="org-comment-delimiter">// </span><span class="org-comment">colour is either red or blue</span>
-<span class="org-rainbow-delimiters-depth-1">}</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">&amp;&amp; and || "short circuit", which is useful for setting default values.</span>
-<span class="org-keyword">var</span> <span class="org-variable-name">name</span> = otherName || <span class="org-string">"default"</span>;
-
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">The `switch` statement checks for equality with `===`.</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">use 'break' after each case </span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">or the cases after the correct one will be executed too. </span>
-grade = <span class="org-string">'B'</span>;
-<span class="org-keyword">switch</span> <span class="org-rainbow-delimiters-depth-1">(</span>grade<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-rainbow-delimiters-depth-1">{</span>
-<span class="org-keyword">case</span> <span class="org-string">'A'</span>:
-    console.log<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"Great job"</span><span class="org-rainbow-delimiters-depth-2">)</span>;
-    <span class="org-keyword">break</span>;
-<span class="org-keyword">case</span> <span class="org-string">'B'</span>:
-    console.log<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"OK job"</span><span class="org-rainbow-delimiters-depth-2">)</span>;
-    <span class="org-keyword">break</span>;
-<span class="org-keyword">case</span> <span class="org-string">'C'</span>:
-    console.log<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"You can do better"</span><span class="org-rainbow-delimiters-depth-2">)</span>;
-    <span class="org-keyword">break</span>;
-<span class="org-keyword">default</span>:
-    console.log<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"Oy vey"</span><span class="org-rainbow-delimiters-depth-2">)</span>;
-    <span class="org-keyword">break</span>;
-<span class="org-rainbow-delimiters-depth-1">}</span>
-
-
-<span class="org-comment-delimiter">///////////////////////////////////</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">4. Functions, Scope and Closures</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">JavaScript functions are declared with the `function` keyword.</span>
-<span class="org-keyword">function</span> <span class="org-function-name">myFunction</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-variable-name">thing</span><span class="org-rainbow-delimiters-depth-1">){</span>
-    <span class="org-keyword">return</span> thing.toUpperCase<span class="org-rainbow-delimiters-depth-2">()</span>;
-<span class="org-rainbow-delimiters-depth-1">}</span>
-myFunction<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"foo"</span><span class="org-rainbow-delimiters-depth-1">)</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= "FOO"</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">Note that the value to be returned must start on the same line as the</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">`return` keyword, otherwise you'll always return `undefined` due to</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">automatic semicolon insertion. Watch out for this when using Allman style.</span>
-<span class="org-keyword">function</span> <span class="org-function-name">myFunction</span><span class="org-rainbow-delimiters-depth-1">()</span>
-<span class="org-rainbow-delimiters-depth-1">{</span>
-    <span class="org-keyword">return</span> <span class="org-comment-delimiter">// </span><span class="org-comment">&lt;- semicolon automatically inserted here</span>
-    <span class="org-rainbow-delimiters-depth-2">{</span>
-        thisIsAn: <span class="org-string">'object literal'</span>
-    <span class="org-rainbow-delimiters-depth-2">}</span>
-<span class="org-rainbow-delimiters-depth-1">}</span>
-myFunction<span class="org-rainbow-delimiters-depth-1">()</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= undefined</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">JavaScript functions are first class objects, so they can be reassigned to</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">different variable names and passed to other functions as arguments - for</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">example, when supplying an event handler:</span>
-<span class="org-keyword">function</span> <span class="org-function-name">myFunction</span><span class="org-rainbow-delimiters-depth-1">(){</span>
-    <span class="org-comment-delimiter">// </span><span class="org-comment">this code will be called in 5 seconds' time</span>
-<span class="org-rainbow-delimiters-depth-1">}</span>
-setTimeout<span class="org-rainbow-delimiters-depth-1">(</span>myFunction, <span class="org-highlight-numbers-number">5000</span><span class="org-rainbow-delimiters-depth-1">)</span>;
-<span class="org-comment-delimiter">// </span><span class="org-comment">Note: setTimeout isn't part of the JS language, but is provided by browsers</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">and Node.js.</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">Function objects don't even have to be declared with a name - you can write</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">an anonymous function definition directly into the arguments of another.</span>
-setTimeout<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">function</span><span class="org-rainbow-delimiters-depth-2">(){</span>
-    <span class="org-comment-delimiter">// </span><span class="org-comment">this code will be called in 5 seconds' time</span>
-<span class="org-rainbow-delimiters-depth-2">}</span>, <span class="org-highlight-numbers-number">5000</span><span class="org-rainbow-delimiters-depth-1">)</span>;
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">JavaScript has function scope; functions get their own scope but other blocks</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">do not.</span>
-<span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-constant">true</span><span class="org-rainbow-delimiters-depth-1">){</span>
-    <span class="org-keyword">var</span> <span class="org-variable-name">i</span> = <span class="org-highlight-numbers-number">5</span>;
-<span class="org-rainbow-delimiters-depth-1">}</span>
-i; <span class="org-comment-delimiter">// </span><span class="org-comment">= 5 - not undefined as you'd expect in a block-scoped language</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">This has led to a common pattern of "immediately-executing anonymous</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">functions", which prevent temporary variables from leaking into the global</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">scope.</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">function</span><span class="org-rainbow-delimiters-depth-2">(){</span>
-    <span class="org-keyword">var</span> <span class="org-variable-name">temporary</span> = <span class="org-highlight-numbers-number">5</span>;
-    <span class="org-comment-delimiter">// </span><span class="org-comment">We can access the global scope by assiging to the "global object", which</span>
-    <span class="org-comment-delimiter">// </span><span class="org-comment">in a web browser is always `window`. The global object may have a</span>
-    <span class="org-comment-delimiter">// </span><span class="org-comment">different name in non-browser environments such as Node.js.</span>
-    window.permanent = <span class="org-highlight-numbers-number">10</span>;
-<span class="org-rainbow-delimiters-depth-2">}</span><span class="org-rainbow-delimiters-depth-1">)()</span>;
-temporary; <span class="org-comment-delimiter">// </span><span class="org-comment">raises ReferenceError</span>
-permanent; <span class="org-comment-delimiter">// </span><span class="org-comment">= 10</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">One of JavaScript's most powerful features is closures. If a function is</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">defined inside another function, the inner function has access to all the</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">outer function's variables, even after the outer function exits.</span>
-<span class="org-keyword">function</span> <span class="org-function-name">sayHelloInFiveSeconds</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-variable-name">name</span><span class="org-rainbow-delimiters-depth-1">){</span>
-    <span class="org-keyword">var</span> <span class="org-variable-name">prompt</span> = <span class="org-string">"Hello, "</span> + name + <span class="org-string">"!"</span>;
-    <span class="org-comment-delimiter">// </span><span class="org-comment">Inner functions are put in the local scope by default, as if they were</span>
-    <span class="org-comment-delimiter">// </span><span class="org-comment">declared with `var`.</span>
-    <span class="org-keyword">function</span> <span class="org-function-name">inner</span><span class="org-rainbow-delimiters-depth-2">(){</span>
-        alert<span class="org-rainbow-delimiters-depth-3">(</span>prompt<span class="org-rainbow-delimiters-depth-3">)</span>;
-    <span class="org-rainbow-delimiters-depth-2">}</span>
-    setTimeout<span class="org-rainbow-delimiters-depth-2">(</span>inner, <span class="org-highlight-numbers-number">5000</span><span class="org-rainbow-delimiters-depth-2">)</span>;
-    <span class="org-comment-delimiter">// </span><span class="org-comment">setTimeout is asynchronous, so the sayHelloInFiveSeconds function will</span>
-    <span class="org-comment-delimiter">// </span><span class="org-comment">exit immediately, and setTimeout will call inner afterwards. However,</span>
-    <span class="org-comment-delimiter">// </span><span class="org-comment">because inner is "closed over" sayHelloInFiveSeconds, inner still has</span>
-    <span class="org-comment-delimiter">// </span><span class="org-comment">access to the `prompt` variable when it is finally called.</span>
-<span class="org-rainbow-delimiters-depth-1">}</span>
-sayHelloInFiveSeconds<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Adam"</span><span class="org-rainbow-delimiters-depth-1">)</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">will open a popup with "Hello, Adam!" in 5s</span>
-
-<span class="org-comment-delimiter">///////////////////////////////////</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">5. More about Objects; Constructors and Prototypes</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">Objects can contain functions.</span>
-<span class="org-keyword">var</span> <span class="org-variable-name">myObj</span> = <span class="org-rainbow-delimiters-depth-1">{</span>
-    <span class="org-function-name">myFunc</span>: <span class="org-keyword">function</span><span class="org-rainbow-delimiters-depth-2">(){</span>
-        <span class="org-keyword">return</span> <span class="org-string">"Hello world!"</span>;
-    <span class="org-rainbow-delimiters-depth-2">}</span>
-<span class="org-rainbow-delimiters-depth-1">}</span>;
-myObj.myFunc<span class="org-rainbow-delimiters-depth-1">()</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= "Hello world!"</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">When functions attached to an object are called, they can access the object</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">they're attached to using the `this` keyword.</span>
-myObj = <span class="org-rainbow-delimiters-depth-1">{</span>
-    myString: <span class="org-string">"Hello world!"</span>,
-    <span class="org-function-name">myFunc</span>: <span class="org-keyword">function</span><span class="org-rainbow-delimiters-depth-2">(){</span>
-        <span class="org-keyword">return</span> <span class="org-constant">this</span>.myString;
-    <span class="org-rainbow-delimiters-depth-2">}</span>
-<span class="org-rainbow-delimiters-depth-1">}</span>;
-myObj.myFunc<span class="org-rainbow-delimiters-depth-1">()</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= "Hello world!"</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">What this is set to has to do with how the function is called, not where</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">it's defined. So, our function doesn't work if it isn't called in the</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">context of the object.</span>
-<span class="org-keyword">var</span> <span class="org-variable-name">myFunc</span> = myObj.myFunc;
-myFunc<span class="org-rainbow-delimiters-depth-1">()</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= undefined</span>
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">Inversely, a function can be assigned to the object and gain access to it</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">through `this`, even if it wasn't attached when it was defined.</span>
-<span class="org-keyword">var</span> <span class="org-variable-name">myOtherFunc</span> = <span class="org-keyword">function</span><span class="org-rainbow-delimiters-depth-1">(){</span>
-    <span class="org-keyword">return</span> <span class="org-constant">this</span>.myString.toUpperCase<span class="org-rainbow-delimiters-depth-2">()</span>;
-<span class="org-rainbow-delimiters-depth-1">}</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Variables are declared with the `var` keyword. JavaScript is dynamically</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">typed, so you don't need to specify type. Assignment uses a single `=`</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">character.</span>
+<span style="color: #F92672;">var</span> <span style="color: #FD971F;">someVar</span> = <span style="color: #AE81FF;">5</span>;
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">if you leave the var keyword off, you won't get an error...</span>
+someOtherVar = <span style="color: #AE81FF;">10</span>;
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">...but your variable will be created in the global scope, not in the scope</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">you defined it in.</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Variables declared without being assigned to are set to undefined.</span>
+<span style="color: #F92672;">var</span> <span style="color: #FD971F;">someThirdVar</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= undefined</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">There's shorthand for performing math operations on variables:</span>
+someVar += <span style="color: #AE81FF;">5</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">equivalent to someVar = someVar + 5; someVar is 10 now</span>
+someVar *= <span style="color: #AE81FF;">10</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">now someVar is 100</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">and an even-shorter-hand for adding or subtracting 1</span>
+someVar++; <span style="color: #75715E;">// </span><span style="color: #75715E;">now someVar is 101</span>
+someVar--; <span style="color: #75715E;">// </span><span style="color: #75715E;">back to 100</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Arrays are ordered lists of values, of any type.</span>
+<span style="color: #F92672;">var</span> <span style="color: #FD971F;">myArray</span> = <span style="color: #A1EFE4;">[</span><span style="color: #E6DB74;">"Hello"</span>, <span style="color: #AE81FF;">45</span>, <span style="color: #AE81FF;">true</span><span style="color: #A1EFE4;">]</span>;
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Their members can be accessed using the square-brackets subscript syntax.</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Array indices start at zero.</span>
+myArray<span style="color: #A1EFE4;">[</span><span style="color: #AE81FF;">1</span><span style="color: #A1EFE4;">]</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 45</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Arrays are mutable and of variable length.</span>
+myArray.push<span style="color: #A1EFE4;">(</span><span style="color: #E6DB74;">"World"</span><span style="color: #A1EFE4;">)</span>;
+myArray.length; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 4</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Add/Modify at specific index</span>
+myArray<span style="color: #A1EFE4;">[</span><span style="color: #AE81FF;">3</span><span style="color: #A1EFE4;">]</span> = <span style="color: #E6DB74;">"Hello"</span>;
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">JavaScript's objects are equivalent to "dictionaries" or "maps" in other</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">languages: an unordered collection of key-value pairs.</span>
+<span style="color: #F92672;">var</span> <span style="color: #FD971F;">myObj</span> = <span style="color: #A1EFE4;">{</span>key1: <span style="color: #E6DB74;">"Hello"</span>, key2: <span style="color: #E6DB74;">"World"</span><span style="color: #A1EFE4;">}</span>;
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Keys are strings, but quotes aren't required if they're a valid</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">JavaScript identifier. Values can be any type.</span>
+<span style="color: #F92672;">var</span> <span style="color: #FD971F;">myObj</span> = <span style="color: #A1EFE4;">{</span>myKey: <span style="color: #E6DB74;">"myValue"</span>, <span style="color: #E6DB74;">"my other key"</span>: <span style="color: #AE81FF;">4</span><span style="color: #A1EFE4;">}</span>;
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Object attributes can also be accessed using the subscript syntax,</span>
+myObj<span style="color: #A1EFE4;">[</span><span style="color: #E6DB74;">"my other key"</span><span style="color: #A1EFE4;">]</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 4</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">... or using the dot syntax, provided the key is a valid identifier.</span>
+myObj.myKey; <span style="color: #75715E;">// </span><span style="color: #75715E;">= "myValue"</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Objects are mutable; values can be changed and new keys added.</span>
+myObj.myThirdKey = <span style="color: #AE81FF;">true</span>;
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">If you try to access a value that's not yet set, you'll get undefined.</span>
+myObj.myFourthKey; <span style="color: #75715E;">// </span><span style="color: #75715E;">= undefined</span>
+
+<span style="color: #75715E;">///////////////////////////////////</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">3. Logic and Control Structures</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">The syntax for this section is almost identical to Java's. </span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">The `if` structure works as you'd expect.</span>
+<span style="color: #F92672;">var</span> <span style="color: #FD971F;">count</span> = <span style="color: #AE81FF;">1</span>;
+<span style="color: #F92672;">if</span> <span style="color: #A1EFE4;">(</span>count == <span style="color: #AE81FF;">3</span><span style="color: #A1EFE4;">){</span>
+    <span style="color: #75715E;">// </span><span style="color: #75715E;">evaluated if count is 3</span>
+<span style="color: #A1EFE4;">}</span> <span style="color: #F92672;">else</span> <span style="color: #F92672;">if</span> <span style="color: #A1EFE4;">(</span>count == <span style="color: #AE81FF;">4</span><span style="color: #A1EFE4;">){</span>
+    <span style="color: #75715E;">// </span><span style="color: #75715E;">evaluated if count is 4</span>
+<span style="color: #A1EFE4;">}</span> <span style="color: #F92672;">else</span> <span style="color: #A1EFE4;">{</span>
+    <span style="color: #75715E;">// </span><span style="color: #75715E;">evaluated if it's not either 3 or 4</span>
+<span style="color: #A1EFE4;">}</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">As does `while`.</span>
+<span style="color: #F92672;">while</span> <span style="color: #A1EFE4;">(</span><span style="color: #AE81FF;">true</span><span style="color: #A1EFE4;">){</span>
+    <span style="color: #75715E;">// </span><span style="color: #75715E;">An infinite loop!</span>
+<span style="color: #A1EFE4;">}</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Do-while loops are like while loops, except they always run at least once.</span>
+<span style="color: #F92672;">var</span> <span style="color: #FD971F;">input</span>;
+<span style="color: #F92672;">do</span> <span style="color: #A1EFE4;">{</span>
+    input = getInput<span style="color: #E6DB74;">()</span>;
+<span style="color: #A1EFE4;">}</span> <span style="color: #F92672;">while</span> <span style="color: #A1EFE4;">(</span>!isValid<span style="color: #E6DB74;">(</span>input<span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">The `for` loop is the same as C and Java:</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">initialisation; continue condition; iteration.</span>
+<span style="color: #F92672;">for</span> <span style="color: #A1EFE4;">(</span><span style="color: #F92672;">var</span> <span style="color: #FD971F;">i</span> = <span style="color: #AE81FF;">0</span>; i &lt; <span style="color: #AE81FF;">5</span>; i++<span style="color: #A1EFE4;">){</span>
+    <span style="color: #75715E;">// </span><span style="color: #75715E;">will run 5 times</span>
+<span style="color: #A1EFE4;">}</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">&amp;&amp; is logical and, || is logical or</span>
+<span style="color: #F92672;">if</span> <span style="color: #A1EFE4;">(</span>house.size == <span style="color: #E6DB74;">"big"</span> &amp;&amp; house.colour == <span style="color: #E6DB74;">"blue"</span><span style="color: #A1EFE4;">){</span>
+    house.contains = <span style="color: #E6DB74;">"bear"</span>;
+<span style="color: #A1EFE4;">}</span>
+<span style="color: #F92672;">if</span> <span style="color: #A1EFE4;">(</span>colour == <span style="color: #E6DB74;">"red"</span> || colour == <span style="color: #E6DB74;">"blue"</span><span style="color: #A1EFE4;">){</span>
+    <span style="color: #75715E;">// </span><span style="color: #75715E;">colour is either red or blue</span>
+<span style="color: #A1EFE4;">}</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">&amp;&amp; and || "short circuit", which is useful for setting default values.</span>
+<span style="color: #F92672;">var</span> <span style="color: #FD971F;">name</span> = otherName || <span style="color: #E6DB74;">"default"</span>;
+
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">The `switch` statement checks for equality with `===`.</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">use 'break' after each case </span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">or the cases after the correct one will be executed too. </span>
+grade = <span style="color: #E6DB74;">'B'</span>;
+<span style="color: #F92672;">switch</span> <span style="color: #A1EFE4;">(</span>grade<span style="color: #A1EFE4;">)</span> <span style="color: #A1EFE4;">{</span>
+<span style="color: #F92672;">case</span> <span style="color: #E6DB74;">'A'</span>:
+    console.log<span style="color: #E6DB74;">(</span><span style="color: #E6DB74;">"Great job"</span><span style="color: #E6DB74;">)</span>;
+    <span style="color: #F92672;">break</span>;
+<span style="color: #F92672;">case</span> <span style="color: #E6DB74;">'B'</span>:
+    console.log<span style="color: #E6DB74;">(</span><span style="color: #E6DB74;">"OK job"</span><span style="color: #E6DB74;">)</span>;
+    <span style="color: #F92672;">break</span>;
+<span style="color: #F92672;">case</span> <span style="color: #E6DB74;">'C'</span>:
+    console.log<span style="color: #E6DB74;">(</span><span style="color: #E6DB74;">"You can do better"</span><span style="color: #E6DB74;">)</span>;
+    <span style="color: #F92672;">break</span>;
+<span style="color: #F92672;">default</span>:
+    console.log<span style="color: #E6DB74;">(</span><span style="color: #E6DB74;">"Oy vey"</span><span style="color: #E6DB74;">)</span>;
+    <span style="color: #F92672;">break</span>;
+<span style="color: #A1EFE4;">}</span>
+
+
+<span style="color: #75715E;">///////////////////////////////////</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">4. Functions, Scope and Closures</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">JavaScript functions are declared with the `function` keyword.</span>
+<span style="color: #F92672;">function</span> <span style="color: #A6E22E;">myFunction</span><span style="color: #A1EFE4;">(</span><span style="color: #FD971F;">thing</span><span style="color: #A1EFE4;">){</span>
+    <span style="color: #F92672;">return</span> thing.toUpperCase<span style="color: #E6DB74;">()</span>;
+<span style="color: #A1EFE4;">}</span>
+myFunction<span style="color: #A1EFE4;">(</span><span style="color: #E6DB74;">"foo"</span><span style="color: #A1EFE4;">)</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= "FOO"</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Note that the value to be returned must start on the same line as the</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">`return` keyword, otherwise you'll always return `undefined` due to</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">automatic semicolon insertion. Watch out for this when using Allman style.</span>
+<span style="color: #F92672;">function</span> <span style="color: #A6E22E;">myFunction</span><span style="color: #A1EFE4;">()</span>
+<span style="color: #A1EFE4;">{</span>
+    <span style="color: #F92672;">return</span> <span style="color: #75715E;">// </span><span style="color: #75715E;">&lt;- semicolon automatically inserted here</span>
+    <span style="color: #E6DB74;">{</span>
+        thisIsAn: <span style="color: #E6DB74;">'object literal'</span>
+    <span style="color: #E6DB74;">}</span>
+<span style="color: #A1EFE4;">}</span>
+myFunction<span style="color: #A1EFE4;">()</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= undefined</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">JavaScript functions are first class objects, so they can be reassigned to</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">different variable names and passed to other functions as arguments - for</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">example, when supplying an event handler:</span>
+<span style="color: #F92672;">function</span> <span style="color: #A6E22E;">myFunction</span><span style="color: #A1EFE4;">(){</span>
+    <span style="color: #75715E;">// </span><span style="color: #75715E;">this code will be called in 5 seconds' time</span>
+<span style="color: #A1EFE4;">}</span>
+setTimeout<span style="color: #A1EFE4;">(</span>myFunction, <span style="color: #AE81FF;">5000</span><span style="color: #A1EFE4;">)</span>;
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Note: setTimeout isn't part of the JS language, but is provided by browsers</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">and Node.js.</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Function objects don't even have to be declared with a name - you can write</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">an anonymous function definition directly into the arguments of another.</span>
+setTimeout<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">function</span><span style="color: #E6DB74;">(){</span>
+    <span style="color: #75715E;">// </span><span style="color: #75715E;">this code will be called in 5 seconds' time</span>
+<span style="color: #E6DB74;">}</span>, <span style="color: #AE81FF;">5000</span><span style="color: #A1EFE4;">)</span>;
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">JavaScript has function scope; functions get their own scope but other blocks</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">do not.</span>
+<span style="color: #F92672;">if</span> <span style="color: #A1EFE4;">(</span><span style="color: #AE81FF;">true</span><span style="color: #A1EFE4;">){</span>
+    <span style="color: #F92672;">var</span> <span style="color: #FD971F;">i</span> = <span style="color: #AE81FF;">5</span>;
+<span style="color: #A1EFE4;">}</span>
+i; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 5 - not undefined as you'd expect in a block-scoped language</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">This has led to a common pattern of "immediately-executing anonymous</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">functions", which prevent temporary variables from leaking into the global</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">scope.</span>
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">function</span><span style="color: #E6DB74;">(){</span>
+    <span style="color: #F92672;">var</span> <span style="color: #FD971F;">temporary</span> = <span style="color: #AE81FF;">5</span>;
+    <span style="color: #75715E;">// </span><span style="color: #75715E;">We can access the global scope by assiging to the "global object", which</span>
+    <span style="color: #75715E;">// </span><span style="color: #75715E;">in a web browser is always `window`. The global object may have a</span>
+    <span style="color: #75715E;">// </span><span style="color: #75715E;">different name in non-browser environments such as Node.js.</span>
+    window.permanent = <span style="color: #AE81FF;">10</span>;
+<span style="color: #E6DB74;">}</span><span style="color: #A1EFE4;">)()</span>;
+temporary; <span style="color: #75715E;">// </span><span style="color: #75715E;">raises ReferenceError</span>
+permanent; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 10</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">One of JavaScript's most powerful features is closures. If a function is</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">defined inside another function, the inner function has access to all the</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">outer function's variables, even after the outer function exits.</span>
+<span style="color: #F92672;">function</span> <span style="color: #A6E22E;">sayHelloInFiveSeconds</span><span style="color: #A1EFE4;">(</span><span style="color: #FD971F;">name</span><span style="color: #A1EFE4;">){</span>
+    <span style="color: #F92672;">var</span> <span style="color: #FD971F;">prompt</span> = <span style="color: #E6DB74;">"Hello, "</span> + name + <span style="color: #E6DB74;">"!"</span>;
+    <span style="color: #75715E;">// </span><span style="color: #75715E;">Inner functions are put in the local scope by default, as if they were</span>
+    <span style="color: #75715E;">// </span><span style="color: #75715E;">declared with `var`.</span>
+    <span style="color: #F92672;">function</span> <span style="color: #A6E22E;">inner</span><span style="color: #E6DB74;">(){</span>
+        alert<span style="color: #66D9EF;">(</span>prompt<span style="color: #66D9EF;">)</span>;
+    <span style="color: #E6DB74;">}</span>
+    setTimeout<span style="color: #E6DB74;">(</span>inner, <span style="color: #AE81FF;">5000</span><span style="color: #E6DB74;">)</span>;
+    <span style="color: #75715E;">// </span><span style="color: #75715E;">setTimeout is asynchronous, so the sayHelloInFiveSeconds function will</span>
+    <span style="color: #75715E;">// </span><span style="color: #75715E;">exit immediately, and setTimeout will call inner afterwards. However,</span>
+    <span style="color: #75715E;">// </span><span style="color: #75715E;">because inner is "closed over" sayHelloInFiveSeconds, inner still has</span>
+    <span style="color: #75715E;">// </span><span style="color: #75715E;">access to the `prompt` variable when it is finally called.</span>
+<span style="color: #A1EFE4;">}</span>
+sayHelloInFiveSeconds<span style="color: #A1EFE4;">(</span><span style="color: #E6DB74;">"Adam"</span><span style="color: #A1EFE4;">)</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">will open a popup with "Hello, Adam!" in 5s</span>
+
+<span style="color: #75715E;">///////////////////////////////////</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">5. More about Objects; Constructors and Prototypes</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Objects can contain functions.</span>
+<span style="color: #F92672;">var</span> <span style="color: #FD971F;">myObj</span> = <span style="color: #A1EFE4;">{</span>
+    <span style="color: #A6E22E;">myFunc</span>: <span style="color: #F92672;">function</span><span style="color: #E6DB74;">(){</span>
+        <span style="color: #F92672;">return</span> <span style="color: #E6DB74;">"Hello world!"</span>;
+    <span style="color: #E6DB74;">}</span>
+<span style="color: #A1EFE4;">}</span>;
+myObj.myFunc<span style="color: #A1EFE4;">()</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= "Hello world!"</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">When functions attached to an object are called, they can access the object</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">they're attached to using the `this` keyword.</span>
+myObj = <span style="color: #A1EFE4;">{</span>
+    myString: <span style="color: #E6DB74;">"Hello world!"</span>,
+    <span style="color: #A6E22E;">myFunc</span>: <span style="color: #F92672;">function</span><span style="color: #E6DB74;">(){</span>
+        <span style="color: #F92672;">return</span> <span style="color: #AE81FF;">this</span>.myString;
+    <span style="color: #E6DB74;">}</span>
+<span style="color: #A1EFE4;">}</span>;
+myObj.myFunc<span style="color: #A1EFE4;">()</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= "Hello world!"</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">What this is set to has to do with how the function is called, not where</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">it's defined. So, our function doesn't work if it isn't called in the</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">context of the object.</span>
+<span style="color: #F92672;">var</span> <span style="color: #FD971F;">myFunc</span> = myObj.myFunc;
+myFunc<span style="color: #A1EFE4;">()</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= undefined</span>
+
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Inversely, a function can be assigned to the object and gain access to it</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">through `this`, even if it wasn't attached when it was defined.</span>
+<span style="color: #F92672;">var</span> <span style="color: #FD971F;">myOtherFunc</span> = <span style="color: #F92672;">function</span><span style="color: #A1EFE4;">(){</span>
+    <span style="color: #F92672;">return</span> <span style="color: #AE81FF;">this</span>.myString.toUpperCase<span style="color: #E6DB74;">()</span>;
+<span style="color: #A1EFE4;">}</span>
 myObj.myOtherFunc = myOtherFunc;
-myObj.myOtherFunc<span class="org-rainbow-delimiters-depth-1">()</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= "HELLO WORLD!"</span>
+myObj.myOtherFunc<span style="color: #A1EFE4;">()</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= "HELLO WORLD!"</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">We can also specify a context for a function to execute in when we invoke it</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">using `call` or `apply`.</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">We can also specify a context for a function to execute in when we invoke it</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">using `call` or `apply`.</span>
 
-<span class="org-keyword">var</span> <span class="org-variable-name">anotherFunc</span> = <span class="org-keyword">function</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-variable-name">s</span><span class="org-rainbow-delimiters-depth-1">){</span>
-    <span class="org-keyword">return</span> <span class="org-constant">this</span>.myString + s;
-<span class="org-rainbow-delimiters-depth-1">}</span>
-anotherFunc.call<span class="org-rainbow-delimiters-depth-1">(</span>myObj, <span class="org-string">" And Hello Moon!"</span><span class="org-rainbow-delimiters-depth-1">)</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= "Hello World! And Hello Moon!"</span>
+<span style="color: #F92672;">var</span> <span style="color: #FD971F;">anotherFunc</span> = <span style="color: #F92672;">function</span><span style="color: #A1EFE4;">(</span><span style="color: #FD971F;">s</span><span style="color: #A1EFE4;">){</span>
+    <span style="color: #F92672;">return</span> <span style="color: #AE81FF;">this</span>.myString + s;
+<span style="color: #A1EFE4;">}</span>
+anotherFunc.call<span style="color: #A1EFE4;">(</span>myObj, <span style="color: #E6DB74;">" And Hello Moon!"</span><span style="color: #A1EFE4;">)</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= "Hello World! And Hello Moon!"</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">The `apply` function is nearly identical, but takes an array for an argument</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">list.</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">The `apply` function is nearly identical, but takes an array for an argument</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">list.</span>
 
-anotherFunc.apply<span class="org-rainbow-delimiters-depth-1">(</span>myObj, <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-string">" And Hello Sun!"</span><span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= "Hello World! And Hello Sun"</span>
+anotherFunc.apply<span style="color: #A1EFE4;">(</span>myObj, <span style="color: #E6DB74;">[</span><span style="color: #E6DB74;">" And Hello Sun!"</span><span style="color: #E6DB74;">]</span><span style="color: #A1EFE4;">)</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= "Hello World! And Hello Sun"</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">This is useful when working with a function that accepts a sequence of</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">arguments and you want to pass an array.</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">This is useful when working with a function that accepts a sequence of</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">arguments and you want to pass an array.</span>
 
-Math.min<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-highlight-numbers-number">42</span>, <span class="org-highlight-numbers-number">6</span>, <span class="org-highlight-numbers-number">27</span><span class="org-rainbow-delimiters-depth-1">)</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= 6</span>
-Math.min<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[</span><span class="org-highlight-numbers-number">42</span>, <span class="org-highlight-numbers-number">6</span>, <span class="org-highlight-numbers-number">27</span><span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= NaN (uh-oh!)</span>
-Math.min.apply<span class="org-rainbow-delimiters-depth-1">(</span>Math, <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-highlight-numbers-number">42</span>, <span class="org-highlight-numbers-number">6</span>, <span class="org-highlight-numbers-number">27</span><span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= 6</span>
+Math.min<span style="color: #A1EFE4;">(</span><span style="color: #AE81FF;">42</span>, <span style="color: #AE81FF;">6</span>, <span style="color: #AE81FF;">27</span><span style="color: #A1EFE4;">)</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 6</span>
+Math.min<span style="color: #A1EFE4;">(</span><span style="color: #E6DB74;">[</span><span style="color: #AE81FF;">42</span>, <span style="color: #AE81FF;">6</span>, <span style="color: #AE81FF;">27</span><span style="color: #E6DB74;">]</span><span style="color: #A1EFE4;">)</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= NaN (uh-oh!)</span>
+Math.min.apply<span style="color: #A1EFE4;">(</span>Math, <span style="color: #E6DB74;">[</span><span style="color: #AE81FF;">42</span>, <span style="color: #AE81FF;">6</span>, <span style="color: #AE81FF;">27</span><span style="color: #E6DB74;">]</span><span style="color: #A1EFE4;">)</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 6</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">But, `call` and `apply` are only temporary. When we want it to stick, we can</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">use `bind`.</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">But, `call` and `apply` are only temporary. When we want it to stick, we can</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">use `bind`.</span>
 
-<span class="org-keyword">var</span> <span class="org-variable-name">boundFunc</span> = anotherFunc.bind<span class="org-rainbow-delimiters-depth-1">(</span>myObj<span class="org-rainbow-delimiters-depth-1">)</span>;
-boundFunc<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">" And Hello Saturn!"</span><span class="org-rainbow-delimiters-depth-1">)</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= "Hello World! And Hello Saturn!"</span>
+<span style="color: #F92672;">var</span> <span style="color: #FD971F;">boundFunc</span> = anotherFunc.bind<span style="color: #A1EFE4;">(</span>myObj<span style="color: #A1EFE4;">)</span>;
+boundFunc<span style="color: #A1EFE4;">(</span><span style="color: #E6DB74;">" And Hello Saturn!"</span><span style="color: #A1EFE4;">)</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= "Hello World! And Hello Saturn!"</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">`bind` can also be used to partially apply (curry) a function.</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">`bind` can also be used to partially apply (curry) a function.</span>
 
-<span class="org-keyword">var</span> <span class="org-variable-name">product</span> = <span class="org-keyword">function</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-variable-name">a</span>, <span class="org-variable-name">b</span><span class="org-rainbow-delimiters-depth-1">){</span> <span class="org-keyword">return</span> a * b; <span class="org-rainbow-delimiters-depth-1">}</span>
-<span class="org-keyword">var</span> <span class="org-variable-name">doubler</span> = product.bind<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-constant">this</span>, <span class="org-highlight-numbers-number">2</span><span class="org-rainbow-delimiters-depth-1">)</span>;
-doubler<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-highlight-numbers-number">8</span><span class="org-rainbow-delimiters-depth-1">)</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= 16</span>
+<span style="color: #F92672;">var</span> <span style="color: #FD971F;">product</span> = <span style="color: #F92672;">function</span><span style="color: #A1EFE4;">(</span><span style="color: #FD971F;">a</span>, <span style="color: #FD971F;">b</span><span style="color: #A1EFE4;">){</span> <span style="color: #F92672;">return</span> a * b; <span style="color: #A1EFE4;">}</span>
+<span style="color: #F92672;">var</span> <span style="color: #FD971F;">doubler</span> = product.bind<span style="color: #A1EFE4;">(</span><span style="color: #AE81FF;">this</span>, <span style="color: #AE81FF;">2</span><span style="color: #A1EFE4;">)</span>;
+doubler<span style="color: #A1EFE4;">(</span><span style="color: #AE81FF;">8</span><span style="color: #A1EFE4;">)</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 16</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">When you call a function with the `new` keyword, a new object is created, and</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">made available to the function via the this keyword. Functions designed to be</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">called like that are called constructors.</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">When you call a function with the `new` keyword, a new object is created, and</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">made available to the function via the this keyword. Functions designed to be</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">called like that are called constructors.</span>
 
-<span class="org-keyword">var</span> <span class="org-variable-name">MyConstructor</span> = <span class="org-keyword">function</span><span class="org-rainbow-delimiters-depth-1">(){</span>
-    <span class="org-constant">this</span>.myNumber = <span class="org-highlight-numbers-number">5</span>;
-<span class="org-rainbow-delimiters-depth-1">}</span>
-myNewObj = <span class="org-keyword">new</span> <span class="org-type">MyConstructor</span><span class="org-rainbow-delimiters-depth-1">()</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= {myNumber: 5}</span>
-myNewObj.myNumber; <span class="org-comment-delimiter">// </span><span class="org-comment">= 5</span>
+<span style="color: #F92672;">var</span> <span style="color: #FD971F;">MyConstructor</span> = <span style="color: #F92672;">function</span><span style="color: #A1EFE4;">(){</span>
+    <span style="color: #AE81FF;">this</span>.myNumber = <span style="color: #AE81FF;">5</span>;
+<span style="color: #A1EFE4;">}</span>
+myNewObj = <span style="color: #F92672;">new</span> <span style="color: #66D9EF;">MyConstructor</span><span style="color: #A1EFE4;">()</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= {myNumber: 5}</span>
+myNewObj.myNumber; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 5</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">Every JavaScript object has a 'prototype'. When you go to access a property</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">on an object that doesn't exist on the actual object, the interpreter will</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">look at its prototype.</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Every JavaScript object has a 'prototype'. When you go to access a property</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">on an object that doesn't exist on the actual object, the interpreter will</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">look at its prototype.</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">Some JS implementations let you access an object's prototype on the magic</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">property `__proto__`. While this is useful for explaining prototypes it's not</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">part of the standard; we'll get to standard ways of using prototypes later.</span>
-<span class="org-keyword">var</span> <span class="org-variable-name">myObj</span> = <span class="org-rainbow-delimiters-depth-1">{</span>
-    myString: <span class="org-string">"Hello world!"</span>
-<span class="org-rainbow-delimiters-depth-1">}</span>;
-<span class="org-keyword">var</span> <span class="org-variable-name">myPrototype</span> = <span class="org-rainbow-delimiters-depth-1">{</span>
-    meaningOfLife: <span class="org-highlight-numbers-number">42</span>,
-    <span class="org-function-name">myFunc</span>: <span class="org-keyword">function</span><span class="org-rainbow-delimiters-depth-2">(){</span>
-        <span class="org-keyword">return</span> <span class="org-constant">this</span>.myString.toLowerCase<span class="org-rainbow-delimiters-depth-3">()</span>
-    <span class="org-rainbow-delimiters-depth-2">}</span>
-<span class="org-rainbow-delimiters-depth-1">}</span>;
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Some JS implementations let you access an object's prototype on the magic</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">property `__proto__`. While this is useful for explaining prototypes it's not</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">part of the standard; we'll get to standard ways of using prototypes later.</span>
+<span style="color: #F92672;">var</span> <span style="color: #FD971F;">myObj</span> = <span style="color: #A1EFE4;">{</span>
+    myString: <span style="color: #E6DB74;">"Hello world!"</span>
+<span style="color: #A1EFE4;">}</span>;
+<span style="color: #F92672;">var</span> <span style="color: #FD971F;">myPrototype</span> = <span style="color: #A1EFE4;">{</span>
+    meaningOfLife: <span style="color: #AE81FF;">42</span>,
+    <span style="color: #A6E22E;">myFunc</span>: <span style="color: #F92672;">function</span><span style="color: #E6DB74;">(){</span>
+        <span style="color: #F92672;">return</span> <span style="color: #AE81FF;">this</span>.myString.toLowerCase<span style="color: #66D9EF;">()</span>
+    <span style="color: #E6DB74;">}</span>
+<span style="color: #A1EFE4;">}</span>;
 
 myObj.__proto__ = myPrototype;
-myObj.meaningOfLife; <span class="org-comment-delimiter">// </span><span class="org-comment">= 42</span>
+myObj.meaningOfLife; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 42</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">This works for functions, too.</span>
-myObj.myFunc<span class="org-rainbow-delimiters-depth-1">()</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= "hello world!"</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">This works for functions, too.</span>
+myObj.myFunc<span style="color: #A1EFE4;">()</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= "hello world!"</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">Of course, if your property isn't on your prototype, the prototype's</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">prototype is searched, and so on.</span>
-myPrototype.__proto__ = <span class="org-rainbow-delimiters-depth-1">{</span>
-    myBoolean: <span class="org-constant">true</span>
-<span class="org-rainbow-delimiters-depth-1">}</span>;
-myObj.myBoolean; <span class="org-comment-delimiter">// </span><span class="org-comment">= true</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Of course, if your property isn't on your prototype, the prototype's</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">prototype is searched, and so on.</span>
+myPrototype.__proto__ = <span style="color: #A1EFE4;">{</span>
+    myBoolean: <span style="color: #AE81FF;">true</span>
+<span style="color: #A1EFE4;">}</span>;
+myObj.myBoolean; <span style="color: #75715E;">// </span><span style="color: #75715E;">= true</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">There's no copying involved here; each object stores a reference to its</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">prototype. This means we can alter the prototype and our changes will be</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">reflected everywhere.</span>
-myPrototype.meaningOfLife = <span class="org-highlight-numbers-number">43</span>;
-myObj.meaningOfLife; <span class="org-comment-delimiter">// </span><span class="org-comment">= 43</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">There's no copying involved here; each object stores a reference to its</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">prototype. This means we can alter the prototype and our changes will be</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">reflected everywhere.</span>
+myPrototype.meaningOfLife = <span style="color: #AE81FF;">43</span>;
+myObj.meaningOfLife; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 43</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">We mentioned that `__proto__` was non-standard, and there's no standard wayto</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">change the prototype of an existing object. However, there are two ways to</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">create a new object with a given prototype.</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">We mentioned that `__proto__` was non-standard, and there's no standard wayto</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">change the prototype of an existing object. However, there are two ways to</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">create a new object with a given prototype.</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">The first is Object.create, which is a recent addition to JS, and therefore</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">not available in all implementations yet.</span>
-<span class="org-keyword">var</span> <span class="org-variable-name">myObj</span> = Object.create<span class="org-rainbow-delimiters-depth-1">(</span>myPrototype<span class="org-rainbow-delimiters-depth-1">)</span>;
-myObj.meaningOfLife; <span class="org-comment-delimiter">// </span><span class="org-comment">= 43</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">The first is Object.create, which is a recent addition to JS, and therefore</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">not available in all implementations yet.</span>
+<span style="color: #F92672;">var</span> <span style="color: #FD971F;">myObj</span> = Object.create<span style="color: #A1EFE4;">(</span>myPrototype<span style="color: #A1EFE4;">)</span>;
+myObj.meaningOfLife; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 43</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">The second way, which works anywhere, has to do with constructors.</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">Constructors have a property called prototype. This is *not* the prototype of</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">the constructor function itself; instead, it's the prototype that new objects</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">are given when they're created with that constructor and the new keyword.</span>
-<span class="org-type">MyConstructor</span>.<span class="org-constant">prototype</span> = <span class="org-rainbow-delimiters-depth-1">{</span>
-    myNumber: <span class="org-highlight-numbers-number">5</span>,
-    <span class="org-function-name">getMyNumber</span>: <span class="org-keyword">function</span><span class="org-rainbow-delimiters-depth-2">(){</span>
-        <span class="org-keyword">return</span> <span class="org-constant">this</span>.myNumber;
-    <span class="org-rainbow-delimiters-depth-2">}</span>
-<span class="org-rainbow-delimiters-depth-1">}</span>;
-<span class="org-keyword">var</span> <span class="org-variable-name">myNewObj2</span> = <span class="org-keyword">new</span> <span class="org-type">MyConstructor</span><span class="org-rainbow-delimiters-depth-1">()</span>;
-myNewObj2.getMyNumber<span class="org-rainbow-delimiters-depth-1">()</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= 5</span>
-myNewObj2.myNumber = <span class="org-highlight-numbers-number">6</span>
-myNewObj2.getMyNumber<span class="org-rainbow-delimiters-depth-1">()</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= 6</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">The second way, which works anywhere, has to do with constructors.</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Constructors have a property called prototype. This is *not* the prototype of</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">the constructor function itself; instead, it's the prototype that new objects</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">are given when they're created with that constructor and the new keyword.</span>
+<span style="color: #66D9EF;">MyConstructor</span>.<span style="color: #AE81FF;">prototype</span> = <span style="color: #A1EFE4;">{</span>
+    myNumber: <span style="color: #AE81FF;">5</span>,
+    <span style="color: #A6E22E;">getMyNumber</span>: <span style="color: #F92672;">function</span><span style="color: #E6DB74;">(){</span>
+        <span style="color: #F92672;">return</span> <span style="color: #AE81FF;">this</span>.myNumber;
+    <span style="color: #E6DB74;">}</span>
+<span style="color: #A1EFE4;">}</span>;
+<span style="color: #F92672;">var</span> <span style="color: #FD971F;">myNewObj2</span> = <span style="color: #F92672;">new</span> <span style="color: #66D9EF;">MyConstructor</span><span style="color: #A1EFE4;">()</span>;
+myNewObj2.getMyNumber<span style="color: #A1EFE4;">()</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 5</span>
+myNewObj2.myNumber = <span style="color: #AE81FF;">6</span>
+myNewObj2.getMyNumber<span style="color: #A1EFE4;">()</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 6</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">Built-in types like strings and numbers also have constructors that create</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">equivalent wrapper objects.</span>
-<span class="org-keyword">var</span> <span class="org-variable-name">myNumber</span> = <span class="org-highlight-numbers-number">12</span>;
-<span class="org-keyword">var</span> <span class="org-variable-name">myNumberObj</span> = <span class="org-keyword">new</span> <span class="org-type">Number</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-highlight-numbers-number">12</span><span class="org-rainbow-delimiters-depth-1">)</span>;
-myNumber == myNumberObj; <span class="org-comment-delimiter">// </span><span class="org-comment">= true</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Built-in types like strings and numbers also have constructors that create</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">equivalent wrapper objects.</span>
+<span style="color: #F92672;">var</span> <span style="color: #FD971F;">myNumber</span> = <span style="color: #AE81FF;">12</span>;
+<span style="color: #F92672;">var</span> <span style="color: #FD971F;">myNumberObj</span> = <span style="color: #F92672;">new</span> <span style="color: #66D9EF;">Number</span><span style="color: #A1EFE4;">(</span><span style="color: #AE81FF;">12</span><span style="color: #A1EFE4;">)</span>;
+myNumber == myNumberObj; <span style="color: #75715E;">// </span><span style="color: #75715E;">= true</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">Except, they aren't exactly equivalent.</span>
-<span class="org-keyword">typeof</span> myNumber; <span class="org-comment-delimiter">// </span><span class="org-comment">= 'number'</span>
-<span class="org-keyword">typeof</span> myNumberObj; <span class="org-comment-delimiter">// </span><span class="org-comment">= 'object'</span>
-myNumber === myNumberObj; <span class="org-comment-delimiter">// </span><span class="org-comment">= false</span>
-<span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-1">){</span>
-    <span class="org-comment-delimiter">// </span><span class="org-comment">This code won't execute, because 0 is falsy.</span>
-<span class="org-rainbow-delimiters-depth-1">}</span>
-<span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-1">(</span>Number<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">){</span>
-    <span class="org-comment-delimiter">// </span><span class="org-comment">This code *will* execute, because Number(0) is truthy.</span>
-<span class="org-rainbow-delimiters-depth-1">}</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">Except, they aren't exactly equivalent.</span>
+<span style="color: #F92672;">typeof</span> myNumber; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 'number'</span>
+<span style="color: #F92672;">typeof</span> myNumberObj; <span style="color: #75715E;">// </span><span style="color: #75715E;">= 'object'</span>
+myNumber === myNumberObj; <span style="color: #75715E;">// </span><span style="color: #75715E;">= false</span>
+<span style="color: #F92672;">if</span> <span style="color: #A1EFE4;">(</span><span style="color: #AE81FF;">0</span><span style="color: #A1EFE4;">){</span>
+    <span style="color: #75715E;">// </span><span style="color: #75715E;">This code won't execute, because 0 is falsy.</span>
+<span style="color: #A1EFE4;">}</span>
+<span style="color: #F92672;">if</span> <span style="color: #A1EFE4;">(</span>Number<span style="color: #E6DB74;">(</span><span style="color: #AE81FF;">0</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">){</span>
+    <span style="color: #75715E;">// </span><span style="color: #75715E;">This code *will* execute, because Number(0) is truthy.</span>
+<span style="color: #A1EFE4;">}</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">However, the wrapper objects and the regular builtins share a prototype, so</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">you can actually add functionality to a string, for instance.</span>
-String.<span class="org-constant">prototype</span>.firstCharacter = <span class="org-keyword">function</span><span class="org-rainbow-delimiters-depth-1">(){</span>
-    <span class="org-keyword">return</span> <span class="org-constant">this</span>.charAt<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-2">)</span>;
-<span class="org-rainbow-delimiters-depth-1">}</span>
-<span class="org-string">"abc"</span>.firstCharacter<span class="org-rainbow-delimiters-depth-1">()</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">= "a"</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">However, the wrapper objects and the regular builtins share a prototype, so</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">you can actually add functionality to a string, for instance.</span>
+String.<span style="color: #AE81FF;">prototype</span>.firstCharacter = <span style="color: #F92672;">function</span><span style="color: #A1EFE4;">(){</span>
+    <span style="color: #F92672;">return</span> <span style="color: #AE81FF;">this</span>.charAt<span style="color: #E6DB74;">(</span><span style="color: #AE81FF;">0</span><span style="color: #E6DB74;">)</span>;
+<span style="color: #A1EFE4;">}</span>
+<span style="color: #E6DB74;">"abc"</span>.firstCharacter<span style="color: #A1EFE4;">()</span>; <span style="color: #75715E;">// </span><span style="color: #75715E;">= "a"</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">This fact is often used in "polyfilling", which is implementing newer</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">features of JavaScript in an older subset of JavaScript, so that they can be</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">used in older environments such as outdated browsers.</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">This fact is often used in "polyfilling", which is implementing newer</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">features of JavaScript in an older subset of JavaScript, so that they can be</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">used in older environments such as outdated browsers.</span>
 
-<span class="org-comment-delimiter">// </span><span class="org-comment">For instance, we mentioned that Object.create isn't yet available in all</span>
-<span class="org-comment-delimiter">// </span><span class="org-comment">implementations, but we can still use it with this polyfill:</span>
-<span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-1">(</span>Object.create === <span class="org-constant">undefined</span><span class="org-rainbow-delimiters-depth-1">){</span> <span class="org-comment-delimiter">// </span><span class="org-comment">don't overwrite it if it exists</span>
-    Object.create = <span class="org-keyword">function</span><span class="org-rainbow-delimiters-depth-2">(</span><span class="org-variable-name">proto</span><span class="org-rainbow-delimiters-depth-2">){</span>
-        <span class="org-comment-delimiter">// </span><span class="org-comment">make a temporary constructor with the right prototype</span>
-        <span class="org-keyword">var</span> <span class="org-variable-name">Constructor</span> = <span class="org-keyword">function</span><span class="org-rainbow-delimiters-depth-3">(){}</span>;
-        Constructor.<span class="org-constant">prototype</span> = proto;
-        <span class="org-comment-delimiter">// </span><span class="org-comment">then use it to create a new, appropriately-prototyped object</span>
-        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">Constructor</span><span class="org-rainbow-delimiters-depth-3">()</span>;
-    <span class="org-rainbow-delimiters-depth-2">}</span>
-<span class="org-rainbow-delimiters-depth-1">}</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">For instance, we mentioned that Object.create isn't yet available in all</span>
+<span style="color: #75715E;">// </span><span style="color: #75715E;">implementations, but we can still use it with this polyfill:</span>
+<span style="color: #F92672;">if</span> <span style="color: #A1EFE4;">(</span>Object.create === <span style="color: #AE81FF;">undefined</span><span style="color: #A1EFE4;">){</span> <span style="color: #75715E;">// </span><span style="color: #75715E;">don't overwrite it if it exists</span>
+    Object.create = <span style="color: #F92672;">function</span><span style="color: #E6DB74;">(</span><span style="color: #FD971F;">proto</span><span style="color: #E6DB74;">){</span>
+        <span style="color: #75715E;">// </span><span style="color: #75715E;">make a temporary constructor with the right prototype</span>
+        <span style="color: #F92672;">var</span> <span style="color: #FD971F;">Constructor</span> = <span style="color: #F92672;">function</span><span style="color: #66D9EF;">(){}</span>;
+        Constructor.<span style="color: #AE81FF;">prototype</span> = proto;
+        <span style="color: #75715E;">// </span><span style="color: #75715E;">then use it to create a new, appropriately-prototyped object</span>
+        <span style="color: #F92672;">return</span> <span style="color: #F92672;">new</span> <span style="color: #66D9EF;">Constructor</span><span style="color: #66D9EF;">()</span>;
+    <span style="color: #E6DB74;">}</span>
+<span style="color: #A1EFE4;">}</span>
 </pre>
 </div>
 </div>
