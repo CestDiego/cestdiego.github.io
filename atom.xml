@@ -4,12 +4,19 @@
   <title>Diego Berrocal</title>
   <subtitle>it&#39;s personal</subtitle>
   <link href="http://cestdiego.github.io/"/>
-  <updated>Thu, 06 Aug 2015 21:17:53 CDT</updated>
+  <updated>Mon, 10 Aug 2015 14:13:02 CDT</updated>
   <entry>
     <title>How to &lt;i&gt;make&lt;/i&gt; &lt;b&gt;this&lt;/b&gt; &lt;code&gt;blog&lt;/code&gt; with emacs</title>
     <link href="http://cestdiego.github.io/blog/2015/05/24/how-to-make-a-blog-with-emacs"/>
     <summary>Or how to use org-page and emacs to publish a blog with GitHub Pages</summary>
-    <updated>2015-06-02</updated>
+    <updated>2015-08-10</updated>
     <id>http://cestdiego.github.io/blog/2015/05/24/how-to-make-a-blog-with-emacs</id>
+  </entry>
+  <entry>
+    <title>Resuming nand2tetris with a touch of emacs</title>
+    <link href="http://cestdiego.github.io/blog/2015/08/09/resuming-nand2tetris-with-a-touch-of-emacs"/>
+    <summary>In this blog I attempt to create nand2tetris mode and finish the course in a week</summary>
+    <updated>2015-08-10</updated>
+    <id>http://cestdiego.github.io/blog/2015/08/09/resuming-nand2tetris-with-a-touch-of-emacs</id>
   </entry>
 </feed>
