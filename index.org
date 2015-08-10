@@ -17,7 +17,7 @@ go.
 * Fun Facts
 - Contributes to [[https://github.com/syl20bnr/spacemacs][Spacemacs]] to support ending the =Editor Wars= and settle with
   emacs ;)
-- Doesn't get mad at job 
+- Doesn't get mad at job offers ~wink~ ( ͡~ ͜ʖ ͡°)
 - Ex-President of the [[http://astronomia.uni.edu.pe][Astronomy Group]] @ [[http://www.uni.edu.pe][Universidad Nacional de Ingeniería]]
 - Facilitator at [[http://hackspace.pe][Hack Space Peru]]. (check [[https://www.youtube.com/watch?v%3D4uc6cwG3BCk][video]])
 - [[https://www.youtube.com/watch?v=Oh-7M798k24][Attempted]] to reproduce a [[https://www.youtube.com/watch?v=s1eNjUgaB-g][Youscope]] at 16.
