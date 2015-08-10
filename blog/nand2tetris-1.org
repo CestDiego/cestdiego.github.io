@@ -1,0 +1,16 @@
+#+TITLE:       Resuming nand2tetris with a touch of emacs
+#+AUTHOR:      Diego Berrocal
+#+EMAIL:       jarvis@nixos.att.net
+#+DATE:        2015-08-10 Mon
+#+URI:         /blog/%y/%m/%d/resuming-nand2tetris-with-a-touch-of-emacs
+#+KEYWORDS:    nand2tetris, emacs, major mode, elips
+#+TAGS:        elisp,
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: In this blog I attempt to create nand2tetris mode and finish the course in a week
+
+So I have been following the nand2tetris course in [[https://www.coursera.org/course/nand2tetris1][Coursera]], but I find it could
+have a better integration with emacs. So here I am declaring that I'll do a
+major mode for nand2tetris. You can follow my progress [[https://www.coursera.org/course/nand2tetris1][here]]. And I'll keep
+updating you on improvements.
+
