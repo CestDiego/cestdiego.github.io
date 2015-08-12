@@ -1,0 +1,183 @@
+#+TITLE:       Extending nand2tetris.el
+#+AUTHOR:      Diego Berrocal
+#+EMAIL:       jarvis@nixos.att.net
+#+DATE:        2015-08-12 Wed
+#+URI:         /blog/%y/%m/%d/extending-nand2tetris
+#+KEYWORDS:    nand2tetris, emacs, emacs-lisp
+#+TAGS:        emacs
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Where I want to keep improving the nand2tetris package
+
+Great News! nand2tetris.el is now on [[http://melpa.org/#/nand2tetris][MELPA]].
+
+So, following last blog post about developing a major mode for nand2tetris
+(which by the way is following the recommendations [[http://www.wilfred.me.uk/blog/2015/03/19/adding-a-new-language-to-emacs/][here]], I went on adding a
+company, eldoc(WIP), and yasnippet backend.
+
+First things first: I did a horrible mistake in last blog post by suggesting
+indirectly that it's fine to have top-level symbols like =HardwareSimulator=
+which was pointed out by @purcell (sry m8) in the [[https://github.com/milkypostman/melpa/pull/3009][MELPA PR]].
+
+Now, off to the Implementation of features
+** Company Backend
+
+I used the [[http://www.nand2tetris.org/software/HDL%2520Survival%2520Guide.html][HDL Survival Guide]] from the course resources to have all the possible
+builtin chips and tried to have a little alist that holds the name of the chip
+and it's spec. (My next goal is to have a Doc Buffer with more info about the
+Chip).
+
+#+NAME: Company-backed
+#+BEGIN_SRC emacs-lisp
+  ;;; Company
+  (require 'company)
+  (require 'cl-lib)
+
+  (defvar nand2tetris-builtin-chips
+    '(("Add16" . (("spec" . "Add16(a= ,b= ,out= )")))
+      ("ALU" . (("spec" . "ALU(x= ,y= ,zx= ,nx= ,zy= ,ny= ,f= ,no= ,out= ,zr= ,ng= )")))
+      ("And16" .  (("spec" . "And16(a= ,b= ,out= )")))
+      ("And" . (("spec" . "And(a= ,b= ,out= )")))
+      ("ARegister" . (("spec" . "ARegister(in= ,load= ,out= )")))
+      ("Bit" . (("spec" . "Bit(in= ,load= ,out= )")))
+      ("CPU" . (("spec" . "CPU(inM= ,instruction= ,reset= ,outM= ,writeM= ,addressM= ,pc= )")))
+      ("DFF" . (("spec" . "DFF(in= ,out= )")))
+      ("DMux4Way" . (("spec" . "DMux4Way(in= ,sel= ,a= ,b= ,c= ,d= )")))
+      ("DMux8Way" . (("spec" . "DMux8Way(in= ,sel= ,a= ,b= ,c= ,d= ,e= ,f= ,g= ,h= )")))
+      ("DMux" . (("spec" . "DMux(in= ,sel= ,a= ,b= )")))
+      ("DRegister" . (("spec" . "DRegister(in= ,load= ,out= )")))
+      ("FullAdder" . (("spec" . "FullAdder(a= ,b= ,c= ,sum= ,carry= )")))
+      ("HalfAdder" . (("spec" . "HalfAdder(a= ,b= ,sum= , carry= )")))
+      ("Inc16" . (("spec" . "Inc16(in= ,out= )")))
+      ("Keyboard" . (("spec" . "Keyboard(out= )")))
+      ("Memory" . (("spec" . "Memory(in= ,load= ,address= ,out= )")))
+      ("Mux16" . (("spec" . "Mux16(a= ,b= ,sel= ,out= )")))
+      ("Mux4Way16" . (("spec" . "Mux4Way16(a= ,b= ,c= ,d= ,sel= ,out= )")))
+      ("Mux8Way16" . (("spec" . "Mux8Way16(a= ,b= ,c= ,d= ,e= ,f= ,g= ,h= ,sel= ,out= )")))
+      ("Mux" . (("spec" . "Mux(a= ,b= ,sel= ,out= )")))
+      ("Nand" . (("spec" . "Nand(a= ,b= ,out= )")))
+      ("Not16" . (("spec" . "Not16(in= ,out= )")))
+      ("Not" . (("spec" . "Not(in= ,out= )")))
+      ("Or16" . (("spec" . "Or16(a= ,b= ,out= )")))
+      ("Or8Way" . (("spec" . "Or8Way(in= ,out= )")))
+      ("Or" . (("spec" . "Or(a= ,b= ,out= )")))
+      ("PC" . (("spec" . "PC(in= ,load= ,inc= ,reset= ,out= )")))
+      ("RAM16K" . (("spec" . "RAM16K(in= ,load= ,address= ,out= )")))
+      ("RAM4K" . (("spec" . "RAM4K(in= ,load= ,address= ,out= )")))
+      ("RAM512" . (("spec" . "RAM512(in= ,load= ,address= ,out= )")))
+      ("RAM64" . (("spec" . "RAM64(in= ,load= ,address= ,out= )")))
+      ("RAM8" . (("spec" . "RAM8(in= ,load= ,address= ,out= )")))
+      ("Register" . (("spec" . "Register(in= ,load= ,out= )")))
+      ("ROM32K" . (("spec" . "ROM32K(address= ,out= )")))
+      ("Screen" . (("spec" . "Screen(in= ,load= ,address= ,out= )")))
+      ("Xor" . (("spec" . "Xor(a= ,b= ,out= )"))))
+    "Built In Chips Alist")
+
+  (defun company-nand2tetris--candidates (prefix)
+    (let ((res))
+      (dolist (option nand2tetris-builtin-chips)
+        (let ((name (car option)))
+          (when (string-prefix-p prefix name)
+            (push name res))))
+      res))
+
+  (defun company-nand2tetris--annotation (candidate)
+    (message candidate)
+    (let ((spec (cdr (assoc "spec" (assoc candidate nand2tetris-builtin-chips)))))
+      (format "\t%s" spec)))
+
+  (defun company-nand2tetris--grab-symbol ()
+        (buffer-substring (point) (save-excursion (skip-syntax-backward "w_.")
+                                                  (point))))
+
+  (defun company-nand2tetris--prefix ()
+    "Grab prefix at point."
+    (or (company-nand2tetris--grab-symbol)
+        'stop))
+
+  ;;;###autoload
+  (defun company-nand2tetris (command &optional arg &rest ignored)
+    (interactive (list 'interactive))
+    (cl-case command
+      (interactive (company-begin-backend 'company-nand2tetris))
+      (prefix (company-nand2tetris--prefix))
+      (candidates (company-nand2tetris--candidates arg))
+      (annotation (company-nand2tetris--annotation arg))))
+
+#+END_SRC
+
+Then you'd just have to add this company-nand2tetris backend to company-backeds
+and you are good to go! :). Here we also define a
+=company-nand2tetris--grab-symbol= function that will come handy when creating
+the ElDoc integration (actually, it goes half way as it only gets the part of
+the symbol before the current position, any help is appreciated). I followed
+company-backend creation from [[https://github.com/company-mode/company-mode/wiki/Writing-backends][their -official?- wiki]].
+
+** ElDoc
+
+ElDoc support is pretty straight forward, although I still don't get some stuff.
+In few words, each time your cursor is iddle, the value of the variable
+=eldoc-documentation-function= is called, and what is printed is printed in the
+minibuffer. 
+
+What we do for nand2tetris is that each time you rest on *the end* of a Chip Name it tries to give you the specificatino for such chip, kinda like the annotations from company-nand2tetris, but this time you can =access= them at any time without the popup showing.
+
+#+begin_src emacs-lisp :tangle yes
+  ;;; ElDoc
+  (require 'eldoc)
+  (defun nand2tetris-eldoc-function ()
+    "Get help on SYMBOL using `help'.
+  Interactively, prompt for symbol."
+    (let ((symbol (company-nand2tetris--grab-symbol))
+          (enable-recursive-minibuffers t))
+    (message (cdr (assoc "spec" (assoc symbol nand2tetris-builtin-chips))))))
+
+  (define-derived-mode nand2tetris-mode prog-mode
+    "nand2tetris"
+    "Major mode for editing HDL files for the course Nand2Tetris.
+
+  \\{nand2tetris-mode-map}"
+
+    (set (make-local-variable 'eldoc-documentation-function)
+         #'nand2tetris-eldoc-function)
+
+    ;; Fix Comment Syntax
+    (set (make-local-variable 'comment-start) "// ")
+    (set (make-local-variable 'comment-start-skip) "//+\\s-*")
+
+    (set (make-local-variable 'font-lock-defaults)
+         '(nand2tetris-font-lock-keywords nil nil nil nil)))
+#+end_src
+
+** YASnippet
+
+Finally YASnippet integration is one of the features I always wanted for this
+mode, ever since the first time I opened the =hdl= files, unfortunately,
+snippets for this are pretty straight forward, just create functions to add the
+snippet dir when yasnippet gets loaded. As we don't want to bother the user with
+a dependency we use eval-after-load so if the user doesn't use yasnippets it's
+not a problem.... I ... guess?
+
+#+begin_src emacs-lisp :tangle yes
+  ;;; Yasnippet
+
+  (defconst nand2tetris::dir (file-name-directory (or load-file-name
+                                                  buffer-file-name)))
+  ;;;###autoload
+  (defun nand2tetris//snippets-initialize ()
+    (let ((snip-dir (expand-file-name "snippets" nand2tetris::dir)))
+      (add-to-list 'yas-snippet-dirs snip-dir t)
+      (yas-load-directory snip-dir)))
+
+  ;;;###autoload
+  (eval-after-load 'yasnippet
+    '(nand2tetris//snippets-initialize))
+#+end_src
+
+You can see how snippets are supposed to look like in the [[https://github.com/CestDiego/nand2tetris.el/tree/master/snippets/nand2tetris-mode][rep]]o.
+
+** Conclusion
+That was all I did today and I'm sharing it with ya :) I hope this might
+eventually be featured in the nand2tetris official course :) because it would be
+awesome, so if someone can make this happen, plz do.
+
