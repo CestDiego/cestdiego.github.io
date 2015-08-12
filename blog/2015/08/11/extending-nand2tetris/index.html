@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Extending nand2tetris.el - Diego Berrocal</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Diego Berrocal">
+    <meta name="description" content="Where I want to keep improving the nand2tetris package">
+    <meta name="keywords" content="nand2tetris, emacs, emacs-lisp">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Fira+Sans:400,700,400italic,700italic|Lora:400,700|Source+Code+Pro:400,700">
+    <link rel="stylesheet" href="/media/css/normalize.css">
+    <link rel="stylesheet" href="/media/css/dark.css" id="darkTheme">
+    <link rel="stylesheet" href="/media/css/light.css" id="lightTheme">
+    <script>
+     var lightTheme = document.querySelector("#lightTheme");
+     var darkTheme = document.querySelector("#darkTheme");
+
+     var toggleTheme = function () {
+         var isDefaultDisabled = lightTheme.disabled;
+         darkTheme.disabled = isDefaultDisabled;
+         lightTheme.disabled = !isDefaultDisabled;
+
+         var switchLights = document.querySelector(".switch-lights");
+         switchLights.textContent = "lights " + (isDefaultDisabled ? "off" : "on");
+
+         return !isDefaultDisabled;
+     };
+
+     if (localStorage.darkTheme === "1") {
+         toggleTheme();
+     }
+    </script>
+    <link rel="stylesheet" href="/media/css/main.css">
+    <noscript>
+        <style>
+         .toggle-colors{
+             display: none;
+         }
+        </style>
+    </noscript>
+  </head>
+
+  <body>
+    <div id="wrapper">
+    <nav class="site-nav">
+      <ul class="links">
+        <li><a href="/">Diego Berrocal</a></li>
+         <li><a href="/about/">about</a></li>
+        <li><a href="/blog/">blog</a></li>
+        <li><a href="/atom.xml">atom</a></li>
+        <li><button class="switch-lights">lights off</button></li>
+      </ul>
+    </nav>
+
+    <article class="post">
+      <header>
+          <h1 class="post-title">Extending nand2tetris.el</h1>
+          <time class="post-date">Aug 11, 2015</time>
+      </header>
+      <p>
+Great News! nand2tetris.el is now on <a href="http://melpa.org/#/nand2tetris">MELPA</a>.
+</p>
+
+<p>
+So, following last blog post about developing a major mode for nand2tetris
+(which by the way is following the recommendations <a href="http://www.wilfred.me.uk/blog/2015/03/19/adding-a-new-language-to-emacs/">here</a>, I went on adding a
+company, eldoc(WIP), and yasnippet backend.
+</p>
+
+<p>
+First things first: I did a horrible mistake in last blog post by suggesting
+indirectly that it's fine to have top-level symbols like <code>HardwareSimulator</code>
+which was pointed out by @purcell (sry m8) in the <a href="https://github.com/milkypostman/melpa/pull/3009">MELPA PR</a>.
+</p>
+
+<p>
+Now, off to the Implementation of features
+</p>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Company Backend</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+I used the <a href="http://www.nand2tetris.org/software/HDL%2520Survival%2520Guide.html">HDL Survival Guide</a> from the course resources to have all the possible
+builtin chips and tried to have a little alist that holds the name of the chip
+and it's spec. (My next goal is to have a Doc Buffer with more info about the
+Chip).
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp" id="Company-backed"><span style="color: #75715E;">;;; </span><span style="color: #75715E;">Company</span>
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">require</span> '<span style="color: #AE81FF;">company</span><span style="color: #A1EFE4;">)</span>
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">require</span> '<span style="color: #AE81FF;">cl-lib</span><span style="color: #A1EFE4;">)</span>
+
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">defvar</span> <span style="color: #FD971F;">nand2tetris-builtin-chips</span>
+  '<span style="color: #E6DB74;">(</span><span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"Add16"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"Add16(a= ,b= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"ALU"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"ALU(x= ,y= ,zx= ,nx= ,zy= ,ny= ,f= ,no= ,out= ,zr= ,ng= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"And16"</span> .  <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"And16(a= ,b= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"And"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"And(a= ,b= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"ARegister"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"ARegister(in= ,load= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"Bit"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"Bit(in= ,load= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"CPU"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"CPU(inM= ,instruction= ,reset= ,outM= ,writeM= ,addressM= ,pc= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"DFF"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"DFF(in= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"DMux4Way"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"DMux4Way(in= ,sel= ,a= ,b= ,c= ,d= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"DMux8Way"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"DMux8Way(in= ,sel= ,a= ,b= ,c= ,d= ,e= ,f= ,g= ,h= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"DMux"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"DMux(in= ,sel= ,a= ,b= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"DRegister"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"DRegister(in= ,load= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"FullAdder"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"FullAdder(a= ,b= ,c= ,sum= ,carry= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"HalfAdder"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"HalfAdder(a= ,b= ,sum= , carry= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"Inc16"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"Inc16(in= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"Keyboard"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"Keyboard(out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"Memory"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"Memory(in= ,load= ,address= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"Mux16"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"Mux16(a= ,b= ,sel= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"Mux4Way16"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"Mux4Way16(a= ,b= ,c= ,d= ,sel= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"Mux8Way16"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"Mux8Way16(a= ,b= ,c= ,d= ,e= ,f= ,g= ,h= ,sel= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"Mux"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"Mux(a= ,b= ,sel= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"Nand"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"Nand(a= ,b= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"Not16"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"Not16(in= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"Not"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"Not(in= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"Or16"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"Or16(a= ,b= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"Or8Way"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"Or8Way(in= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"Or"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"Or(a= ,b= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"PC"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"PC(in= ,load= ,inc= ,reset= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"RAM16K"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"RAM16K(in= ,load= ,address= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"RAM4K"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"RAM4K(in= ,load= ,address= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"RAM512"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"RAM512(in= ,load= ,address= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"RAM64"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"RAM64(in= ,load= ,address= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"RAM8"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"RAM8(in= ,load= ,address= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"Register"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"Register(in= ,load= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"ROM32K"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"ROM32K(address= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"Screen"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"Screen(in= ,load= ,address= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"Xor"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"Xor(a= ,b= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span>
+  <span style="color: #75715E;">"Built In Chips Alist"</span><span style="color: #A1EFE4;">)</span>
+
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">company-nand2tetris--candidates</span> <span style="color: #E6DB74;">(</span>prefix<span style="color: #E6DB74;">)</span>
+  <span style="color: #E6DB74;">(</span><span style="color: #F92672;">let</span> <span style="color: #66D9EF;">(</span><span style="color: #FD971F;">(</span>res<span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #F92672;">dolist</span> <span style="color: #FD971F;">(</span>option nand2tetris-builtin-chips<span style="color: #FD971F;">)</span>
+      <span style="color: #FD971F;">(</span><span style="color: #F92672;">let</span> <span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">(</span>name <span style="color: #66D9EF;">(</span>car option<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span>
+        <span style="color: #A6E22E;">(</span><span style="color: #F92672;">when</span> <span style="color: #E6DB74;">(</span>string-prefix-p prefix name<span style="color: #E6DB74;">)</span>
+          <span style="color: #E6DB74;">(</span>push name res<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    res<span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
+
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">company-nand2tetris--annotation</span> <span style="color: #E6DB74;">(</span>candidate<span style="color: #E6DB74;">)</span>
+  <span style="color: #E6DB74;">(</span>message candidate<span style="color: #E6DB74;">)</span>
+  <span style="color: #E6DB74;">(</span><span style="color: #F92672;">let</span> <span style="color: #66D9EF;">(</span><span style="color: #FD971F;">(</span>spec <span style="color: #A6E22E;">(</span>cdr <span style="color: #E6DB74;">(</span>assoc <span style="color: #E6DB74;">"spec"</span> <span style="color: #66D9EF;">(</span>assoc candidate nand2tetris-builtin-chips<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span>format <span style="color: #E6DB74;">"\t%s"</span> spec<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
+
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">company-nand2tetris--grab-symbol</span> <span style="color: #E6DB74;">()</span>
+      <span style="color: #E6DB74;">(</span>buffer-substring <span style="color: #66D9EF;">(</span>point<span style="color: #66D9EF;">)</span> <span style="color: #66D9EF;">(</span><span style="color: #F92672;">save-excursion</span> <span style="color: #FD971F;">(</span>skip-syntax-backward <span style="color: #E6DB74;">"w_."</span><span style="color: #FD971F;">)</span>
+                                                <span style="color: #FD971F;">(</span>point<span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
+
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">company-nand2tetris--prefix</span> <span style="color: #E6DB74;">()</span>
+  <span style="color: #75715E;">"Grab prefix at point."</span>
+  <span style="color: #E6DB74;">(</span>or <span style="color: #66D9EF;">(</span>company-nand2tetris--grab-symbol<span style="color: #66D9EF;">)</span>
+      'stop<span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
+
+<span style="color: #75715E;">;;;</span><span style="color: #75715E;">###</span><span style="color: #FD971F; font-weight: bold; font-style: italic; text-decoration: underline;">autoload</span>
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">company-nand2tetris</span> <span style="color: #E6DB74;">(</span>command <span style="color: #66D9EF;">&amp;optional</span> arg <span style="color: #66D9EF;">&amp;rest</span> ignored<span style="color: #E6DB74;">)</span>
+  <span style="color: #E6DB74;">(</span>interactive <span style="color: #66D9EF;">(</span>list 'interactive<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span>
+  <span style="color: #E6DB74;">(</span><span style="color: #F92672;">cl-case</span> command
+    <span style="color: #66D9EF;">(</span>interactive <span style="color: #FD971F;">(</span>company-begin-backend 'company-nand2tetris<span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span>prefix <span style="color: #FD971F;">(</span>company-nand2tetris--prefix<span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span>candidates <span style="color: #FD971F;">(</span>company-nand2tetris--candidates arg<span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span>annotation <span style="color: #FD971F;">(</span>company-nand2tetris--annotation arg<span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
+</pre>
+</div>
+
+<p>
+Then you'd just have to add this company-nand2tetris backend to company-backeds
+and you are good to go! :). Here we also define a
+<code>company-nand2tetris--grab-symbol</code> function that will come handy when creating
+the ElDoc integration (actually, it goes half way as it only gets the part of
+the symbol before the current position, any help is appreciated). I followed
+company-backend creation from <a href="https://github.com/company-mode/company-mode/wiki/Writing-backends">their -official?- wiki</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">ElDoc</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+ElDoc support is pretty straight forward, although I still don't get some stuff.
+In few words, each time your cursor is iddle, the value of the variable
+<code>eldoc-documentation-function</code> is called, and what is printed is printed in the
+minibuffer. 
+</p>
+
+<p>
+What we do for nand2tetris is that each time you rest on <b>the end</b> of a Chip Name it tries to give you the specificatino for such chip, kinda like the annotations from company-nand2tetris, but this time you can <code>access</code> them at any time without the popup showing.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #75715E;">;;; </span><span style="color: #75715E;">ElDoc</span>
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">require</span> '<span style="color: #AE81FF;">eldoc</span><span style="color: #A1EFE4;">)</span>
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">nand2tetris-eldoc-function</span> <span style="color: #E6DB74;">()</span>
+  <span style="color: #75715E;">"Get help on SYMBOL using `</span><span style="color: #AE81FF;">help</span><span style="color: #75715E;">'.</span>
+<span style="color: #75715E;">Interactively, prompt for symbol."</span>
+  <span style="color: #E6DB74;">(</span><span style="color: #F92672;">let</span> <span style="color: #66D9EF;">(</span><span style="color: #FD971F;">(</span>symbol <span style="color: #A6E22E;">(</span>company-nand2tetris--grab-symbol<span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span>
+        <span style="color: #FD971F;">(</span>enable-recursive-minibuffers t<span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+  <span style="color: #66D9EF;">(</span>message <span style="color: #FD971F;">(</span>cdr <span style="color: #A6E22E;">(</span>assoc <span style="color: #E6DB74;">"spec"</span> <span style="color: #E6DB74;">(</span>assoc symbol nand2tetris-builtin-chips<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
+
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">define-derived-mode</span> <span style="color: #A6E22E;">nand2tetris-mode</span> prog-mode
+  <span style="color: #E6DB74;">"nand2tetris"</span>
+  <span style="color: #75715E;">"Major mode for editing HDL files for the course Nand2Tetris.</span>
+
+<span style="color: #75715E;">\\{nand2tetris-mode-map}"</span>
+
+  <span style="color: #E6DB74;">(</span>set <span style="color: #66D9EF;">(</span>make-local-variable 'eldoc-documentation-function<span style="color: #66D9EF;">)</span>
+       #'nand2tetris-eldoc-function<span style="color: #E6DB74;">)</span>
+
+  <span style="color: #75715E;">;; </span><span style="color: #75715E;">Fix Comment Syntax</span>
+  <span style="color: #E6DB74;">(</span>set <span style="color: #66D9EF;">(</span>make-local-variable 'comment-start<span style="color: #66D9EF;">)</span> <span style="color: #E6DB74;">"// "</span><span style="color: #E6DB74;">)</span>
+  <span style="color: #E6DB74;">(</span>set <span style="color: #66D9EF;">(</span>make-local-variable 'comment-start-skip<span style="color: #66D9EF;">)</span> <span style="color: #E6DB74;">"//+\\s-*"</span><span style="color: #E6DB74;">)</span>
+
+  <span style="color: #E6DB74;">(</span>set <span style="color: #66D9EF;">(</span>make-local-variable 'font-lock-defaults<span style="color: #66D9EF;">)</span>
+       '<span style="color: #66D9EF;">(</span>nand2tetris-font-lock-keywords nil nil nil nil<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">YASnippet</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Finally YASnippet integration is one of the features I always wanted for this
+mode, ever since the first time I opened the <code>hdl</code> files, unfortunately,
+snippets for this are pretty straight forward, just create functions to add the
+snippet dir when yasnippet gets loaded. As we don't want to bother the user with
+a dependency we use eval-after-load so if the user doesn't use yasnippets it's
+not a problem.... I ... guess?
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #75715E;">;;; </span><span style="color: #75715E;">Yasnippet</span>
+
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">defconst</span> <span style="color: #FD971F;">nand2tetris::dir</span> <span style="color: #E6DB74;">(</span>file-name-directory <span style="color: #66D9EF;">(</span>or load-file-name
+                                                buffer-file-name<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
+<span style="color: #75715E;">;;;</span><span style="color: #75715E;">###</span><span style="color: #FD971F; font-weight: bold; font-style: italic; text-decoration: underline;">autoload</span>
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">nand2tetris//snippets-initialize</span> <span style="color: #E6DB74;">()</span>
+  <span style="color: #E6DB74;">(</span><span style="color: #F92672;">let</span> <span style="color: #66D9EF;">(</span><span style="color: #FD971F;">(</span>snip-dir <span style="color: #A6E22E;">(</span>expand-file-name <span style="color: #E6DB74;">"snippets"</span> nand2tetris::dir<span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span>add-to-list 'yas-snippet-dirs snip-dir t<span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span>yas-load-directory snip-dir<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
+
+<span style="color: #75715E;">;;;</span><span style="color: #75715E;">###</span><span style="color: #FD971F; font-weight: bold; font-style: italic; text-decoration: underline;">autoload</span>
+<span style="color: #A1EFE4;">(</span>eval-after-load 'yasnippet
+  '<span style="color: #E6DB74;">(</span>nand2tetris//snippets-initialize<span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
+</pre>
+</div>
+
+<p>
+You can see how snippets are supposed to look like in the <a href="https://github.com/CestDiego/nand2tetris.el/tree/master/snippets/nand2tetris-mode">rep</a>o.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">Conclusion</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+That was all I did today and I'm sharing it with ya :) I hope this might
+eventually be featured in the nand2tetris official course :) because it would be
+awesome, so if someone can make this happen, plz do.
+</p>
+</div>
+</div>
+
+    </article>
+
+<footer class="site-footer">
+    <div class="back-to-top">
+        <a href="#">back to top</a>
+    </div>
+    <script src="/media/js/main.js"></script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+        <script>
+         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                                  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+         ga('create', 'UA-40864129-3', 'auto');
+         ga('send', 'pageview');
+        </script>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+             /* * * CONFIGURATION VARIABLES * * */
+             var disqus_identifier = "/blog/2015/08/12/extending-nand2tetris";
+             var disqus_url = "http://cestdiego.github.io/blog/2015/08/12/extending-nand2tetris";
+             var disqus_shortname = 'cestdiego';
+
+             /* * * DON'T EDIT BELOW THIS LINE * * */
+             var ds_loaded = false;
+             var le_top = document.getElementById("disqus_thread").offsetTop;
+
+             function check(){
+                 if ( !ds_loaded && window.scrollY + document.documentElement.clientHeight >= le_top ) {
+                     ds_loaded = true;
+                     (function() {
+                         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                     })();
+                 }
+             }
+
+             window.onscroll = check;
+             check();
+
+             var reload_disqus = function(){
+                 DISQUS.reset({
+                     reload: true,
+                     config: function () {
+                         this.page.identifier = cestdiego;
+                     }
+                 });
+             }
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</footer>
+
+    </div>
+  </body>
+</html>
