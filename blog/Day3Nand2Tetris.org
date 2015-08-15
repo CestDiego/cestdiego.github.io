@@ -1,0 +1,103 @@
+#+TITLE:       Day 3 Nand2Tetris: Another Chapter and mode improvements
+#+AUTHOR:      Diego Berrocal
+#+EMAIL:       jarvis@nixos.att.net
+#+DATE:        2015-08-14 Fri
+#+URI:         /blog/%y/%m/%d/day-3-nand2tetris-another-chapter-and-mode-improvements
+#+KEYWORDS:    emacs, nand2tetris, elisp
+#+TAGS:        emacs
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: In which I keep telling the story of the development of nand2tetris.el mode
+
+Just after finishing the nand2tetris hdl file mode I think I made a mistake
+naming it `nand2tetris` mode because after Week 3 the use of hdl files drops
+dramatically. And the use of =assembler= files that are in some =Hack Assembly=
+language are the main focus. Makes sense, but I'm kinda sad that the mode was
+just useful for a couple of "weeks". Still I hope it is of use for other people.
+
+Anyway, I made some other improvements on the nand2tetris hdl mode (I think I
+might rename the mode later on, you'll see why) 
+
+** Company
+
+I added support for the popup from company, it just looks like this:
+
+#+begin_src emacs-lisp :tangle yes
+  (defvar nand2tetris-builtin-chips
+    '(("Add16" . (("description" .
+                   "16-bit bitwise And:
+
+  IN a[16], b[16];
+  OUT out[16];
+
+  for i = 0..15: out[i] = (a[i] and b[i])")
+                  ("spec" . "Add16(a= ,b= ,out= )")))
+      ;; ...
+      ))
+
+  (defun company-nand2tetris--doc-buffer (candidate)
+    "Return documentation buffer for chosen CANDIDATE."
+    (let ((doc (cdr (assoc "description"
+                           (assoc candidate nand2tetris-builtin-chips)))))
+      (and doc (nand2tetris-doc-buffer doc))))
+
+
+  ;;;###autoload
+  (defun company-nand2tetris (command &optional arg &rest ignored)
+    "Company backend for `nand2tetris-mode'."
+    (interactive (list 'interactive))
+    (cl-case command
+      (interactive (company-begin-backend 'company-nand2tetris))
+      (prefix (company-nand2tetris--prefix))
+      (candidates (company-nand2tetris--candidates arg))
+      (doc-buffer (company-nand2tetris--doc-buffer arg))
+      (annotation (company-nand2tetris--annotation arg))))
+#+end_src
+
+So I just put one example of the many alists... I had to add another
+=description= entry and was mostly done by hand. I found it very useful when
+doing the PC, ALU and RAM chips :)
+
+** ElDoc (It works better now!)
+
+SO after lots of reading on how regular expressions work in Emacs I think I got
+it now :) at least I feel way more comfortable than before, even though this is
+my first go at emacs lisp package development I feel confident that there are
+bearable rough edges.
+
+#+begin_src emacs-lisp :tangle yes
+  ;;; ElDoc
+  (require 'eldoc)
+
+  (defun get-chip-at-line ()
+    "Gets the chip currently used, so that placing the cursor at
+  any point in the line:
+     Not16 (in=a, out=out)
+  Will return Not16"
+    (save-excursion
+      (beginning-of-line)
+      (search-forward-regexp
+       (rx (group (* word))
+           (? space ) "("))
+      (match-string 1)))
+
+  (defun nand2tetris-eldoc-function ()
+    "Get help on SYMBOL using `help'.
+  Interactively, prompt for symbol."
+    (let ((symbol (get-chip-at-line))
+          (enable-recursive-minibuffers t))
+      (message (cdr (assoc "spec" (assoc symbol nand2tetris-builtin-chips))))))
+#+end_src
+
+So now ElDoc information shows even if you don't have the cursor exactly at the
+end of the CHIP.
+
+
+** nand2tetris material coming up
+
+After completing week 5 I see that a custom assembly mode would be awesome for
+nand2tetris and also maybe..syntax highlighting for the bit lines in the machine
+code? so one could actually see what it means :) it would be awesome to have but
+that might be very difficult, I'm gonna attempt to make the HackAssembly mode
+with Keybindings to also Test the current assembly, just like =C-c C-c= does
+currently in nand2tetris-mode.
