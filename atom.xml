@@ -4,7 +4,14 @@
   <title>Diego Berrocal</title>
   <subtitle>it&#39;s personal</subtitle>
   <link href="http://cestdiego.github.io/"/>
-  <updated>Wed, 12 Aug 2015 16:32:13 CDT</updated>
+  <updated>Fri, 14 Aug 2015 23:12:58 CDT</updated>
+  <entry>
+    <title>Day 3 Nand2Tetris: Another Chapter and mode improvements</title>
+    <link href="http://cestdiego.github.io/blog/2015/08/13/day-3-nand2tetris-another-chapter-and-mode-improvements"/>
+    <summary>In which I keep telling the story of the development of nand2tetris.el mode</summary>
+    <updated>2015-08-14</updated>
+    <id>http://cestdiego.github.io/blog/2015/08/13/day-3-nand2tetris-another-chapter-and-mode-improvements</id>
+  </entry>
   <entry>
     <title>Extending nand2tetris.el</title>
     <link href="http://cestdiego.github.io/blog/2015/08/11/extending-nand2tetris"/>
