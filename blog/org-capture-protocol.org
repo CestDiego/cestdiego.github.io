@@ -1,0 +1,21 @@
+#+TITLE:       Using org-capture with org-protocol like a proo
+#+AUTHOR:      Diego Berrocal
+#+EMAIL:       jarvis@nixos.att.net
+#+DATE:        2015-08-20 Thu
+#+URI:         /blog/%y/%m/%d/using-org-capture-with-org-protocol-like-a-proo
+#+KEYWORDS:    emacs, org, org-protocol
+#+TAGS:        emacs, org
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: In which I share my configuration and my own chrome extension for this thingy.
+
+Currently using [[org-capture-extension]]
+
+But I'd love to see a customizable interface.
+Maybe even a helper to what to add to your emacs so that it works.
+
+Ok I think I cracked it :) First we need to have xdg configured so that xdg-open
+can run our emacsclient, but in order to have it floating and stuff, we need to
+pass some arguments to it to make it `uber-capture`:
+
+We take the desktop file from this [[http://www.chawdhary.co.uk/2012/07/04/xdg-org-protocol.html][link]] explaining the org-protocol
