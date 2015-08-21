@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Using org-capture with org-protocol be like - Diego Berrocal</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Diego Berrocal">
+    <meta name="description" content="In which I share my configuration and my own chrome extension for this ">
+    <meta name="keywords" content="emacs, org, org-protocol">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Fira+Sans:400,700,400italic,700italic|Lora:400,700|Source+Code+Pro:400,700">
+    <link rel="stylesheet" href="/media/css/normalize.css">
+    <link rel="stylesheet" href="/media/css/dark.css" id="darkTheme">
+    <link rel="stylesheet" href="/media/css/light.css" id="lightTheme">
+    <script>
+     var lightTheme = document.querySelector("#lightTheme");
+     var darkTheme = document.querySelector("#darkTheme");
+
+     var toggleTheme = function () {
+         var isDefaultDisabled = lightTheme.disabled;
+         darkTheme.disabled = isDefaultDisabled;
+         lightTheme.disabled = !isDefaultDisabled;
+
+         var switchLights = document.querySelector(".switch-lights");
+         switchLights.textContent = "lights " + (isDefaultDisabled ? "off" : "on");
+
+         return !isDefaultDisabled;
+     };
+
+     if (localStorage.darkTheme === "1") {
+         toggleTheme();
+     }
+    </script>
+    <link rel="stylesheet" href="/media/css/main.css">
+    <noscript>
+        <style>
+         .toggle-colors{
+             display: none;
+         }
+        </style>
+    </noscript>
+  </head>
+
+  <body>
+    <div id="wrapper">
+    <nav class="site-nav">
+      <ul class="links">
+        <li><a href="/">Diego Berrocal</a></li>
+         <li><a href="/about/">about</a></li>
+        <li><a href="/blog/">blog</a></li>
+        <li><a href="/atom.xml">atom</a></li>
+        <li><button class="switch-lights">lights off</button></li>
+      </ul>
+    </nav>
+
+    <article class="post">
+      <header>
+          <h1 class="post-title">Using org-capture with org-protocol be like</h1>
+          <time class="post-date">Aug 19, 2015</time>
+      </header>
+      <p>
+Hello friend,
+</p>
+
+<p>
+I know that you have heard about org, and how great it is. But then you started
+trying it and you were overwhelmed at how many ways of customizing it to suit
+your needs are there. Also you might find that you could switch your lifestyle
+to plain text, but don't know where to start. That's why I think this could be a
+first introduction post on how to use org-capture to manage your bookmarks,
+remember you could store the org file a file synchronizer of your choice and
+have it also in your android phone.
+</p>
+
+<p>
+It'll look something like this:
+</p>
+
+
+<figure>
+<p><img src="http://i.imgur.com/3NiiRU5.gif" alt="3NiiRU5.gif">
+</p>
+</figure>
+
+
+<p>
+<b>* Disclaimer *</b> I'm no way an org-mode power user, and the advice here could
+be improved a lot, and that's why you can also make <code>constructive</code> comments :)
+</p>
+
+<p>
+We take the desktop file from this <a href="http://www.chawdhary.co.uk/2012/07/04/xdg-org-protocol.html">blog post</a> which explaining how we could use
+org-protocol with a button in the bookmark bar. But I think we may be able to do better :) -psst, I'll give you a hint: we'll use a chrome extension-
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-conf"><span style="color: #546D7A;"># </span><span style="color: #546D7A;">~/.local/share/applications/emacs-capture.desktop or wherever it can be found</span>
+[<span style="color: #82B1FF;">Desktop Entry</span>]
+<span style="color: #C2E982;">Name</span>=Emacs Client
+<span style="color: #C2E982;">Exec</span>=emacs-capture %u 
+<span style="color: #C2E982;">Icon</span>=emacs-icon
+<span style="color: #C2E982;">Type</span>=Application
+<span style="color: #C2E982;">Terminal</span>=false
+<span style="color: #C2E982;">MimeType</span>=x-scheme-handler/org-protocol;
+</pre>
+</div>
+
+<p>
+You might find that we used <code>emacs-capture</code> instead of emacsclient, that's
+because no matter how hard I tried I couldn't add the arguments I needed into the <code>.desktop</code> file, this is how the <code>emacs-capture</code> script looks like:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh"><span style="color: #546D7A;">#</span><span style="color: #546D7A;">!/bin/</span><span style="color: #F9D339; font-weight: bold;">sh</span>
+<span style="color: #F9D339; font-weight: bold;">exec</span> emacsclient -c -F <span style="color: #74CBC4;">"((name . \"emacs-capture\") (height . 10) (width . 80))"</span> $<span style="color: #C2E982;">*</span>
+</pre>
+</div>
+
+<p>
+You'll have to put it somewhere in your <code>PATH</code>, preferably <code>~/bin</code>? just double
+check. The <code>-c</code> means we want a new frame (we want a pop-up after all) and the
+<code>-F</code> flag just tells emacs to create the new frame with the frame-properties
+defined in the alist given to it, the name property is special for reasons
+you'll see later but it's specially important for us Tiling Window Manager
+users, because we have to define which type of windows we want as <code>floating</code>. In
+i3, this would look like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-conf"><span style="color: #C2E982;">for_window [instance</span>=<span style="color: #74CBC4;">"emacs-capture"</span>] floating enable
+</pre>
+</div>
+
+<p>
+We have now achieved the emacs related part of this, congratz!
+</p>
+
+<p>
+Now we have to have something in our browser that allows us to replace the dreaded <code>Control+D</code> we'll use an extension that I made especially for this ocassion.
+</p>
+
+<p>
+<a href="http://oremacs.com/2015/01/07/org-protocol-1/">http://oremacs.com/2015/01/07/org-protocol-1/</a>
+</p>
+
+    </article>
+
+<footer class="site-footer">
+    <div class="back-to-top">
+        <a href="#">back to top</a>
+    </div>
+    <script src="/media/js/main.js"></script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+        <script>
+         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                                  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+         ga('create', 'UA-40864129-3', 'auto');
+         ga('send', 'pageview');
+        </script>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+             /* * * CONFIGURATION VARIABLES * * */
+             var disqus_identifier = "/blog/2015/08/20/using-org-capture-with-org-protocol-like-a-proo";
+             var disqus_url = "http://cestdiego.github.io/blog/2015/08/20/using-org-capture-with-org-protocol-like-a-proo";
+             var disqus_shortname = 'cestdiego';
+
+             /* * * DON'T EDIT BELOW THIS LINE * * */
+             var ds_loaded = false;
+             var le_top = document.getElementById("disqus_thread").offsetTop;
+
+             function check(){
+                 if ( !ds_loaded && window.scrollY + document.documentElement.clientHeight >= le_top ) {
+                     ds_loaded = true;
+                     (function() {
+                         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                     })();
+                 }
+             }
+
+             window.onscroll = check;
+             check();
+
+             var reload_disqus = function(){
+                 DISQUS.reset({
+                     reload: true,
+                     config: function () {
+                         this.page.identifier = cestdiego;
+                     }
+                 });
+             }
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</footer>
+
+    </div>
+  </body>
+</html>

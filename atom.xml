@@ -4,7 +4,14 @@
   <title>Diego Berrocal</title>
   <subtitle>it&#39;s personal</subtitle>
   <link href="http://cestdiego.github.io/"/>
-  <updated>Fri, 14 Aug 2015 23:12:58 CDT</updated>
+  <updated>Thu, 20 Aug 2015 21:19:10 CDT</updated>
+  <entry>
+    <title>Using org-capture with org-protocol be like</title>
+    <link href="http://cestdiego.github.io/blog/2015/08/19/using-org-capture-with-org-protocol-like-a-proo"/>
+    <summary>In which I share my configuration and my own chrome extension for this </summary>
+    <updated>2015-08-20</updated>
+    <id>http://cestdiego.github.io/blog/2015/08/19/using-org-capture-with-org-protocol-like-a-proo</id>
+  </entry>
   <entry>
     <title>Day 3 Nand2Tetris: Another Chapter and mode improvements</title>
     <link href="http://cestdiego.github.io/blog/2015/08/13/day-3-nand2tetris-another-chapter-and-mode-improvements"/>
