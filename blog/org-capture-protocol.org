@@ -1,21 +1,116 @@
-#+TITLE:       Using org-capture with org-protocol like a proo
+#+TITLE:       Using org-capture with org-protocol be like
 #+AUTHOR:      Diego Berrocal
 #+EMAIL:       jarvis@nixos.att.net
 #+DATE:        2015-08-20 Thu
-#+URI:         /blog/%y/%m/%d/using-org-capture-with-org-protocol-like-a-proo
+#+URI:         /blog/%y/%m/%d/org-protocol
 #+KEYWORDS:    emacs, org, org-protocol
 #+TAGS:        emacs, org
 #+LANGUAGE:    en
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
-#+DESCRIPTION: In which I share my configuration and my own chrome extension for this thingy.
+#+DESCRIPTION: In which I share my configuration and my own chrome extension for this 
 
-Currently using [[org-capture-extension]]
+Hello friend,
 
-But I'd love to see a customizable interface.
-Maybe even a helper to what to add to your emacs so that it works.
+I know that you have heard about org, and how great it is. But then you started
+trying it and you were overwhelmed at how many ways of customizing it to suit
+your needs are there. Also you might find that you could switch your lifestyle
+to plain text, but don't know where to start. That's why I think this could be a
+first introduction post on how to use org-capture to manage your bookmarks,
+remember you could store the org file a file synchronizer of your choice and
+have it also in your android phone.
 
-Ok I think I cracked it :) First we need to have xdg configured so that xdg-open
-can run our emacsclient, but in order to have it floating and stuff, we need to
-pass some arguments to it to make it `uber-capture`:
+It'll look something like this:
 
-We take the desktop file from this [[http://www.chawdhary.co.uk/2012/07/04/xdg-org-protocol.html][link]] explaining the org-protocol
+[[http://i.imgur.com/3NiiRU5.gif]]
+
+
+ ** Disclaimer ** I'm no way an org-mode power user, and the advice here could
+ be improved a lot, and that's why you can also make =constructive= comments :)
+
+We take the desktop file from this [[http://www.chawdhary.co.uk/2012/07/04/xdg-org-protocol.html][blog post]] which explaining how we could use
+org-protocol with a button in the bookmark bar. But I think we may be able to do better :) -psst, I'll give you a hint: we'll use a chrome extension-
+
+#+begin_src conf
+  # ~/.local/share/applications/emacs-capture.desktop or wherever it can be found
+  [Desktop Entry]
+  Name=Emacs Client
+  Exec=emacs-capture %u 
+  Icon=emacs-icon
+  Type=Application
+  Terminal=false
+  MimeType=x-scheme-handler/org-protocol;
+#+end_src
+
+You might find that we used =emacs-capture= instead of emacsclient, that's
+because no matter how hard I tried I couldn't add the arguments I needed into the =.desktop= file, this is how the =emacs-capture= script looks like:
+
+#+begin_src sh
+  #!/bin/sh
+  exec emacsclient -c -F "((name . \"emacs-capture\") (height . 10) (width . 80))" $*
+#+end_src
+
+You'll have to put it somewhere in your =PATH=, preferably =~/bin=? just double
+check. The =-c= means we want a new frame (we want a pop-up after all) and the
+=-F= flag just tells emacs to create the new frame with the frame-properties
+defined in the alist given to it, the name property is special for reasons
+you'll see later but it's specially important for us Tiling Window Manager
+users, because we have to define which type of windows we want as =floating=. In
+i3, this would look like this:
+
+#+begin_src conf
+  for_window [instance="emacs-capture"] floating enable
+#+end_src
+
+Let's jump in the Emacs part though, we have to set up org-protocol somehow,
+this code will be enough:
+
+#+begin_src emacs-lisp
+  (require 'org-capture)
+  (require 'org-protocol)
+
+  ;;; Org Capture
+  ;;;; Thank you random guy from StackOverflow
+  ;;;; http://stackoverflow.com/questions/23517372/hook-or-advice-when-aborting-org-capture-before-template-selection
+
+  (defadvice org-capture
+      (after make-full-window-frame activate)
+    "Advise capture to be the only window when used as a popup"
+    (if (equal "emacs-capture" (frame-parameter nil 'name))
+        (delete-other-windows)))
+
+  (defadvice org-capture-finalize
+      (after delete-capture-frame activate)
+    "Advise capture-finalize to close the frame"
+    (if (equal "emacs-capture" (frame-parameter nil 'name))
+        (delete-frame)))
+
+  ;;; Capture Templates
+  ;;;; Add idea, mind-onanism, contacts, movies to download das
+  (setq org-capture-templates
+        '(("l" "Temp Links from the interwebs" item
+           (file+headline "links.org" "Temporary Links")
+           "%?\nEntered on %U\n \%i\n %a")))
+#+end_src
+
+Remember that =emacs-capture= was part of the frame-properties? this is why, we
+can advise the capture function to do certain stuff only in this popup frame
+that we would not normally like when we use org-capture normally, like closing
+the frame after it's done.
+
+The Capture template could be improved, I'd suggest to anyone that wants to dive
+into this type of integration to check out how to make cool templates, you can
+even make it ask you for tags, and it will complete the tags you have there. :)
+
+We have now achieved the emacs related part of this, congratz!
+
+Now we have to have something in our browser that allows us to bind
+=Control+Shift+L= (or any key you may want, just modify the setting in
+chrome://extensions). We'll use an extension that I made especially for this
+case, as I didn't find another that worked, I'm planning on supporting
+auto-detection of templates needed depending on the current web page, for example
+if it's a youtube video we are bookmarking it should maybe store more stuff,
+even we could store the current time in the video or whatever :), the sky is the
+limit when it comes to Emacs.
+
+I hope you find this useful, and if you have any suggestions, PRs are welcome
+at https://github.com/CestDiego/org-capture-chrome.
