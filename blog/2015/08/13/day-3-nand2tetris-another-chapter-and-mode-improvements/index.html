@@ -79,35 +79,35 @@ I added support for the popup from company, it just looks like this:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #FF516D;">(</span><span style="color: #F9D339; font-weight: bold;">defvar</span> <span style="color: #C2E982;">nand2tetris-builtin-chips</span>
-  '<span style="color: #F9D339;">(</span><span style="color: #74CBC4;">(</span><span style="color: #74CBC4;">"Add16"</span> . <span style="color: #74CBC4;">(</span><span style="color: #9FAA9B;">(</span><span style="color: #74CBC4;">"description"</span> .
-                 <span style="color: #74CBC4;">"16-bit bitwise And:</span>
+<pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span><span style="color: #F92672;">defvar</span> <span style="color: #FD971F;">nand2tetris-builtin-chips</span>
+  '<span style="color: #E6DB74;">(</span><span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"Add16"</span> . <span style="color: #FD971F;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"description"</span> .
+                 <span style="color: #E6DB74;">"16-bit bitwise And:</span>
 
-<span style="color: #74CBC4;">IN a[16], b[16];</span>
-<span style="color: #74CBC4;">OUT out[16];</span>
+<span style="color: #E6DB74;">IN a[16], b[16];</span>
+<span style="color: #E6DB74;">OUT out[16];</span>
 
-<span style="color: #74CBC4;">for i = 0..15: out[i] = (a[i] and b[i])"</span><span style="color: #9FAA9B;">)</span>
-                <span style="color: #9FAA9B;">(</span><span style="color: #74CBC4;">"spec"</span> . <span style="color: #74CBC4;">"Add16(a= ,b= ,out= )"</span><span style="color: #9FAA9B;">)</span><span style="color: #74CBC4;">)</span><span style="color: #74CBC4;">)</span>
-    <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">...</span>
-    <span style="color: #F9D339;">)</span><span style="color: #FF516D;">)</span>
+<span style="color: #E6DB74;">for i = 0..15: out[i] = (a[i] and b[i])"</span><span style="color: #A6E22E;">)</span>
+                <span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">"spec"</span> . <span style="color: #E6DB74;">"Add16(a= ,b= ,out= )"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #75715E;">;; </span><span style="color: #75715E;">...</span>
+    <span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
 
-<span style="color: #FF516D;">(</span><span style="color: #F9D339; font-weight: bold;">defun</span> <span style="color: #FF516D;">company-nand2tetris--doc-buffer</span> <span style="color: #F9D339;">(</span>candidate<span style="color: #F9D339;">)</span>
-  <span style="color: #9FC59F;">"Return documentation buffer for chosen CANDIDATE."</span>
-  <span style="color: #F9D339;">(</span><span style="color: #F9D339; font-weight: bold;">let</span> <span style="color: #74CBC4;">(</span><span style="color: #74CBC4;">(</span>doc <span style="color: #9FAA9B;">(</span>cdr <span style="color: #82B1FF;">(</span>assoc <span style="color: #74CBC4;">"description"</span>
-                         <span style="color: #C2E982;">(</span>assoc candidate nand2tetris-builtin-chips<span style="color: #C2E982;">)</span><span style="color: #82B1FF;">)</span><span style="color: #9FAA9B;">)</span><span style="color: #74CBC4;">)</span><span style="color: #74CBC4;">)</span>
-    <span style="color: #74CBC4;">(</span>and doc <span style="color: #74CBC4;">(</span>nand2tetris-doc-buffer doc<span style="color: #74CBC4;">)</span><span style="color: #74CBC4;">)</span><span style="color: #F9D339;">)</span><span style="color: #FF516D;">)</span>
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">company-nand2tetris--doc-buffer</span> <span style="color: #E6DB74;">(</span>candidate<span style="color: #E6DB74;">)</span>
+  <span style="color: #75715E;">"Return documentation buffer for chosen CANDIDATE."</span>
+  <span style="color: #E6DB74;">(</span><span style="color: #F92672;">let</span> <span style="color: #66D9EF;">(</span><span style="color: #FD971F;">(</span>doc <span style="color: #A6E22E;">(</span>cdr <span style="color: #E6DB74;">(</span>assoc <span style="color: #E6DB74;">"description"</span>
+                         <span style="color: #66D9EF;">(</span>assoc candidate nand2tetris-builtin-chips<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span>and doc <span style="color: #FD971F;">(</span>nand2tetris-doc-buffer doc<span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
 
 
-<span style="color: #546D7A;">;;;</span><span style="color: #546D7A;">###</span><span style="color: #FFC400; font-weight: bold;">autoload</span>
-<span style="color: #FF516D;">(</span><span style="color: #F9D339; font-weight: bold;">defun</span> <span style="color: #FF516D;">company-nand2tetris</span> <span style="color: #F9D339;">(</span>command <span style="color: #82B1FF;">&amp;optional</span> arg <span style="color: #82B1FF;">&amp;rest</span> ignored<span style="color: #F9D339;">)</span>
-  <span style="color: #9FC59F;">"Company backend for `</span><span style="color: #F77669;">nand2tetris-mode</span><span style="color: #9FC59F;">'."</span>
-  <span style="color: #F9D339;">(</span>interactive <span style="color: #74CBC4;">(</span>list 'interactive<span style="color: #74CBC4;">)</span><span style="color: #F9D339;">)</span>
-  <span style="color: #F9D339;">(</span><span style="color: #F9D339; font-weight: bold;">cl-case</span> command
-    <span style="color: #74CBC4;">(</span>interactive <span style="color: #74CBC4;">(</span>company-begin-backend 'company-nand2tetris<span style="color: #74CBC4;">)</span><span style="color: #74CBC4;">)</span>
-    <span style="color: #74CBC4;">(</span>prefix <span style="color: #74CBC4;">(</span>company-nand2tetris--prefix<span style="color: #74CBC4;">)</span><span style="color: #74CBC4;">)</span>
-    <span style="color: #74CBC4;">(</span>candidates <span style="color: #74CBC4;">(</span>company-nand2tetris--candidates arg<span style="color: #74CBC4;">)</span><span style="color: #74CBC4;">)</span>
-    <span style="color: #74CBC4;">(</span>doc-buffer <span style="color: #74CBC4;">(</span>company-nand2tetris--doc-buffer arg<span style="color: #74CBC4;">)</span><span style="color: #74CBC4;">)</span>
-    <span style="color: #74CBC4;">(</span>annotation <span style="color: #74CBC4;">(</span>company-nand2tetris--annotation arg<span style="color: #74CBC4;">)</span><span style="color: #74CBC4;">)</span><span style="color: #F9D339;">)</span><span style="color: #FF516D;">)</span>
+<span style="color: #75715E;">;;;</span><span style="color: #75715E;">###</span><span style="color: #FD971F; font-weight: bold; font-style: italic; text-decoration: underline;">autoload</span>
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">company-nand2tetris</span> <span style="color: #E6DB74;">(</span>command <span style="color: #66D9EF;">&amp;optional</span> arg <span style="color: #66D9EF;">&amp;rest</span> ignored<span style="color: #E6DB74;">)</span>
+  <span style="color: #75715E;">"Company backend for `</span><span style="color: #AE81FF;">nand2tetris-mode</span><span style="color: #75715E;">'."</span>
+  <span style="color: #E6DB74;">(</span>interactive <span style="color: #66D9EF;">(</span>list 'interactive<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span>
+  <span style="color: #E6DB74;">(</span><span style="color: #F92672;">cl-case</span> command
+    <span style="color: #66D9EF;">(</span>interactive <span style="color: #FD971F;">(</span>company-begin-backend 'company-nand2tetris<span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span>prefix <span style="color: #FD971F;">(</span>company-nand2tetris--prefix<span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span>candidates <span style="color: #FD971F;">(</span>company-nand2tetris--candidates arg<span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span>doc-buffer <span style="color: #FD971F;">(</span>company-nand2tetris--doc-buffer arg<span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span>annotation <span style="color: #FD971F;">(</span>company-nand2tetris--annotation arg<span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
 
@@ -131,27 +131,27 @@ bearable rough edges.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #546D7A;">;;; </span><span style="color: #546D7A;">ElDoc</span>
-<span style="color: #FF516D;">(</span><span style="color: #F9D339; font-weight: bold;">require</span> '<span style="color: #F77669;">eldoc</span><span style="color: #FF516D;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #75715E;">;;; </span><span style="color: #75715E;">ElDoc</span>
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">require</span> '<span style="color: #AE81FF;">eldoc</span><span style="color: #A1EFE4;">)</span>
 
-<span style="color: #FF516D;">(</span><span style="color: #F9D339; font-weight: bold;">defun</span> <span style="color: #FF516D;">get-chip-at-line</span> <span style="color: #F9D339;">()</span>
-  <span style="color: #9FC59F;">"Gets the chip currently used, so that placing the cursor at</span>
-<span style="color: #9FC59F;">any point in the line:</span>
-<span style="color: #9FC59F;">   Not16 (in=a, out=out)</span>
-<span style="color: #9FC59F;">Will return Not16"</span>
-  <span style="color: #F9D339;">(</span><span style="color: #F9D339; font-weight: bold;">save-excursion</span>
-    <span style="color: #74CBC4;">(</span>beginning-of-line<span style="color: #74CBC4;">)</span>
-    <span style="color: #74CBC4;">(</span>search-forward-regexp
-     <span style="color: #74CBC4;">(</span>rx <span style="color: #9FAA9B;">(</span>group <span style="color: #82B1FF;">(</span>* word<span style="color: #82B1FF;">)</span><span style="color: #9FAA9B;">)</span>
-         <span style="color: #9FAA9B;">(</span>? space <span style="color: #9FAA9B;">)</span> <span style="color: #74CBC4;">"("</span><span style="color: #74CBC4;">)</span><span style="color: #74CBC4;">)</span>
-    <span style="color: #74CBC4;">(</span>match-string <span style="color: #F77669;">1</span><span style="color: #74CBC4;">)</span><span style="color: #F9D339;">)</span><span style="color: #FF516D;">)</span>
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">get-chip-at-line</span> <span style="color: #E6DB74;">()</span>
+  <span style="color: #75715E;">"Gets the chip currently used, so that placing the cursor at</span>
+<span style="color: #75715E;">any point in the line:</span>
+<span style="color: #75715E;">   Not16 (in=a, out=out)</span>
+<span style="color: #75715E;">Will return Not16"</span>
+  <span style="color: #E6DB74;">(</span><span style="color: #F92672;">save-excursion</span>
+    <span style="color: #66D9EF;">(</span>beginning-of-line<span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span>search-forward-regexp
+     <span style="color: #FD971F;">(</span>rx <span style="color: #A6E22E;">(</span>group <span style="color: #E6DB74;">(</span>* word<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span>
+         <span style="color: #A6E22E;">(</span>? space <span style="color: #A6E22E;">)</span> <span style="color: #E6DB74;">"("</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span>match-string <span style="color: #AE81FF;">1</span><span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
 
-<span style="color: #FF516D;">(</span><span style="color: #F9D339; font-weight: bold;">defun</span> <span style="color: #FF516D;">nand2tetris-eldoc-function</span> <span style="color: #F9D339;">()</span>
-  <span style="color: #9FC59F;">"Get help on SYMBOL using `</span><span style="color: #F77669;">help</span><span style="color: #9FC59F;">'.</span>
-<span style="color: #9FC59F;">Interactively, prompt for symbol."</span>
-  <span style="color: #F9D339;">(</span><span style="color: #F9D339; font-weight: bold;">let</span> <span style="color: #74CBC4;">(</span><span style="color: #74CBC4;">(</span>symbol <span style="color: #9FAA9B;">(</span>get-chip-at-line<span style="color: #9FAA9B;">)</span><span style="color: #74CBC4;">)</span>
-        <span style="color: #74CBC4;">(</span>enable-recursive-minibuffers t<span style="color: #74CBC4;">)</span><span style="color: #74CBC4;">)</span>
-    <span style="color: #74CBC4;">(</span>message <span style="color: #74CBC4;">(</span>cdr <span style="color: #9FAA9B;">(</span>assoc <span style="color: #74CBC4;">"spec"</span> <span style="color: #82B1FF;">(</span>assoc symbol nand2tetris-builtin-chips<span style="color: #82B1FF;">)</span><span style="color: #9FAA9B;">)</span><span style="color: #74CBC4;">)</span><span style="color: #74CBC4;">)</span><span style="color: #F9D339;">)</span><span style="color: #FF516D;">)</span>
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">nand2tetris-eldoc-function</span> <span style="color: #E6DB74;">()</span>
+  <span style="color: #75715E;">"Get help on SYMBOL using `</span><span style="color: #AE81FF;">help</span><span style="color: #75715E;">'.</span>
+<span style="color: #75715E;">Interactively, prompt for symbol."</span>
+  <span style="color: #E6DB74;">(</span><span style="color: #F92672;">let</span> <span style="color: #66D9EF;">(</span><span style="color: #FD971F;">(</span>symbol <span style="color: #A6E22E;">(</span>get-chip-at-line<span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span>
+        <span style="color: #FD971F;">(</span>enable-recursive-minibuffers t<span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span>message <span style="color: #FD971F;">(</span>cdr <span style="color: #A6E22E;">(</span>assoc <span style="color: #E6DB74;">"spec"</span> <span style="color: #E6DB74;">(</span>assoc symbol nand2tetris-builtin-chips<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
 
