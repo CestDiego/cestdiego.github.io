@@ -103,9 +103,9 @@ for my blog:
 </ul>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span>setq op/site-domain <span style="color: #E6DB74;">"https://cestdiego.github.com/"</span><span style="color: #A1EFE4;">)</span>
-<span style="color: #A1EFE4;">(</span>add-to-list 'op/category-ignore-list <span style="color: #E6DB74;">"temp"</span><span style="color: #A1EFE4;">)</span>
-<span style="color: #A1EFE4;">(</span>setq op/repository-directory <span style="color: #E6DB74;">"~/Projects/le_blog/"</span><span style="color: #A1EFE4;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #FF516D;">(</span>setq op/site-domain <span style="color: #74CBC4;">"https://cestdiego.github.com/"</span><span style="color: #FF516D;">)</span>
+<span style="color: #FF516D;">(</span>add-to-list 'op/category-ignore-list <span style="color: #74CBC4;">"temp"</span><span style="color: #FF516D;">)</span>
+<span style="color: #FF516D;">(</span>setq op/repository-directory <span style="color: #74CBC4;">"~/Projects/le_blog/"</span><span style="color: #FF516D;">)</span>
 </pre>
 </div>
 
@@ -115,9 +115,9 @@ for my blog:
 </ul>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #75715E;">;; </span><span style="color: #75715E;">This two are optional , only if you want have a custom theme</span>
-<span style="color: #A1EFE4;">(</span>setq op/theme-root-directory <span style="color: #E6DB74;">"~/spacemacs_conf/org-cestdiego/org-page-themes/"</span><span style="color: #A1EFE4;">)</span>
-<span style="color: #A1EFE4;">(</span>setq op/theme 'just_right<span style="color: #A1EFE4;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #546D7A;">;; </span><span style="color: #546D7A;">This two are optional , only if you want have a custom theme</span>
+<span style="color: #FF516D;">(</span>setq op/theme-root-directory <span style="color: #74CBC4;">"~/spacemacs_conf/org-cestdiego/org-page-themes/"</span><span style="color: #FF516D;">)</span>
+<span style="color: #FF516D;">(</span>setq op/theme 'just_right<span style="color: #FF516D;">)</span>
 </pre>
 </div>
 
@@ -127,10 +127,10 @@ for my blog:
 </ul>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span>setq op/personal-github-link <span style="color: #E6DB74;">"https://github.com/CestDiego/"</span><span style="color: #A1EFE4;">)</span>
-<span style="color: #A1EFE4;">(</span>setq op/site-main-title <span style="color: #E6DB74;">"Diego Berrocal"</span><span style="color: #A1EFE4;">)</span>
-<span style="color: #A1EFE4;">(</span>setq op/site-sub-title <span style="color: #E6DB74;">"it's personal"</span><span style="color: #A1EFE4;">)</span>
-<span style="color: #A1EFE4;">(</span>setq op/personal-avatar <span style="color: #E6DB74;">"https://avatars0.githubusercontent.com/u/3291619?v=3&amp;s=460"</span><span style="color: #A1EFE4;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #FF516D;">(</span>setq op/personal-github-link <span style="color: #74CBC4;">"https://github.com/CestDiego/"</span><span style="color: #FF516D;">)</span>
+<span style="color: #FF516D;">(</span>setq op/site-main-title <span style="color: #74CBC4;">"Diego Berrocal"</span><span style="color: #FF516D;">)</span>
+<span style="color: #FF516D;">(</span>setq op/site-sub-title <span style="color: #74CBC4;">"it's personal"</span><span style="color: #FF516D;">)</span>
+<span style="color: #FF516D;">(</span>setq op/personal-avatar <span style="color: #74CBC4;">"https://avatars0.githubusercontent.com/u/3291619?v=3&amp;s=460"</span><span style="color: #FF516D;">)</span>
 </pre>
 </div>
 </div>
@@ -141,14 +141,14 @@ for my blog:
 <div class="outline-text-3" id="text-2-2">
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span>evil-leader/set-key
-  <span style="color: #E6DB74;">"opo"</span> '<span style="color: #E6DB74;">(</span><span style="color: #F92672;">lambda</span> <span style="color: #66D9EF;">()</span> <span style="color: #66D9EF;">(</span>interactive<span style="color: #66D9EF;">)</span>
-           <span style="color: #66D9EF;">(</span>magit-status op/repository-directory<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span>
-  <span style="color: #E6DB74;">"opp"</span> '<span style="color: #E6DB74;">(</span><span style="color: #F92672;">lambda</span><span style="color: #66D9EF;">()</span> <span style="color: #66D9EF;">(</span>interactive<span style="color: #66D9EF;">)</span>
-           <span style="color: #66D9EF;">(</span>op/do-publication t nil t nil<span style="color: #66D9EF;">)</span>
-           <span style="color: #66D9EF;">(</span>find-file op/repository-directory<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span>
-  <span style="color: #E6DB74;">"opP"</span> '<span style="color: #E6DB74;">(</span><span style="color: #F92672;">lambda</span><span style="color: #66D9EF;">()</span> <span style="color: #66D9EF;">(</span>interactive<span style="color: #66D9EF;">)</span>
-           <span style="color: #66D9EF;">(</span>op/do-publication t t <span style="color: #FD971F;">(</span>concat op/repository-directory <span style="color: #E6DB74;">"temp/build"</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #FF516D;">(</span>evil-leader/set-key
+  <span style="color: #74CBC4;">"opo"</span> '<span style="color: #F9D339;">(</span><span style="color: #F9D339; font-weight: bold;">lambda</span> <span style="color: #74CBC4;">()</span> <span style="color: #74CBC4;">(</span>interactive<span style="color: #74CBC4;">)</span>
+           <span style="color: #74CBC4;">(</span>magit-status op/repository-directory<span style="color: #74CBC4;">)</span><span style="color: #F9D339;">)</span>
+  <span style="color: #74CBC4;">"opp"</span> '<span style="color: #F9D339;">(</span><span style="color: #F9D339; font-weight: bold;">lambda</span><span style="color: #74CBC4;">()</span> <span style="color: #74CBC4;">(</span>interactive<span style="color: #74CBC4;">)</span>
+           <span style="color: #74CBC4;">(</span>op/do-publication t nil t nil<span style="color: #74CBC4;">)</span>
+           <span style="color: #74CBC4;">(</span>find-file op/repository-directory<span style="color: #74CBC4;">)</span><span style="color: #F9D339;">)</span>
+  <span style="color: #74CBC4;">"opP"</span> '<span style="color: #F9D339;">(</span><span style="color: #F9D339; font-weight: bold;">lambda</span><span style="color: #74CBC4;">()</span> <span style="color: #74CBC4;">(</span>interactive<span style="color: #74CBC4;">)</span>
+           <span style="color: #74CBC4;">(</span>op/do-publication t t <span style="color: #74CBC4;">(</span>concat op/repository-directory <span style="color: #74CBC4;">"temp/build"</span><span style="color: #74CBC4;">)</span><span style="color: #74CBC4;">)</span><span style="color: #F9D339;">)</span><span style="color: #FF516D;">)</span>
 </pre>
 </div>
 </div>
@@ -159,75 +159,75 @@ for my blog:
 <div class="outline-text-3" id="text-2-3">
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">dotspacemacs/layers</span> <span style="color: #E6DB74;">()</span>
-  <span style="color: #75715E;">"Configuration Layers declaration."</span>
-  <span style="color: #E6DB74;">(</span>setq-default
-   <span style="color: #75715E;">;; </span><span style="color: #75715E;">List of additional paths where to look for configuration layers.</span>
+<pre class="src src-emacs-lisp"><span style="color: #FF516D;">(</span><span style="color: #F9D339; font-weight: bold;">defun</span> <span style="color: #FF516D;">dotspacemacs/layers</span> <span style="color: #F9D339;">()</span>
+  <span style="color: #9FC59F;">"Configuration Layers declaration."</span>
+  <span style="color: #F9D339;">(</span>setq-default
+   <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">List of additional paths where to look for configuration layers.</span>
 
-   <span style="color: #75715E;">;; </span><span style="color: #75715E;">Paths must have a trailing slash (ie. `</span><span style="color: #AE81FF;">~/.mycontribs/</span><span style="color: #75715E;">')</span>
-   dotspacemacs-configuration-layer-path '<span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"~/spacemacs_conf/"</span><span style="color: #66D9EF;">)</span>
-   <span style="color: #75715E;">;; </span><span style="color: #75715E;">List of configuration layers to load. If it is the symbol `</span><span style="color: #AE81FF;">all</span><span style="color: #75715E;">' instead</span>
-   <span style="color: #75715E;">;; </span><span style="color: #75715E;">of a list then all discovered layers will be installed.</span>
-   dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>appearance
-                                       <span style="color: #75715E;">;;</span><span style="color: #75715E;">Test;;</span>
-                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">ocodo-svg-modeline</span>
-                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">vim-powerline</span>
+   <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">Paths must have a trailing slash (ie. `</span><span style="color: #F77669;">~/.mycontribs/</span><span style="color: #546D7A;">')</span>
+   dotspacemacs-configuration-layer-path '<span style="color: #74CBC4;">(</span><span style="color: #74CBC4;">"~/spacemacs_conf/"</span><span style="color: #74CBC4;">)</span>
+   <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">List of configuration layers to load. If it is the symbol `</span><span style="color: #F77669;">all</span><span style="color: #546D7A;">' instead</span>
+   <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">of a list then all discovered layers will be installed.</span>
+   dotspacemacs-configuration-layers '<span style="color: #74CBC4;">(</span>appearance
+                                       <span style="color: #546D7A;">;;</span><span style="color: #546D7A;">Test;;</span>
+                                       <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">ocodo-svg-modeline</span>
+                                       <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">vim-powerline</span>
                                        spaceppets
-                                       <span style="color: #FD971F;">(</span>git <span style="color: #F92672;">:variables</span>
+                                       <span style="color: #74CBC4;">(</span>git <span style="color: #CDD3D3; font-weight: bold;">:variables</span>
                                             git-magit-status-fullscreen t
                                             git-enable-github-support t
-                                            git-gutter-use-fringe t<span style="color: #FD971F;">)</span>
+                                            git-gutter-use-fringe t<span style="color: #74CBC4;">)</span>
                                        prodigy
-                                       <span style="color: #FD971F;">(</span>colors <span style="color: #F92672;">:variables</span>
-                                               colors-enable-nyan-cat-progress-bar ,<span style="color: #A6E22E;">(</span>display-graphic-p<span style="color: #A6E22E;">)</span>
-                                               colors-enable-rainbow-identifiers nil<span style="color: #FD971F;">)</span>
-                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">(perspectives :variables</span>
-                                       <span style="color: #75715E;">;;               </span><span style="color: #75715E;">perspective-enable-persp-projectile t)</span>
+                                       <span style="color: #74CBC4;">(</span>colors <span style="color: #CDD3D3; font-weight: bold;">:variables</span>
+                                               colors-enable-nyan-cat-progress-bar ,<span style="color: #9FAA9B;">(</span>display-graphic-p<span style="color: #9FAA9B;">)</span>
+                                               colors-enable-rainbow-identifiers nil<span style="color: #74CBC4;">)</span>
+                                       <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">(perspectives :variables</span>
+                                       <span style="color: #546D7A;">;;               </span><span style="color: #546D7A;">perspective-enable-persp-projectile t)</span>
                                        eyebrowse
                                        chrome
                                        erc
-                                      <span style="color: #FD971F;">(</span>rcirc <span style="color: #F92672;">:variables</span>
-                                             rcirc-default-nick <span style="color: #E6DB74;">"cestdiego"</span>
-                                             rcirc-default-user-name <span style="color: #E6DB74;">"cestdiego"</span>
-                                             rcirc-default-full-name <span style="color: #E6DB74;">"Diego Berrocal"</span>
-                                             rcirc-enable-znc-support t<span style="color: #FD971F;">)</span>
+                                      <span style="color: #74CBC4;">(</span>rcirc <span style="color: #CDD3D3; font-weight: bold;">:variables</span>
+                                             rcirc-default-nick <span style="color: #74CBC4;">"cestdiego"</span>
+                                             rcirc-default-user-name <span style="color: #74CBC4;">"cestdiego"</span>
+                                             rcirc-default-full-name <span style="color: #74CBC4;">"Diego Berrocal"</span>
+                                             rcirc-enable-znc-support t<span style="color: #74CBC4;">)</span>
                                        html
                                        restclient
-                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">Org</span>
+                                       <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">Org</span>
                                        org
-                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">org-notify</span>
+                                       <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">org-notify</span>
                                        org-cestdiego
-                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">Helm</span>
+                                       <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">Helm</span>
                                        helm
-                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">Code Navigation</span>
+                                       <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">Code Navigation</span>
                                        ecb
-                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">multimedia</span>
+                                       <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">multimedia</span>
                                        presentations
-                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">Miscellaneous</span>
+                                       <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">Miscellaneous</span>
                                        emoji
-                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">webkit</span>
+                                       <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">webkit</span>
                                        wakatime
-                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">Media</span>
+                                       <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">Media</span>
                                        bongo
-                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">Completings Stuff</span>
-                                       <span style="color: #FD971F;">(</span>auto-completion
-                                        <span style="color: #F92672;">:variables</span>
+                                       <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">Completings Stuff</span>
+                                       <span style="color: #74CBC4;">(</span>auto-completion
+                                        <span style="color: #CDD3D3; font-weight: bold;">:variables</span>
                                         auto-completion-enable-help-tooltip t
                                         auto-completion-return-key-behavior complete
-                                        auto-completion-complete-with-key-sequence <span style="color: #E6DB74;">"jk"</span><span style="color: #FD971F;">)</span>
+                                        auto-completion-complete-with-key-sequence <span style="color: #74CBC4;">"jk"</span><span style="color: #74CBC4;">)</span>
                                        slime
                                        ycmd
-                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">Syntax Checking Stuff</span>
+                                       <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">Syntax Checking Stuff</span>
                                        syntax-checking
-                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">LaTeX</span>
+                                       <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">LaTeX</span>
                                        auctex
-                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">Shells</span>
+                                       <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">Shells</span>
                                        eshell
-                                       <span style="color: #FD971F;">(</span>shell <span style="color: #F92672;">:variables</span>
+                                       <span style="color: #74CBC4;">(</span>shell <span style="color: #CDD3D3; font-weight: bold;">:variables</span>
                                               shell-default-shell ansi-term
                                               shell-pop-autocd-to-working-dir nil
-                                              shell-default-term-shell <span style="color: #E6DB74;">"/bin/zsh"</span><span style="color: #FD971F;">)</span>
-                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">Lang</span>
+                                              shell-default-term-shell <span style="color: #74CBC4;">"/bin/zsh"</span><span style="color: #74CBC4;">)</span>
+                                       <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">Lang</span>
                                        ansible
                                        markdown
                                        clojure
@@ -241,25 +241,25 @@ for my blog:
                                        haskell
                                        javascript
                                        ruby
-                                       <span style="color: #75715E;">;; </span><span style="color: #75715E;">Utils</span>
+                                       <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">Utils</span>
                                        search-engine
                                        calfw
                                        floobits
                                        utils
                                        xkcd
                                        vagrant
-                                       <span style="color: #66D9EF;">)</span>
-   <span style="color: #75715E;">;; </span><span style="color: #75715E;">List of additional packages that will be installed wihout being</span>
-   <span style="color: #75715E;">;; </span><span style="color: #75715E;">wrapped in a layer. If you need some configuration for these</span>
-   <span style="color: #75715E;">;; </span><span style="color: #75715E;">packages then consider to create a layer, you can also put the</span>
-   <span style="color: #75715E;">;; </span><span style="color: #75715E;">configuration in `</span><span style="color: #AE81FF;">dostspacemacs/config</span><span style="color: #75715E;">'.</span>
-   dotspacemacs-additional-packages '<span style="color: #66D9EF;">()</span>
-   <span style="color: #75715E;">;; </span><span style="color: #75715E;">A list of packages and/or extensions that will not be install and loaded.</span>
-   dotspacemacs-excluded-packages '<span style="color: #66D9EF;">(</span>evil-org<span style="color: #66D9EF;">)</span>
-   <span style="color: #75715E;">;; </span><span style="color: #75715E;">If non-nil spacemacs will delete any orphan packages, i.e. packages that</span>
-   <span style="color: #75715E;">;; </span><span style="color: #75715E;">are declared in a layer which is not a member of</span>
-   <span style="color: #75715E;">;; </span><span style="color: #75715E;">the list `</span><span style="color: #AE81FF;">dotspacemacs-configuration-layers</span><span style="color: #75715E;">'</span>
-   dotspacemacs-delete-orphan-packages t<span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
+                                       <span style="color: #74CBC4;">)</span>
+   <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">List of additional packages that will be installed wihout being</span>
+   <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">wrapped in a layer. If you need some configuration for these</span>
+   <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">packages then consider to create a layer, you can also put the</span>
+   <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">configuration in `</span><span style="color: #F77669;">dostspacemacs/config</span><span style="color: #546D7A;">'.</span>
+   dotspacemacs-additional-packages '<span style="color: #74CBC4;">()</span>
+   <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">A list of packages and/or extensions that will not be install and loaded.</span>
+   dotspacemacs-excluded-packages '<span style="color: #74CBC4;">(</span>evil-org<span style="color: #74CBC4;">)</span>
+   <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">If non-nil spacemacs will delete any orphan packages, i.e. packages that</span>
+   <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">are declared in a layer which is not a member of</span>
+   <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">the list `</span><span style="color: #F77669;">dotspacemacs-configuration-layers</span><span style="color: #546D7A;">'</span>
+   dotspacemacs-delete-orphan-packages t<span style="color: #F9D339;">)</span><span style="color: #FF516D;">)</span>
 </pre>
 </div>
 </div>
