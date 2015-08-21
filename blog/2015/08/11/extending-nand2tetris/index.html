@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/media/css/normalize.css">
     <link rel="stylesheet" href="/media/css/dark.css" id="darkTheme">
     <link rel="stylesheet" href="/media/css/light.css" id="lightTheme">
+    <link href="http://cestdiego.github.io/atom.xml" type="application/atom+xml" rel="alternate" title="Diego Berrocal" />
     <script>
      var lightTheme = document.querySelector("#lightTheme");
      var darkTheme = document.querySelector("#darkTheme");
@@ -273,6 +274,7 @@ awesome, so if someone can make this happen, plz do.
 <footer class="site-footer">
     <div class="back-to-top">
         <a href="#">back to top</a>
+        <a id="show-comments"  onclick="loadDisqus()"> show comments</a>
     </div>
     <script src="/media/js/main.js"></script>
     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
@@ -296,19 +298,15 @@ awesome, so if someone can make this happen, plz do.
              var ds_loaded = false;
              var le_top = document.getElementById("disqus_thread").offsetTop;
 
-             function check(){
-                 if ( !ds_loaded && window.scrollY + document.documentElement.clientHeight >= le_top ) {
-                     ds_loaded = true;
-                     (function() {
-                         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                     })();
-                 }
+             function loadDisqus(){
+                 ds_loaded = true;
+                 (function() {
+                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                 })();
+                 document.getElementById("show-comments").style.visibility = "hidden"
              }
-
-             window.onscroll = check;
-             check();
 
              var reload_disqus = function(){
                  DISQUS.reset({
