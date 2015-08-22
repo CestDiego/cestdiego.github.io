@@ -80,35 +80,35 @@ I added support for the popup from company, it just looks like this:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">defvar</span> <span style="color: #DFAF8F;">nand2tetris-builtin-chips</span>
-  '<span style="color: #BFEBBF;">(</span><span style="color: #D0BF8F;">(</span><span style="color: #CC9393;">"Add16"</span> . <span style="color: #93E0E3;">(</span><span style="color: #9FC59F;">(</span><span style="color: #CC9393;">"description"</span> .
-                 <span style="color: #CC9393;">"16-bit bitwise And:</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">nand2tetris-builtin-chips</span>
+  '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"Add16"</span> . <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-rainbow-delimiters-depth-5">(</span><span class="org-string">"description"</span> .
+                 <span class="org-string">"16-bit bitwise And:</span>
 
-<span style="color: #CC9393;">IN a[16], b[16];</span>
-<span style="color: #CC9393;">OUT out[16];</span>
+<span class="org-string">IN a[16], b[16];</span>
+<span class="org-string">OUT out[16];</span>
 
-<span style="color: #CC9393;">for i = 0..15: out[i] = (a[i] and b[i])"</span><span style="color: #9FC59F;">)</span>
-                <span style="color: #9FC59F;">(</span><span style="color: #CC9393;">"spec"</span> . <span style="color: #CC9393;">"Add16(a= ,b= ,out= )"</span><span style="color: #9FC59F;">)</span><span style="color: #93E0E3;">)</span><span style="color: #D0BF8F;">)</span>
-    <span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">...</span>
-    <span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+<span class="org-string">for i = 0..15: out[i] = (a[i] and b[i])"</span><span class="org-rainbow-delimiters-depth-5">)</span>
+                <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-string">"spec"</span> . <span class="org-string">"Add16(a= ,b= ,out= )"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">...</span>
+    <span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">defun</span> <span style="color: #93E0E3;">company-nand2tetris--doc-buffer</span> <span style="color: #BFEBBF;">(</span>candidate<span style="color: #BFEBBF;">)</span>
-  <span style="color: #9FC59F;">"Return documentation buffer for chosen CANDIDATE."</span>
-  <span style="color: #BFEBBF;">(</span><span style="color: #F0DFAF; font-weight: bold;">let</span> <span style="color: #D0BF8F;">(</span><span style="color: #93E0E3;">(</span>doc <span style="color: #9FC59F;">(</span>cdr <span style="color: #94BFF3;">(</span>assoc <span style="color: #CC9393;">"description"</span>
-                         <span style="color: #E0CF9F;">(</span>assoc candidate nand2tetris-builtin-chips<span style="color: #E0CF9F;">)</span><span style="color: #94BFF3;">)</span><span style="color: #9FC59F;">)</span><span style="color: #93E0E3;">)</span><span style="color: #D0BF8F;">)</span>
-    <span style="color: #D0BF8F;">(</span>and doc <span style="color: #93E0E3;">(</span>nand2tetris-doc-buffer doc<span style="color: #93E0E3;">)</span><span style="color: #D0BF8F;">)</span><span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">company-nand2tetris--doc-buffer</span> <span class="org-rainbow-delimiters-depth-2">(</span>candidate<span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-doc">"Return documentation buffer for chosen CANDIDATE."</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>doc <span class="org-rainbow-delimiters-depth-5">(</span>cdr <span class="org-rainbow-delimiters-depth-6">(</span>assoc <span class="org-string">"description"</span>
+                         <span class="org-rainbow-delimiters-depth-7">(</span>assoc candidate nand2tetris-builtin-chips<span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>and doc <span class="org-rainbow-delimiters-depth-4">(</span>nand2tetris-doc-buffer doc<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
 
-<span style="color: #5F7F5F;">;;;</span><span style="color: #7F9F7F;">###</span><span style="color: #D0BF8F; font-weight: bold;">autoload</span>
-<span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">defun</span> <span style="color: #93E0E3;">company-nand2tetris</span> <span style="color: #BFEBBF;">(</span>command <span style="color: #7CB8BB;">&amp;optional</span> arg <span style="color: #7CB8BB;">&amp;rest</span> ignored<span style="color: #BFEBBF;">)</span>
-  <span style="color: #9FC59F;">"Company backend for `</span><span style="color: #BFEBBF;">nand2tetris-mode</span><span style="color: #9FC59F;">'."</span>
-  <span style="color: #BFEBBF;">(</span>interactive <span style="color: #D0BF8F;">(</span>list 'interactive<span style="color: #D0BF8F;">)</span><span style="color: #BFEBBF;">)</span>
-  <span style="color: #BFEBBF;">(</span><span style="color: #F0DFAF; font-weight: bold;">cl-case</span> command
-    <span style="color: #D0BF8F;">(</span>interactive <span style="color: #93E0E3;">(</span>company-begin-backend 'company-nand2tetris<span style="color: #93E0E3;">)</span><span style="color: #D0BF8F;">)</span>
-    <span style="color: #D0BF8F;">(</span>prefix <span style="color: #93E0E3;">(</span>company-nand2tetris--prefix<span style="color: #93E0E3;">)</span><span style="color: #D0BF8F;">)</span>
-    <span style="color: #D0BF8F;">(</span>candidates <span style="color: #93E0E3;">(</span>company-nand2tetris--candidates arg<span style="color: #93E0E3;">)</span><span style="color: #D0BF8F;">)</span>
-    <span style="color: #D0BF8F;">(</span>doc-buffer <span style="color: #93E0E3;">(</span>company-nand2tetris--doc-buffer arg<span style="color: #93E0E3;">)</span><span style="color: #D0BF8F;">)</span>
-    <span style="color: #D0BF8F;">(</span>annotation <span style="color: #93E0E3;">(</span>company-nand2tetris--annotation arg<span style="color: #93E0E3;">)</span><span style="color: #D0BF8F;">)</span><span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+<span class="org-comment-delimiter">;;;</span><span class="org-comment">###</span><span class="org-comment"><span class="org-warning">autoload</span></span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">company-nand2tetris</span> <span class="org-rainbow-delimiters-depth-2">(</span>command <span class="org-type">&amp;optional</span> arg <span class="org-type">&amp;rest</span> ignored<span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-doc">"Company backend for `</span><span class="org-doc"><span class="org-constant">nand2tetris-mode</span></span><span class="org-doc">'."</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>interactive <span class="org-rainbow-delimiters-depth-3">(</span>list 'interactive<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">cl-case</span> command
+    <span class="org-rainbow-delimiters-depth-3">(</span>interactive <span class="org-rainbow-delimiters-depth-4">(</span>company-begin-backend 'company-nand2tetris<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>prefix <span class="org-rainbow-delimiters-depth-4">(</span>company-nand2tetris--prefix<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>candidates <span class="org-rainbow-delimiters-depth-4">(</span>company-nand2tetris--candidates arg<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>doc-buffer <span class="org-rainbow-delimiters-depth-4">(</span>company-nand2tetris--doc-buffer arg<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>annotation <span class="org-rainbow-delimiters-depth-4">(</span>company-nand2tetris--annotation arg<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -132,27 +132,27 @@ bearable rough edges.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #5F7F5F;">;;; </span><span style="color: #7F9F7F;">ElDoc</span>
-<span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">require</span> '<span style="color: #BFEBBF;">eldoc</span><span style="color: #DCDCCC;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;;; </span><span class="org-comment">ElDoc</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">require</span> '<span class="org-constant">eldoc</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">defun</span> <span style="color: #93E0E3;">get-chip-at-line</span> <span style="color: #BFEBBF;">()</span>
-  <span style="color: #9FC59F;">"Gets the chip currently used, so that placing the cursor at</span>
-<span style="color: #9FC59F;">any point in the line:</span>
-<span style="color: #9FC59F;">   Not16 (in=a, out=out)</span>
-<span style="color: #9FC59F;">Will return Not16"</span>
-  <span style="color: #BFEBBF;">(</span><span style="color: #F0DFAF; font-weight: bold;">save-excursion</span>
-    <span style="color: #D0BF8F;">(</span>beginning-of-line<span style="color: #D0BF8F;">)</span>
-    <span style="color: #D0BF8F;">(</span>search-forward-regexp
-     <span style="color: #93E0E3;">(</span>rx <span style="color: #9FC59F;">(</span>group <span style="color: #94BFF3;">(</span>* word<span style="color: #94BFF3;">)</span><span style="color: #9FC59F;">)</span>
-         <span style="color: #9FC59F;">(</span>? space <span style="color: #9FC59F;">)</span> <span style="color: #CC9393;">"("</span><span style="color: #93E0E3;">)</span><span style="color: #D0BF8F;">)</span>
-    <span style="color: #D0BF8F;">(</span>match-string <span style="color: #BFEBBF;">1</span><span style="color: #D0BF8F;">)</span><span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">get-chip-at-line</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+  <span class="org-doc">"Gets the chip currently used, so that placing the cursor at</span>
+<span class="org-doc">any point in the line:</span>
+<span class="org-doc">   Not16 (in=a, out=out)</span>
+<span class="org-doc">Will return Not16"</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">save-excursion</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>beginning-of-line<span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>search-forward-regexp
+     <span class="org-rainbow-delimiters-depth-4">(</span>rx <span class="org-rainbow-delimiters-depth-5">(</span>group <span class="org-rainbow-delimiters-depth-6">(</span>* word<span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
+         <span class="org-rainbow-delimiters-depth-5">(</span>? space <span class="org-rainbow-delimiters-depth-5">)</span> <span class="org-string">"("</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>match-string <span class="org-highlight-numbers-number">1</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">defun</span> <span style="color: #93E0E3;">nand2tetris-eldoc-function</span> <span style="color: #BFEBBF;">()</span>
-  <span style="color: #9FC59F;">"Get help on SYMBOL using `</span><span style="color: #BFEBBF;">help</span><span style="color: #9FC59F;">'.</span>
-<span style="color: #9FC59F;">Interactively, prompt for symbol."</span>
-  <span style="color: #BFEBBF;">(</span><span style="color: #F0DFAF; font-weight: bold;">let</span> <span style="color: #D0BF8F;">(</span><span style="color: #93E0E3;">(</span>symbol <span style="color: #9FC59F;">(</span>get-chip-at-line<span style="color: #9FC59F;">)</span><span style="color: #93E0E3;">)</span>
-        <span style="color: #93E0E3;">(</span>enable-recursive-minibuffers t<span style="color: #93E0E3;">)</span><span style="color: #D0BF8F;">)</span>
-    <span style="color: #D0BF8F;">(</span>message <span style="color: #93E0E3;">(</span>cdr <span style="color: #9FC59F;">(</span>assoc <span style="color: #CC9393;">"spec"</span> <span style="color: #94BFF3;">(</span>assoc symbol nand2tetris-builtin-chips<span style="color: #94BFF3;">)</span><span style="color: #9FC59F;">)</span><span style="color: #93E0E3;">)</span><span style="color: #D0BF8F;">)</span><span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">nand2tetris-eldoc-function</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+  <span class="org-doc">"Get help on SYMBOL using `</span><span class="org-doc"><span class="org-constant">help</span></span><span class="org-doc">'.</span>
+<span class="org-doc">Interactively, prompt for symbol."</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>symbol <span class="org-rainbow-delimiters-depth-5">(</span>get-chip-at-line<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
+        <span class="org-rainbow-delimiters-depth-4">(</span>enable-recursive-minibuffers t<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>message <span class="org-rainbow-delimiters-depth-4">(</span>cdr <span class="org-rainbow-delimiters-depth-5">(</span>assoc <span class="org-string">"spec"</span> <span class="org-rainbow-delimiters-depth-6">(</span>assoc symbol nand2tetris-builtin-chips<span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 

@@ -104,9 +104,9 @@ for my blog:
 </ul>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #DCDCCC;">(</span>setq op/site-domain <span style="color: #CC9393;">"https://cestdiego.github.com/"</span><span style="color: #DCDCCC;">)</span>
-<span style="color: #DCDCCC;">(</span>add-to-list 'op/category-ignore-list <span style="color: #CC9393;">"temp"</span><span style="color: #DCDCCC;">)</span>
-<span style="color: #DCDCCC;">(</span>setq op/repository-directory <span style="color: #CC9393;">"~/Projects/le_blog/"</span><span style="color: #DCDCCC;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq op/site-domain <span class="org-string">"https://cestdiego.github.com/"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>add-to-list 'op/category-ignore-list <span class="org-string">"temp"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>setq op/repository-directory <span class="org-string">"~/Projects/le_blog/"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -116,9 +116,9 @@ for my blog:
 </ul>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">This two are optional , only if you want have a custom theme</span>
-<span style="color: #DCDCCC;">(</span>setq op/theme-root-directory <span style="color: #CC9393;">"~/spacemacs_conf/org-cestdiego/org-page-themes/"</span><span style="color: #DCDCCC;">)</span>
-<span style="color: #DCDCCC;">(</span>setq op/theme 'just_right<span style="color: #DCDCCC;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">This two are optional , only if you want have a custom theme</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>setq op/theme-root-directory <span class="org-string">"~/spacemacs_conf/org-cestdiego/org-page-themes/"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>setq op/theme 'just_right<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -128,10 +128,10 @@ for my blog:
 </ul>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #DCDCCC;">(</span>setq op/personal-github-link <span style="color: #CC9393;">"https://github.com/CestDiego/"</span><span style="color: #DCDCCC;">)</span>
-<span style="color: #DCDCCC;">(</span>setq op/site-main-title <span style="color: #CC9393;">"Diego Berrocal"</span><span style="color: #DCDCCC;">)</span>
-<span style="color: #DCDCCC;">(</span>setq op/site-sub-title <span style="color: #CC9393;">"it's personal"</span><span style="color: #DCDCCC;">)</span>
-<span style="color: #DCDCCC;">(</span>setq op/personal-avatar <span style="color: #CC9393;">"https://avatars0.githubusercontent.com/u/3291619?v=3&amp;s=460"</span><span style="color: #DCDCCC;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq op/personal-github-link <span class="org-string">"https://github.com/CestDiego/"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>setq op/site-main-title <span class="org-string">"Diego Berrocal"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>setq op/site-sub-title <span class="org-string">"it's personal"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>setq op/personal-avatar <span class="org-string">"https://avatars0.githubusercontent.com/u/3291619?v=3&amp;s=460"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -142,14 +142,14 @@ for my blog:
 <div class="outline-text-3" id="text-2-2">
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #DCDCCC;">(</span>evil-leader/set-key
-  <span style="color: #CC9393;">"opo"</span> '<span style="color: #BFEBBF;">(</span><span style="color: #F0DFAF; font-weight: bold;">lambda</span> <span style="color: #D0BF8F;">()</span> <span style="color: #D0BF8F;">(</span>interactive<span style="color: #D0BF8F;">)</span>
-           <span style="color: #D0BF8F;">(</span>magit-status op/repository-directory<span style="color: #D0BF8F;">)</span><span style="color: #BFEBBF;">)</span>
-  <span style="color: #CC9393;">"opp"</span> '<span style="color: #BFEBBF;">(</span><span style="color: #F0DFAF; font-weight: bold;">lambda</span><span style="color: #D0BF8F;">()</span> <span style="color: #D0BF8F;">(</span>interactive<span style="color: #D0BF8F;">)</span>
-           <span style="color: #D0BF8F;">(</span>op/do-publication t nil t nil<span style="color: #D0BF8F;">)</span>
-           <span style="color: #D0BF8F;">(</span>find-file op/repository-directory<span style="color: #D0BF8F;">)</span><span style="color: #BFEBBF;">)</span>
-  <span style="color: #CC9393;">"opP"</span> '<span style="color: #BFEBBF;">(</span><span style="color: #F0DFAF; font-weight: bold;">lambda</span><span style="color: #D0BF8F;">()</span> <span style="color: #D0BF8F;">(</span>interactive<span style="color: #D0BF8F;">)</span>
-           <span style="color: #D0BF8F;">(</span>op/do-publication t t <span style="color: #93E0E3;">(</span>concat op/repository-directory <span style="color: #CC9393;">"temp/build"</span><span style="color: #93E0E3;">)</span><span style="color: #D0BF8F;">)</span><span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>evil-leader/set-key
+  <span class="org-string">"opo"</span> '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-3">()</span> <span class="org-rainbow-delimiters-depth-3">(</span>interactive<span class="org-rainbow-delimiters-depth-3">)</span>
+           <span class="org-rainbow-delimiters-depth-3">(</span>magit-status op/repository-directory<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-string">"opp"</span> '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span><span class="org-rainbow-delimiters-depth-3">()</span> <span class="org-rainbow-delimiters-depth-3">(</span>interactive<span class="org-rainbow-delimiters-depth-3">)</span>
+           <span class="org-rainbow-delimiters-depth-3">(</span>op/do-publication t nil t nil<span class="org-rainbow-delimiters-depth-3">)</span>
+           <span class="org-rainbow-delimiters-depth-3">(</span>find-file op/repository-directory<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-string">"opP"</span> '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span><span class="org-rainbow-delimiters-depth-3">()</span> <span class="org-rainbow-delimiters-depth-3">(</span>interactive<span class="org-rainbow-delimiters-depth-3">)</span>
+           <span class="org-rainbow-delimiters-depth-3">(</span>op/do-publication t t <span class="org-rainbow-delimiters-depth-4">(</span>concat op/repository-directory <span class="org-string">"temp/build"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 

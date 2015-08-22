@@ -78,8 +78,8 @@ We first assume people are gonna get the nand2tetris source dir, so we can do
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">defvar</span> <span style="color: #DFAF8F;">nand2tetris-source-dir</span> nil
-  <span style="color: #9FC59F;">"Source directory where nadn2tetris has been downloaded"</span><span style="color: #DCDCCC;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">nand2tetris-source-dir</span> nil
+  <span class="org-doc">"Source directory where nadn2tetris has been downloaded"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -89,11 +89,11 @@ Now we define the major mode:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">define-derived-mode</span> <span style="color: #93E0E3;">nand2tetris-mode</span> prog-mode
-  <span style="color: #CC9393;">"nand2tetris"</span>
-  <span style="color: #9FC59F;">"Major mode for editing HDL files for the course Nand2Tetris.</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">define-derived-mode</span> <span class="org-function-name">nand2tetris-mode</span> prog-mode
+  <span class="org-string">"nand2tetris"</span>
+  <span class="org-doc">"Major mode for editing HDL files for the course Nand2Tetris.</span>
 
-<span style="color: #9FC59F;">\\{nand2tetris-mode-map}"</span><span style="color: #DCDCCC;">)</span>
+<span class="org-doc">\\{nand2tetris-mode-map}"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -103,10 +103,10 @@ This will use nand2tetris-mode-syntax-table by default, so let's also define tha
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">defconst</span> <span style="color: #DFAF8F;">nand2tetris-mode-syntax-table</span>
-  <span style="color: #BFEBBF;">(</span><span style="color: #F0DFAF; font-weight: bold;">let</span> <span style="color: #D0BF8F;">(</span><span style="color: #93E0E3;">(</span>table <span style="color: #9FC59F;">(</span>make-syntax-table<span style="color: #9FC59F;">)</span><span style="color: #93E0E3;">)</span><span style="color: #D0BF8F;">)</span>
-    <span style="color: #D0BF8F;">(</span>c-populate-syntax-table table<span style="color: #D0BF8F;">)</span>
-    table<span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defconst</span> <span class="org-variable-name">nand2tetris-mode-syntax-table</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>table <span class="org-rainbow-delimiters-depth-5">(</span>make-syntax-table<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>c-populate-syntax-table table<span class="org-rainbow-delimiters-depth-3">)</span>
+    table<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -122,18 +122,18 @@ So far I've seen these keywords <code>CHIP, IN, OUT, PARTS</code>, so let's see 
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">defvar</span> <span style="color: #DFAF8F;">nand2tetris-font-lock-keywords</span>
-  <span style="color: #5F7F5F;">;;</span><span style="color: #7F9F7F;">Keywords</span>
-  `<span style="color: #BFEBBF;">(</span>,<span style="color: #D0BF8F;">(</span>rx symbol-start
-         <span style="color: #93E0E3;">(</span>or <span style="color: #CC9393;">"CHIP"</span> <span style="color: #CC9393;">"IN"</span> <span style="color: #CC9393;">"OUT"</span> <span style="color: #CC9393;">"PARTS"</span><span style="color: #93E0E3;">)</span>
-         symbol-end<span style="color: #D0BF8F;">)</span>
-    <span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">CHIP &lt;ChipName&gt;</span>
-    <span style="color: #D0BF8F;">(</span>,<span style="color: #93E0E3;">(</span>rx symbol-start <span style="color: #CC9393;">"CHIP"</span> <span style="color: #9FC59F;">(</span>1+ space<span style="color: #9FC59F;">)</span> <span style="color: #9FC59F;">(</span>group <span style="color: #94BFF3;">(</span>1+ <span style="color: #E0CF9F;">(</span>or word ?_<span style="color: #E0CF9F;">)</span><span style="color: #94BFF3;">)</span><span style="color: #9FC59F;">)</span><span style="color: #93E0E3;">)</span>
-     <span style="color: #93E0E3;">(</span><span style="color: #BFEBBF;">1</span> font-lock-type-face<span style="color: #93E0E3;">)</span><span style="color: #D0BF8F;">)</span>
-    <span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">&lt;ChipName&gt; (in=in, out=out);</span>
-    <span style="color: #D0BF8F;">(</span>,<span style="color: #93E0E3;">(</span>rx symbol-start <span style="color: #9FC59F;">(</span>group <span style="color: #94BFF3;">(</span>1+ <span style="color: #E0CF9F;">(</span>or word ?_<span style="color: #E0CF9F;">)</span><span style="color: #94BFF3;">)</span><span style="color: #9FC59F;">)</span>
-          <span style="color: #9FC59F;">(</span>? space<span style="color: #9FC59F;">)</span> <span style="color: #9FC59F;">(</span>seq <span style="color: #CC9393;">"("</span> <span style="color: #94BFF3;">(</span>0+ not-newline<span style="color: #94BFF3;">)</span> <span style="color: #CC9393;">")"</span><span style="color: #9FC59F;">)</span><span style="color: #93E0E3;">)</span>
-     <span style="color: #93E0E3;">(</span><span style="color: #BFEBBF;">1</span> font-lock-variable-name-face<span style="color: #93E0E3;">)</span><span style="color: #D0BF8F;">)</span><span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">nand2tetris-font-lock-keywords</span>
+  <span class="org-comment-delimiter">;;</span><span class="org-comment">Keywords</span>
+  `<span class="org-rainbow-delimiters-depth-2">(</span>,<span class="org-rainbow-delimiters-depth-3">(</span>rx symbol-start
+         <span class="org-rainbow-delimiters-depth-4">(</span>or <span class="org-string">"CHIP"</span> <span class="org-string">"IN"</span> <span class="org-string">"OUT"</span> <span class="org-string">"PARTS"</span><span class="org-rainbow-delimiters-depth-4">)</span>
+         symbol-end<span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">CHIP &lt;ChipName&gt;</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>,<span class="org-rainbow-delimiters-depth-4">(</span>rx symbol-start <span class="org-string">"CHIP"</span> <span class="org-rainbow-delimiters-depth-5">(</span>1+ space<span class="org-rainbow-delimiters-depth-5">)</span> <span class="org-rainbow-delimiters-depth-5">(</span>group <span class="org-rainbow-delimiters-depth-6">(</span>1+ <span class="org-rainbow-delimiters-depth-7">(</span>or word ?_<span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
+     <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-highlight-numbers-number">1</span> font-lock-type-face<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">&lt;ChipName&gt; (in=in, out=out);</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>,<span class="org-rainbow-delimiters-depth-4">(</span>rx symbol-start <span class="org-rainbow-delimiters-depth-5">(</span>group <span class="org-rainbow-delimiters-depth-6">(</span>1+ <span class="org-rainbow-delimiters-depth-7">(</span>or word ?_<span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
+          <span class="org-rainbow-delimiters-depth-5">(</span>? space<span class="org-rainbow-delimiters-depth-5">)</span> <span class="org-rainbow-delimiters-depth-5">(</span>seq <span class="org-string">"("</span> <span class="org-rainbow-delimiters-depth-6">(</span>0+ not-newline<span class="org-rainbow-delimiters-depth-6">)</span> <span class="org-string">")"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
+     <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-highlight-numbers-number">1</span> font-lock-variable-name-face<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -143,14 +143,14 @@ Lets add it to the major-mode:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">define-derived-mode</span> <span style="color: #93E0E3;">nand2tetris-mode</span> prog-mode
-  <span style="color: #CC9393;">"nand2tetris"</span>
-  <span style="color: #9FC59F;">"Major mode for editing HDL files for the course Nand2Tetris.</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">define-derived-mode</span> <span class="org-function-name">nand2tetris-mode</span> prog-mode
+  <span class="org-string">"nand2tetris"</span>
+  <span class="org-doc">"Major mode for editing HDL files for the course Nand2Tetris.</span>
 
-<span style="color: #9FC59F;">\\{nand2tetris-mode-map}"</span>
+<span class="org-doc">\\{nand2tetris-mode-map}"</span>
 
-  <span style="color: #BFEBBF;">(</span>set <span style="color: #D0BF8F;">(</span>make-local-variable 'font-lock-defaults<span style="color: #D0BF8F;">)</span>
-       '<span style="color: #D0BF8F;">(</span>nand2tetris-font-lock-keywords nil nil nil nil<span style="color: #D0BF8F;">)</span><span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>set <span class="org-rainbow-delimiters-depth-3">(</span>make-local-variable 'font-lock-defaults<span class="org-rainbow-delimiters-depth-3">)</span>
+       '<span class="org-rainbow-delimiters-depth-3">(</span>nand2tetris-font-lock-keywords nil nil nil nil<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -163,9 +163,9 @@ major mode to bind to all <code>.hdl</code> files inside the <code>nand2tetris-s
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #DCDCCC;">(</span>add-to-list 'auto-mode-alist
-             `<span style="color: #BFEBBF;">(</span>,<span style="color: #D0BF8F;">(</span>concat <span style="color: #93E0E3;">(</span>expand-file-name nand2tetris-source-dir<span style="color: #93E0E3;">)</span> <span style="color: #CC9393;">"\.*\\.hdl"</span><span style="color: #D0BF8F;">)</span>
-               . nand2tetris-mode<span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>add-to-list 'auto-mode-alist
+             `<span class="org-rainbow-delimiters-depth-2">(</span>,<span class="org-rainbow-delimiters-depth-3">(</span>concat <span class="org-rainbow-delimiters-depth-4">(</span>expand-file-name nand2tetris-source-dir<span class="org-rainbow-delimiters-depth-4">)</span> <span class="org-string">"\.*\\.hdl"</span><span class="org-rainbow-delimiters-depth-3">)</span>
+               . nand2tetris-mode<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -175,63 +175,63 @@ And that's been it for today. it all looks like this:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #5F7F5F;">;;; </span><span style="color: #7F9F7F;">nand2tetris.el --- Major Mode for HDL files in the Nand2Tetris Course</span>
-<span style="color: #5F7F5F;">;;; </span><span style="color: #7F9F7F;">https://www.coursera.org/course/nand2tetris1</span>
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;;; </span><span class="org-comment">nand2tetris.el --- Major Mode for HDL files in the Nand2Tetris Course</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">https://www.coursera.org/course/nand2tetris1</span>
 
-<span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">Copyright (C) 2015 Diego Berrocal</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Copyright (C) 2015 Diego Berrocal</span>
 
-<span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">Author: Diego Berrocal <a href="mailto:cestdiego%40gmail.com">&lt;cestdiego@gmail.com&gt;</a></span>
-<span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">Created: 10 August 2015</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Author: Diego Berrocal <a href="mailto:cestdiego%40gmail.com">&lt;cestdiego@gmail.com&gt;</a></span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Created: 10 August 2015</span>
 
-<span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">Keywords: nand2tetris, hdl</span>
-<span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">Homepage: http://www.github.com/CestDiego/nand2tetris.el/</span>
-<span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">Version: 0.0.1</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Keywords: nand2tetris, hdl</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Homepage: http://www.github.com/CestDiego/nand2tetris.el/</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Version: 0.0.1</span>
 
-<span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">This file is not part of GNU Emacs.</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">This file is not part of GNU Emacs.</span>
 
-<span style="color: #5F7F5F;">;;; </span><span style="color: #7F9F7F;">License: GPLv3</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">License: GPLv3</span>
 
-<span style="color: #5F7F5F;">;;; </span><span style="color: #7F9F7F;">Commentary:</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Commentary:</span>
 
-<span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">Useful functions to make following the coursera course easier.</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Useful functions to make following the coursera course easier.</span>
 
-<span style="color: #5F7F5F;">;;; </span><span style="color: #7F9F7F;">Code:</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Code:</span>
 
-<span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">defvar</span> <span style="color: #DFAF8F;">nand2tetris-source-dir</span> nil
-  <span style="color: #9FC59F;">"Source directory where nadn2tetris has been downloaded"</span><span style="color: #DCDCCC;">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">nand2tetris-source-dir</span> nil
+  <span class="org-doc">"Source directory where nadn2tetris has been downloaded"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">defconst</span> <span style="color: #DFAF8F;">nand2tetris-mode-syntax-table</span>
-  <span style="color: #BFEBBF;">(</span><span style="color: #F0DFAF; font-weight: bold;">let</span> <span style="color: #D0BF8F;">(</span><span style="color: #93E0E3;">(</span>table <span style="color: #9FC59F;">(</span>make-syntax-table<span style="color: #9FC59F;">)</span><span style="color: #93E0E3;">)</span><span style="color: #D0BF8F;">)</span>
-    <span style="color: #D0BF8F;">(</span>c-populate-syntax-table table<span style="color: #D0BF8F;">)</span>
-    table<span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defconst</span> <span class="org-variable-name">nand2tetris-mode-syntax-table</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>table <span class="org-rainbow-delimiters-depth-5">(</span>make-syntax-table<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>c-populate-syntax-table table<span class="org-rainbow-delimiters-depth-3">)</span>
+    table<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">defvar</span> <span style="color: #DFAF8F;">nand2tetris-font-lock-keywords</span>
-  <span style="color: #5F7F5F;">;;</span><span style="color: #7F9F7F;">Keywords</span>
-  `<span style="color: #BFEBBF;">(</span>,<span style="color: #D0BF8F;">(</span>rx symbol-start
-         <span style="color: #93E0E3;">(</span>or <span style="color: #CC9393;">"CHIP"</span> <span style="color: #CC9393;">"IN"</span> <span style="color: #CC9393;">"OUT"</span> <span style="color: #CC9393;">"PARTS"</span><span style="color: #93E0E3;">)</span>
-         symbol-end<span style="color: #D0BF8F;">)</span>
-    <span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">CHIP &lt;ChipName&gt;</span>
-    <span style="color: #D0BF8F;">(</span>,<span style="color: #93E0E3;">(</span>rx symbol-start <span style="color: #CC9393;">"CHIP"</span> <span style="color: #9FC59F;">(</span>1+ space<span style="color: #9FC59F;">)</span> <span style="color: #9FC59F;">(</span>group <span style="color: #94BFF3;">(</span>1+ <span style="color: #E0CF9F;">(</span>or word ?_<span style="color: #E0CF9F;">)</span><span style="color: #94BFF3;">)</span><span style="color: #9FC59F;">)</span><span style="color: #93E0E3;">)</span>
-     <span style="color: #93E0E3;">(</span><span style="color: #BFEBBF;">1</span> font-lock-type-face<span style="color: #93E0E3;">)</span><span style="color: #D0BF8F;">)</span>
-    <span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">&lt;ChipName&gt; (in=in, out=out);</span>
-    <span style="color: #D0BF8F;">(</span>,<span style="color: #93E0E3;">(</span>rx symbol-start <span style="color: #9FC59F;">(</span>group <span style="color: #94BFF3;">(</span>1+ <span style="color: #E0CF9F;">(</span>or word ?_<span style="color: #E0CF9F;">)</span><span style="color: #94BFF3;">)</span><span style="color: #9FC59F;">)</span>
-          <span style="color: #9FC59F;">(</span>? space<span style="color: #9FC59F;">)</span> <span style="color: #9FC59F;">(</span>seq <span style="color: #CC9393;">"("</span> <span style="color: #94BFF3;">(</span>0+ not-newline<span style="color: #94BFF3;">)</span> <span style="color: #CC9393;">")"</span><span style="color: #9FC59F;">)</span><span style="color: #93E0E3;">)</span>
-     <span style="color: #93E0E3;">(</span><span style="color: #BFEBBF;">1</span> font-lock-variable-name-face<span style="color: #93E0E3;">)</span><span style="color: #D0BF8F;">)</span><span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">nand2tetris-font-lock-keywords</span>
+  <span class="org-comment-delimiter">;;</span><span class="org-comment">Keywords</span>
+  `<span class="org-rainbow-delimiters-depth-2">(</span>,<span class="org-rainbow-delimiters-depth-3">(</span>rx symbol-start
+         <span class="org-rainbow-delimiters-depth-4">(</span>or <span class="org-string">"CHIP"</span> <span class="org-string">"IN"</span> <span class="org-string">"OUT"</span> <span class="org-string">"PARTS"</span><span class="org-rainbow-delimiters-depth-4">)</span>
+         symbol-end<span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">CHIP &lt;ChipName&gt;</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>,<span class="org-rainbow-delimiters-depth-4">(</span>rx symbol-start <span class="org-string">"CHIP"</span> <span class="org-rainbow-delimiters-depth-5">(</span>1+ space<span class="org-rainbow-delimiters-depth-5">)</span> <span class="org-rainbow-delimiters-depth-5">(</span>group <span class="org-rainbow-delimiters-depth-6">(</span>1+ <span class="org-rainbow-delimiters-depth-7">(</span>or word ?_<span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
+     <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-highlight-numbers-number">1</span> font-lock-type-face<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">&lt;ChipName&gt; (in=in, out=out);</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>,<span class="org-rainbow-delimiters-depth-4">(</span>rx symbol-start <span class="org-rainbow-delimiters-depth-5">(</span>group <span class="org-rainbow-delimiters-depth-6">(</span>1+ <span class="org-rainbow-delimiters-depth-7">(</span>or word ?_<span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
+          <span class="org-rainbow-delimiters-depth-5">(</span>? space<span class="org-rainbow-delimiters-depth-5">)</span> <span class="org-rainbow-delimiters-depth-5">(</span>seq <span class="org-string">"("</span> <span class="org-rainbow-delimiters-depth-6">(</span>0+ not-newline<span class="org-rainbow-delimiters-depth-6">)</span> <span class="org-string">")"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
+     <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-highlight-numbers-number">1</span> font-lock-variable-name-face<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">define-derived-mode</span> <span style="color: #93E0E3;">nand2tetris-mode</span> prog-mode
-  <span style="color: #CC9393;">"nand2tetris"</span>
-  <span style="color: #9FC59F;">"Major mode for editing HDL files for the course Nand2Tetris.</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">define-derived-mode</span> <span class="org-function-name">nand2tetris-mode</span> prog-mode
+  <span class="org-string">"nand2tetris"</span>
+  <span class="org-doc">"Major mode for editing HDL files for the course Nand2Tetris.</span>
 
-<span style="color: #9FC59F;">\\{nand2tetris-mode-map}"</span>
+<span class="org-doc">\\{nand2tetris-mode-map}"</span>
 
-  <span style="color: #BFEBBF;">(</span>set <span style="color: #D0BF8F;">(</span>make-local-variable 'font-lock-defaults<span style="color: #D0BF8F;">)</span>
-       '<span style="color: #D0BF8F;">(</span>nand2tetris-font-lock-keywords nil nil nil nil<span style="color: #D0BF8F;">)</span><span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>set <span class="org-rainbow-delimiters-depth-3">(</span>make-local-variable 'font-lock-defaults<span class="org-rainbow-delimiters-depth-3">)</span>
+       '<span class="org-rainbow-delimiters-depth-3">(</span>nand2tetris-font-lock-keywords nil nil nil nil<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span style="color: #DCDCCC;">(</span>add-to-list 'auto-mode-alist
-             `<span style="color: #BFEBBF;">(</span>,<span style="color: #D0BF8F;">(</span>concat <span style="color: #93E0E3;">(</span>expand-file-name nand2tetris-source-dir<span style="color: #93E0E3;">)</span> <span style="color: #CC9393;">"\.*\\.hdl"</span><span style="color: #D0BF8F;">)</span>
-               . nand2tetris-mode<span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>add-to-list 'auto-mode-alist
+             `<span class="org-rainbow-delimiters-depth-2">(</span>,<span class="org-rainbow-delimiters-depth-3">(</span>concat <span class="org-rainbow-delimiters-depth-4">(</span>expand-file-name nand2tetris-source-dir<span class="org-rainbow-delimiters-depth-4">)</span> <span class="org-string">"\.*\\.hdl"</span><span class="org-rainbow-delimiters-depth-3">)</span>
+               . nand2tetris-mode<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">provide</span> '<span style="color: #BFEBBF;">nand2tetris</span><span style="color: #DCDCCC;">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">provide</span> '<span class="org-constant">nand2tetris</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
