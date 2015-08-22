@@ -78,8 +78,8 @@ We first assume people are gonna get the nand2tetris source dir, so we can do
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #FF516D;">(</span><span style="color: #F9D339; font-weight: bold;">defvar</span> <span style="color: #C2E982;">nand2tetris-source-dir</span> nil
-  <span style="color: #9FC59F;">"Source directory where nadn2tetris has been downloaded"</span><span style="color: #FF516D;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span><span style="color: #F92672;">defvar</span> <span style="color: #FD971F;">nand2tetris-source-dir</span> nil
+  <span style="color: #75715E;">"Source directory where nadn2tetris has been downloaded"</span><span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
 
@@ -89,11 +89,11 @@ Now we define the major mode:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #FF516D;">(</span><span style="color: #F9D339; font-weight: bold;">define-derived-mode</span> <span style="color: #FF516D;">nand2tetris-mode</span> prog-mode
-  <span style="color: #74CBC4;">"nand2tetris"</span>
-  <span style="color: #9FC59F;">"Major mode for editing HDL files for the course Nand2Tetris.</span>
+<pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span><span style="color: #F92672;">define-derived-mode</span> <span style="color: #A6E22E;">nand2tetris-mode</span> prog-mode
+  <span style="color: #E6DB74;">"nand2tetris"</span>
+  <span style="color: #75715E;">"Major mode for editing HDL files for the course Nand2Tetris.</span>
 
-<span style="color: #9FC59F;">\\{nand2tetris-mode-map}"</span><span style="color: #FF516D;">)</span>
+<span style="color: #75715E;">\\{nand2tetris-mode-map}"</span><span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
 
@@ -103,10 +103,10 @@ This will use nand2tetris-mode-syntax-table by default, so let's also define tha
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #FF516D;">(</span><span style="color: #F9D339; font-weight: bold;">defconst</span> <span style="color: #C2E982;">nand2tetris-mode-syntax-table</span>
-  <span style="color: #F9D339;">(</span><span style="color: #F9D339; font-weight: bold;">let</span> <span style="color: #74CBC4;">(</span><span style="color: #74CBC4;">(</span>table <span style="color: #9FAA9B;">(</span>make-syntax-table<span style="color: #9FAA9B;">)</span><span style="color: #74CBC4;">)</span><span style="color: #74CBC4;">)</span>
-    <span style="color: #74CBC4;">(</span>c-populate-syntax-table table<span style="color: #74CBC4;">)</span>
-    table<span style="color: #F9D339;">)</span><span style="color: #FF516D;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span><span style="color: #F92672;">defconst</span> <span style="color: #FD971F;">nand2tetris-mode-syntax-table</span>
+  <span style="color: #E6DB74;">(</span><span style="color: #F92672;">let</span> <span style="color: #66D9EF;">(</span><span style="color: #FD971F;">(</span>table <span style="color: #A6E22E;">(</span>make-syntax-table<span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span>c-populate-syntax-table table<span style="color: #66D9EF;">)</span>
+    table<span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
 
@@ -122,18 +122,18 @@ So far I've seen these keywords <code>CHIP, IN, OUT, PARTS</code>, so let's see 
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #FF516D;">(</span><span style="color: #F9D339; font-weight: bold;">defvar</span> <span style="color: #C2E982;">nand2tetris-font-lock-keywords</span>
-  <span style="color: #546D7A;">;;</span><span style="color: #546D7A;">Keywords</span>
-  `<span style="color: #F9D339;">(</span>,<span style="color: #74CBC4;">(</span>rx symbol-start
-         <span style="color: #74CBC4;">(</span>or <span style="color: #74CBC4;">"CHIP"</span> <span style="color: #74CBC4;">"IN"</span> <span style="color: #74CBC4;">"OUT"</span> <span style="color: #74CBC4;">"PARTS"</span><span style="color: #74CBC4;">)</span>
-         symbol-end<span style="color: #74CBC4;">)</span>
-    <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">CHIP &lt;ChipName&gt;</span>
-    <span style="color: #74CBC4;">(</span>,<span style="color: #74CBC4;">(</span>rx symbol-start <span style="color: #74CBC4;">"CHIP"</span> <span style="color: #9FAA9B;">(</span>1+ space<span style="color: #9FAA9B;">)</span> <span style="color: #9FAA9B;">(</span>group <span style="color: #82B1FF;">(</span>1+ <span style="color: #C2E982;">(</span>or word ?_<span style="color: #C2E982;">)</span><span style="color: #82B1FF;">)</span><span style="color: #9FAA9B;">)</span><span style="color: #74CBC4;">)</span>
-     <span style="color: #74CBC4;">(</span><span style="color: #F77669;">1</span> font-lock-type-face<span style="color: #74CBC4;">)</span><span style="color: #74CBC4;">)</span>
-    <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">&lt;ChipName&gt; (in=in, out=out);</span>
-    <span style="color: #74CBC4;">(</span>,<span style="color: #74CBC4;">(</span>rx symbol-start <span style="color: #9FAA9B;">(</span>group <span style="color: #82B1FF;">(</span>1+ <span style="color: #C2E982;">(</span>or word ?_<span style="color: #C2E982;">)</span><span style="color: #82B1FF;">)</span><span style="color: #9FAA9B;">)</span>
-          <span style="color: #9FAA9B;">(</span>? space<span style="color: #9FAA9B;">)</span> <span style="color: #9FAA9B;">(</span>seq <span style="color: #74CBC4;">"("</span> <span style="color: #82B1FF;">(</span>0+ not-newline<span style="color: #82B1FF;">)</span> <span style="color: #74CBC4;">")"</span><span style="color: #9FAA9B;">)</span><span style="color: #74CBC4;">)</span>
-     <span style="color: #74CBC4;">(</span><span style="color: #F77669;">1</span> font-lock-variable-name-face<span style="color: #74CBC4;">)</span><span style="color: #74CBC4;">)</span><span style="color: #F9D339;">)</span><span style="color: #FF516D;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span><span style="color: #F92672;">defvar</span> <span style="color: #FD971F;">nand2tetris-font-lock-keywords</span>
+  <span style="color: #75715E;">;;</span><span style="color: #75715E;">Keywords</span>
+  `<span style="color: #E6DB74;">(</span>,<span style="color: #66D9EF;">(</span>rx symbol-start
+         <span style="color: #FD971F;">(</span>or <span style="color: #E6DB74;">"CHIP"</span> <span style="color: #E6DB74;">"IN"</span> <span style="color: #E6DB74;">"OUT"</span> <span style="color: #E6DB74;">"PARTS"</span><span style="color: #FD971F;">)</span>
+         symbol-end<span style="color: #66D9EF;">)</span>
+    <span style="color: #75715E;">;; </span><span style="color: #75715E;">CHIP &lt;ChipName&gt;</span>
+    <span style="color: #66D9EF;">(</span>,<span style="color: #FD971F;">(</span>rx symbol-start <span style="color: #E6DB74;">"CHIP"</span> <span style="color: #A6E22E;">(</span>1+ space<span style="color: #A6E22E;">)</span> <span style="color: #A6E22E;">(</span>group <span style="color: #E6DB74;">(</span>1+ <span style="color: #66D9EF;">(</span>or word ?_<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span>
+     <span style="color: #FD971F;">(</span><span style="color: #AE81FF;">1</span> font-lock-type-face<span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #75715E;">;; </span><span style="color: #75715E;">&lt;ChipName&gt; (in=in, out=out);</span>
+    <span style="color: #66D9EF;">(</span>,<span style="color: #FD971F;">(</span>rx symbol-start <span style="color: #A6E22E;">(</span>group <span style="color: #E6DB74;">(</span>1+ <span style="color: #66D9EF;">(</span>or word ?_<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span>
+          <span style="color: #A6E22E;">(</span>? space<span style="color: #A6E22E;">)</span> <span style="color: #A6E22E;">(</span>seq <span style="color: #E6DB74;">"("</span> <span style="color: #E6DB74;">(</span>0+ not-newline<span style="color: #E6DB74;">)</span> <span style="color: #E6DB74;">")"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span>
+     <span style="color: #FD971F;">(</span><span style="color: #AE81FF;">1</span> font-lock-variable-name-face<span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
 
@@ -143,14 +143,14 @@ Lets add it to the major-mode:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #FF516D;">(</span><span style="color: #F9D339; font-weight: bold;">define-derived-mode</span> <span style="color: #FF516D;">nand2tetris-mode</span> prog-mode
-  <span style="color: #74CBC4;">"nand2tetris"</span>
-  <span style="color: #9FC59F;">"Major mode for editing HDL files for the course Nand2Tetris.</span>
+<pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span><span style="color: #F92672;">define-derived-mode</span> <span style="color: #A6E22E;">nand2tetris-mode</span> prog-mode
+  <span style="color: #E6DB74;">"nand2tetris"</span>
+  <span style="color: #75715E;">"Major mode for editing HDL files for the course Nand2Tetris.</span>
 
-<span style="color: #9FC59F;">\\{nand2tetris-mode-map}"</span>
+<span style="color: #75715E;">\\{nand2tetris-mode-map}"</span>
 
-  <span style="color: #F9D339;">(</span>set <span style="color: #74CBC4;">(</span>make-local-variable 'font-lock-defaults<span style="color: #74CBC4;">)</span>
-       '<span style="color: #74CBC4;">(</span>nand2tetris-font-lock-keywords nil nil nil nil<span style="color: #74CBC4;">)</span><span style="color: #F9D339;">)</span><span style="color: #FF516D;">)</span>
+  <span style="color: #E6DB74;">(</span>set <span style="color: #66D9EF;">(</span>make-local-variable 'font-lock-defaults<span style="color: #66D9EF;">)</span>
+       '<span style="color: #66D9EF;">(</span>nand2tetris-font-lock-keywords nil nil nil nil<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
 
@@ -163,9 +163,9 @@ major mode to bind to all <code>.hdl</code> files inside the <code>nand2tetris-s
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #FF516D;">(</span>add-to-list 'auto-mode-alist
-             `<span style="color: #F9D339;">(</span>,<span style="color: #74CBC4;">(</span>concat <span style="color: #74CBC4;">(</span>expand-file-name nand2tetris-source-dir<span style="color: #74CBC4;">)</span> <span style="color: #74CBC4;">"\.*\\.hdl"</span><span style="color: #74CBC4;">)</span>
-               . nand2tetris-mode<span style="color: #F9D339;">)</span><span style="color: #FF516D;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span>add-to-list 'auto-mode-alist
+             `<span style="color: #E6DB74;">(</span>,<span style="color: #66D9EF;">(</span>concat <span style="color: #FD971F;">(</span>expand-file-name nand2tetris-source-dir<span style="color: #FD971F;">)</span> <span style="color: #E6DB74;">"\.*\\.hdl"</span><span style="color: #66D9EF;">)</span>
+               . nand2tetris-mode<span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
 
@@ -175,63 +175,63 @@ And that's been it for today. it all looks like this:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #546D7A;">;;; </span><span style="color: #546D7A;">nand2tetris.el --- Major Mode for HDL files in the Nand2Tetris Course</span>
-<span style="color: #546D7A;">;;; </span><span style="color: #546D7A;">https://www.coursera.org/course/nand2tetris1</span>
+<pre class="src src-emacs-lisp"><span style="color: #75715E;">;;; </span><span style="color: #75715E;">nand2tetris.el --- Major Mode for HDL files in the Nand2Tetris Course</span>
+<span style="color: #75715E;">;;; </span><span style="color: #75715E;">https://www.coursera.org/course/nand2tetris1</span>
 
-<span style="color: #546D7A;">;; </span><span style="color: #546D7A;">Copyright (C) 2015 Diego Berrocal</span>
+<span style="color: #75715E;">;; </span><span style="color: #75715E;">Copyright (C) 2015 Diego Berrocal</span>
 
-<span style="color: #546D7A;">;; </span><span style="color: #546D7A;">Author: Diego Berrocal <a href="mailto:cestdiego%40gmail.com">&lt;cestdiego@gmail.com&gt;</a></span>
-<span style="color: #546D7A;">;; </span><span style="color: #546D7A;">Created: 10 August 2015</span>
+<span style="color: #75715E;">;; </span><span style="color: #75715E;">Author: Diego Berrocal <a href="mailto:cestdiego%40gmail.com">&lt;cestdiego@gmail.com&gt;</a></span>
+<span style="color: #75715E;">;; </span><span style="color: #75715E;">Created: 10 August 2015</span>
 
-<span style="color: #546D7A;">;; </span><span style="color: #546D7A;">Keywords: nand2tetris, hdl</span>
-<span style="color: #546D7A;">;; </span><span style="color: #546D7A;">Homepage: http://www.github.com/CestDiego/nand2tetris.el/</span>
-<span style="color: #546D7A;">;; </span><span style="color: #546D7A;">Version: 0.0.1</span>
+<span style="color: #75715E;">;; </span><span style="color: #75715E;">Keywords: nand2tetris, hdl</span>
+<span style="color: #75715E;">;; </span><span style="color: #75715E;">Homepage: http://www.github.com/CestDiego/nand2tetris.el/</span>
+<span style="color: #75715E;">;; </span><span style="color: #75715E;">Version: 0.0.1</span>
 
-<span style="color: #546D7A;">;; </span><span style="color: #546D7A;">This file is not part of GNU Emacs.</span>
+<span style="color: #75715E;">;; </span><span style="color: #75715E;">This file is not part of GNU Emacs.</span>
 
-<span style="color: #546D7A;">;;; </span><span style="color: #546D7A;">License: GPLv3</span>
+<span style="color: #75715E;">;;; </span><span style="color: #75715E;">License: GPLv3</span>
 
-<span style="color: #546D7A;">;;; </span><span style="color: #546D7A;">Commentary:</span>
+<span style="color: #75715E;">;;; </span><span style="color: #75715E;">Commentary:</span>
 
-<span style="color: #546D7A;">;; </span><span style="color: #546D7A;">Useful functions to make following the coursera course easier.</span>
+<span style="color: #75715E;">;; </span><span style="color: #75715E;">Useful functions to make following the coursera course easier.</span>
 
-<span style="color: #546D7A;">;;; </span><span style="color: #546D7A;">Code:</span>
+<span style="color: #75715E;">;;; </span><span style="color: #75715E;">Code:</span>
 
-<span style="color: #FF516D;">(</span><span style="color: #F9D339; font-weight: bold;">defvar</span> <span style="color: #C2E982;">nand2tetris-source-dir</span> nil
-  <span style="color: #9FC59F;">"Source directory where nadn2tetris has been downloaded"</span><span style="color: #FF516D;">)</span>
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">defvar</span> <span style="color: #FD971F;">nand2tetris-source-dir</span> nil
+  <span style="color: #75715E;">"Source directory where nadn2tetris has been downloaded"</span><span style="color: #A1EFE4;">)</span>
 
-<span style="color: #FF516D;">(</span><span style="color: #F9D339; font-weight: bold;">defconst</span> <span style="color: #C2E982;">nand2tetris-mode-syntax-table</span>
-  <span style="color: #F9D339;">(</span><span style="color: #F9D339; font-weight: bold;">let</span> <span style="color: #74CBC4;">(</span><span style="color: #74CBC4;">(</span>table <span style="color: #9FAA9B;">(</span>make-syntax-table<span style="color: #9FAA9B;">)</span><span style="color: #74CBC4;">)</span><span style="color: #74CBC4;">)</span>
-    <span style="color: #74CBC4;">(</span>c-populate-syntax-table table<span style="color: #74CBC4;">)</span>
-    table<span style="color: #F9D339;">)</span><span style="color: #FF516D;">)</span>
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">defconst</span> <span style="color: #FD971F;">nand2tetris-mode-syntax-table</span>
+  <span style="color: #E6DB74;">(</span><span style="color: #F92672;">let</span> <span style="color: #66D9EF;">(</span><span style="color: #FD971F;">(</span>table <span style="color: #A6E22E;">(</span>make-syntax-table<span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span>c-populate-syntax-table table<span style="color: #66D9EF;">)</span>
+    table<span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
 
-<span style="color: #FF516D;">(</span><span style="color: #F9D339; font-weight: bold;">defvar</span> <span style="color: #C2E982;">nand2tetris-font-lock-keywords</span>
-  <span style="color: #546D7A;">;;</span><span style="color: #546D7A;">Keywords</span>
-  `<span style="color: #F9D339;">(</span>,<span style="color: #74CBC4;">(</span>rx symbol-start
-         <span style="color: #74CBC4;">(</span>or <span style="color: #74CBC4;">"CHIP"</span> <span style="color: #74CBC4;">"IN"</span> <span style="color: #74CBC4;">"OUT"</span> <span style="color: #74CBC4;">"PARTS"</span><span style="color: #74CBC4;">)</span>
-         symbol-end<span style="color: #74CBC4;">)</span>
-    <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">CHIP &lt;ChipName&gt;</span>
-    <span style="color: #74CBC4;">(</span>,<span style="color: #74CBC4;">(</span>rx symbol-start <span style="color: #74CBC4;">"CHIP"</span> <span style="color: #9FAA9B;">(</span>1+ space<span style="color: #9FAA9B;">)</span> <span style="color: #9FAA9B;">(</span>group <span style="color: #82B1FF;">(</span>1+ <span style="color: #C2E982;">(</span>or word ?_<span style="color: #C2E982;">)</span><span style="color: #82B1FF;">)</span><span style="color: #9FAA9B;">)</span><span style="color: #74CBC4;">)</span>
-     <span style="color: #74CBC4;">(</span><span style="color: #F77669;">1</span> font-lock-type-face<span style="color: #74CBC4;">)</span><span style="color: #74CBC4;">)</span>
-    <span style="color: #546D7A;">;; </span><span style="color: #546D7A;">&lt;ChipName&gt; (in=in, out=out);</span>
-    <span style="color: #74CBC4;">(</span>,<span style="color: #74CBC4;">(</span>rx symbol-start <span style="color: #9FAA9B;">(</span>group <span style="color: #82B1FF;">(</span>1+ <span style="color: #C2E982;">(</span>or word ?_<span style="color: #C2E982;">)</span><span style="color: #82B1FF;">)</span><span style="color: #9FAA9B;">)</span>
-          <span style="color: #9FAA9B;">(</span>? space<span style="color: #9FAA9B;">)</span> <span style="color: #9FAA9B;">(</span>seq <span style="color: #74CBC4;">"("</span> <span style="color: #82B1FF;">(</span>0+ not-newline<span style="color: #82B1FF;">)</span> <span style="color: #74CBC4;">")"</span><span style="color: #9FAA9B;">)</span><span style="color: #74CBC4;">)</span>
-     <span style="color: #74CBC4;">(</span><span style="color: #F77669;">1</span> font-lock-variable-name-face<span style="color: #74CBC4;">)</span><span style="color: #74CBC4;">)</span><span style="color: #F9D339;">)</span><span style="color: #FF516D;">)</span>
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">defvar</span> <span style="color: #FD971F;">nand2tetris-font-lock-keywords</span>
+  <span style="color: #75715E;">;;</span><span style="color: #75715E;">Keywords</span>
+  `<span style="color: #E6DB74;">(</span>,<span style="color: #66D9EF;">(</span>rx symbol-start
+         <span style="color: #FD971F;">(</span>or <span style="color: #E6DB74;">"CHIP"</span> <span style="color: #E6DB74;">"IN"</span> <span style="color: #E6DB74;">"OUT"</span> <span style="color: #E6DB74;">"PARTS"</span><span style="color: #FD971F;">)</span>
+         symbol-end<span style="color: #66D9EF;">)</span>
+    <span style="color: #75715E;">;; </span><span style="color: #75715E;">CHIP &lt;ChipName&gt;</span>
+    <span style="color: #66D9EF;">(</span>,<span style="color: #FD971F;">(</span>rx symbol-start <span style="color: #E6DB74;">"CHIP"</span> <span style="color: #A6E22E;">(</span>1+ space<span style="color: #A6E22E;">)</span> <span style="color: #A6E22E;">(</span>group <span style="color: #E6DB74;">(</span>1+ <span style="color: #66D9EF;">(</span>or word ?_<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span>
+     <span style="color: #FD971F;">(</span><span style="color: #AE81FF;">1</span> font-lock-type-face<span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+    <span style="color: #75715E;">;; </span><span style="color: #75715E;">&lt;ChipName&gt; (in=in, out=out);</span>
+    <span style="color: #66D9EF;">(</span>,<span style="color: #FD971F;">(</span>rx symbol-start <span style="color: #A6E22E;">(</span>group <span style="color: #E6DB74;">(</span>1+ <span style="color: #66D9EF;">(</span>or word ?_<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span>
+          <span style="color: #A6E22E;">(</span>? space<span style="color: #A6E22E;">)</span> <span style="color: #A6E22E;">(</span>seq <span style="color: #E6DB74;">"("</span> <span style="color: #E6DB74;">(</span>0+ not-newline<span style="color: #E6DB74;">)</span> <span style="color: #E6DB74;">")"</span><span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span>
+     <span style="color: #FD971F;">(</span><span style="color: #AE81FF;">1</span> font-lock-variable-name-face<span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
 
-<span style="color: #FF516D;">(</span><span style="color: #F9D339; font-weight: bold;">define-derived-mode</span> <span style="color: #FF516D;">nand2tetris-mode</span> prog-mode
-  <span style="color: #74CBC4;">"nand2tetris"</span>
-  <span style="color: #9FC59F;">"Major mode for editing HDL files for the course Nand2Tetris.</span>
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">define-derived-mode</span> <span style="color: #A6E22E;">nand2tetris-mode</span> prog-mode
+  <span style="color: #E6DB74;">"nand2tetris"</span>
+  <span style="color: #75715E;">"Major mode for editing HDL files for the course Nand2Tetris.</span>
 
-<span style="color: #9FC59F;">\\{nand2tetris-mode-map}"</span>
+<span style="color: #75715E;">\\{nand2tetris-mode-map}"</span>
 
-  <span style="color: #F9D339;">(</span>set <span style="color: #74CBC4;">(</span>make-local-variable 'font-lock-defaults<span style="color: #74CBC4;">)</span>
-       '<span style="color: #74CBC4;">(</span>nand2tetris-font-lock-keywords nil nil nil nil<span style="color: #74CBC4;">)</span><span style="color: #F9D339;">)</span><span style="color: #FF516D;">)</span>
+  <span style="color: #E6DB74;">(</span>set <span style="color: #66D9EF;">(</span>make-local-variable 'font-lock-defaults<span style="color: #66D9EF;">)</span>
+       '<span style="color: #66D9EF;">(</span>nand2tetris-font-lock-keywords nil nil nil nil<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
 
-<span style="color: #FF516D;">(</span>add-to-list 'auto-mode-alist
-             `<span style="color: #F9D339;">(</span>,<span style="color: #74CBC4;">(</span>concat <span style="color: #74CBC4;">(</span>expand-file-name nand2tetris-source-dir<span style="color: #74CBC4;">)</span> <span style="color: #74CBC4;">"\.*\\.hdl"</span><span style="color: #74CBC4;">)</span>
-               . nand2tetris-mode<span style="color: #F9D339;">)</span><span style="color: #FF516D;">)</span>
+<span style="color: #A1EFE4;">(</span>add-to-list 'auto-mode-alist
+             `<span style="color: #E6DB74;">(</span>,<span style="color: #66D9EF;">(</span>concat <span style="color: #FD971F;">(</span>expand-file-name nand2tetris-source-dir<span style="color: #FD971F;">)</span> <span style="color: #E6DB74;">"\.*\\.hdl"</span><span style="color: #66D9EF;">)</span>
+               . nand2tetris-mode<span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
 
-<span style="color: #FF516D;">(</span><span style="color: #F9D339; font-weight: bold;">provide</span> '<span style="color: #F77669;">nand2tetris</span><span style="color: #FF516D;">)</span>
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">provide</span> '<span style="color: #AE81FF;">nand2tetris</span><span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
 

@@ -104,9 +104,9 @@ for my blog:
 </ul>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #FF516D;">(</span>setq op/site-domain <span style="color: #74CBC4;">"https://cestdiego.github.com/"</span><span style="color: #FF516D;">)</span>
-<span style="color: #FF516D;">(</span>add-to-list 'op/category-ignore-list <span style="color: #74CBC4;">"temp"</span><span style="color: #FF516D;">)</span>
-<span style="color: #FF516D;">(</span>setq op/repository-directory <span style="color: #74CBC4;">"~/Projects/le_blog/"</span><span style="color: #FF516D;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span>setq op/site-domain <span style="color: #E6DB74;">"https://cestdiego.github.com/"</span><span style="color: #A1EFE4;">)</span>
+<span style="color: #A1EFE4;">(</span>add-to-list 'op/category-ignore-list <span style="color: #E6DB74;">"temp"</span><span style="color: #A1EFE4;">)</span>
+<span style="color: #A1EFE4;">(</span>setq op/repository-directory <span style="color: #E6DB74;">"~/Projects/le_blog/"</span><span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
 
@@ -116,9 +116,9 @@ for my blog:
 </ul>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #546D7A;">;; </span><span style="color: #546D7A;">This two are optional , only if you want have a custom theme</span>
-<span style="color: #FF516D;">(</span>setq op/theme-root-directory <span style="color: #74CBC4;">"~/spacemacs_conf/org-cestdiego/org-page-themes/"</span><span style="color: #FF516D;">)</span>
-<span style="color: #FF516D;">(</span>setq op/theme 'just_right<span style="color: #FF516D;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #75715E;">;; </span><span style="color: #75715E;">This two are optional , only if you want have a custom theme</span>
+<span style="color: #A1EFE4;">(</span>setq op/theme-root-directory <span style="color: #E6DB74;">"~/spacemacs_conf/org-cestdiego/org-page-themes/"</span><span style="color: #A1EFE4;">)</span>
+<span style="color: #A1EFE4;">(</span>setq op/theme 'just_right<span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
 
@@ -128,10 +128,10 @@ for my blog:
 </ul>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #FF516D;">(</span>setq op/personal-github-link <span style="color: #74CBC4;">"https://github.com/CestDiego/"</span><span style="color: #FF516D;">)</span>
-<span style="color: #FF516D;">(</span>setq op/site-main-title <span style="color: #74CBC4;">"Diego Berrocal"</span><span style="color: #FF516D;">)</span>
-<span style="color: #FF516D;">(</span>setq op/site-sub-title <span style="color: #74CBC4;">"it's personal"</span><span style="color: #FF516D;">)</span>
-<span style="color: #FF516D;">(</span>setq op/personal-avatar <span style="color: #74CBC4;">"https://avatars0.githubusercontent.com/u/3291619?v=3&amp;s=460"</span><span style="color: #FF516D;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span>setq op/personal-github-link <span style="color: #E6DB74;">"https://github.com/CestDiego/"</span><span style="color: #A1EFE4;">)</span>
+<span style="color: #A1EFE4;">(</span>setq op/site-main-title <span style="color: #E6DB74;">"Diego Berrocal"</span><span style="color: #A1EFE4;">)</span>
+<span style="color: #A1EFE4;">(</span>setq op/site-sub-title <span style="color: #E6DB74;">"it's personal"</span><span style="color: #A1EFE4;">)</span>
+<span style="color: #A1EFE4;">(</span>setq op/personal-avatar <span style="color: #E6DB74;">"https://avatars0.githubusercontent.com/u/3291619?v=3&amp;s=460"</span><span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
 </div>
@@ -142,14 +142,14 @@ for my blog:
 <div class="outline-text-3" id="text-2-2">
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #FF516D;">(</span>evil-leader/set-key
-  <span style="color: #74CBC4;">"opo"</span> '<span style="color: #F9D339;">(</span><span style="color: #F9D339; font-weight: bold;">lambda</span> <span style="color: #74CBC4;">()</span> <span style="color: #74CBC4;">(</span>interactive<span style="color: #74CBC4;">)</span>
-           <span style="color: #74CBC4;">(</span>magit-status op/repository-directory<span style="color: #74CBC4;">)</span><span style="color: #F9D339;">)</span>
-  <span style="color: #74CBC4;">"opp"</span> '<span style="color: #F9D339;">(</span><span style="color: #F9D339; font-weight: bold;">lambda</span><span style="color: #74CBC4;">()</span> <span style="color: #74CBC4;">(</span>interactive<span style="color: #74CBC4;">)</span>
-           <span style="color: #74CBC4;">(</span>op/do-publication t nil t nil<span style="color: #74CBC4;">)</span>
-           <span style="color: #74CBC4;">(</span>find-file op/repository-directory<span style="color: #74CBC4;">)</span><span style="color: #F9D339;">)</span>
-  <span style="color: #74CBC4;">"opP"</span> '<span style="color: #F9D339;">(</span><span style="color: #F9D339; font-weight: bold;">lambda</span><span style="color: #74CBC4;">()</span> <span style="color: #74CBC4;">(</span>interactive<span style="color: #74CBC4;">)</span>
-           <span style="color: #74CBC4;">(</span>op/do-publication t t <span style="color: #74CBC4;">(</span>concat op/repository-directory <span style="color: #74CBC4;">"temp/build"</span><span style="color: #74CBC4;">)</span><span style="color: #74CBC4;">)</span><span style="color: #F9D339;">)</span><span style="color: #FF516D;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span>evil-leader/set-key
+  <span style="color: #E6DB74;">"opo"</span> '<span style="color: #E6DB74;">(</span><span style="color: #F92672;">lambda</span> <span style="color: #66D9EF;">()</span> <span style="color: #66D9EF;">(</span>interactive<span style="color: #66D9EF;">)</span>
+           <span style="color: #66D9EF;">(</span>magit-status op/repository-directory<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span>
+  <span style="color: #E6DB74;">"opp"</span> '<span style="color: #E6DB74;">(</span><span style="color: #F92672;">lambda</span><span style="color: #66D9EF;">()</span> <span style="color: #66D9EF;">(</span>interactive<span style="color: #66D9EF;">)</span>
+           <span style="color: #66D9EF;">(</span>op/do-publication t nil t nil<span style="color: #66D9EF;">)</span>
+           <span style="color: #66D9EF;">(</span>find-file op/repository-directory<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span>
+  <span style="color: #E6DB74;">"opP"</span> '<span style="color: #E6DB74;">(</span><span style="color: #F92672;">lambda</span><span style="color: #66D9EF;">()</span> <span style="color: #66D9EF;">(</span>interactive<span style="color: #66D9EF;">)</span>
+           <span style="color: #66D9EF;">(</span>op/do-publication t t <span style="color: #FD971F;">(</span>concat op/repository-directory <span style="color: #E6DB74;">"temp/build"</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
 

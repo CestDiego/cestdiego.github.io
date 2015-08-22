@@ -95,14 +95,14 @@ org-protocol with a button in the bookmark bar. But I think we may be able to do
 
 <div class="org-src-container">
 
-<pre class="src src-conf"><span style="color: #546D7A;"># </span><span style="color: #546D7A;">~/.local/share/applications/emacs-capture.desktop or wherever it can be found</span>
-[<span style="color: #82B1FF;">Desktop Entry</span>]
-<span style="color: #C2E982;">Name</span>=Emacs Client
-<span style="color: #C2E982;">Exec</span>=emacs-capture %u 
-<span style="color: #C2E982;">Icon</span>=emacs-icon
-<span style="color: #C2E982;">Type</span>=Application
-<span style="color: #C2E982;">Terminal</span>=false
-<span style="color: #C2E982;">MimeType</span>=x-scheme-handler/org-protocol;
+<pre class="src src-conf"><span style="color: #75715E;"># </span><span style="color: #75715E;">~/.local/share/applications/emacs-capture.desktop or wherever it can be found</span>
+[<span style="color: #66D9EF;">Desktop Entry</span>]
+<span style="color: #FD971F;">Name</span>=Emacs Client
+<span style="color: #FD971F;">Exec</span>=emacs-capture %u 
+<span style="color: #FD971F;">Icon</span>=emacs-icon
+<span style="color: #FD971F;">Type</span>=Application
+<span style="color: #FD971F;">Terminal</span>=false
+<span style="color: #FD971F;">MimeType</span>=x-scheme-handler/org-protocol;
 </pre>
 </div>
 
@@ -113,8 +113,8 @@ because no matter how hard I tried I couldn't add the arguments I needed into th
 
 <div class="org-src-container">
 
-<pre class="src src-sh"><span style="color: #546D7A;">#</span><span style="color: #546D7A;">!/bin/</span><span style="color: #F9D339; font-weight: bold;">sh</span>
-<span style="color: #F9D339; font-weight: bold;">exec</span> emacsclient -c -F <span style="color: #74CBC4;">"((name . \"emacs-capture\") (height . 10) (width . 80))"</span> $<span style="color: #C2E982;">*</span>
+<pre class="src src-sh"><span style="color: #75715E;">#</span><span style="color: #75715E;">!/bin/</span><span style="color: #F92672;">sh</span>
+<span style="color: #F92672;">exec</span> emacsclient -c -F <span style="color: #E6DB74;">"((name . \"emacs-capture\") (height . 10) (width . 80))"</span> $<span style="color: #FD971F;">*</span>
 </pre>
 </div>
 
@@ -130,7 +130,7 @@ i3, this would look like this:
 
 <div class="org-src-container">
 
-<pre class="src src-conf"><span style="color: #C2E982;">for_window [instance</span>=<span style="color: #74CBC4;">"emacs-capture"</span>] floating enable
+<pre class="src src-conf"><span style="color: #FD971F;">for_window [instance</span>=<span style="color: #E6DB74;">"emacs-capture"</span>] floating enable
 </pre>
 </div>
 
@@ -141,31 +141,31 @@ this code will be enough:
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #FF516D;">(</span><span style="color: #F9D339; font-weight: bold;">require</span> '<span style="color: #F77669;">org-capture</span><span style="color: #FF516D;">)</span>
-<span style="color: #FF516D;">(</span><span style="color: #F9D339; font-weight: bold;">require</span> '<span style="color: #F77669;">org-protocol</span><span style="color: #FF516D;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span><span style="color: #F92672;">require</span> '<span style="color: #AE81FF;">org-capture</span><span style="color: #A1EFE4;">)</span>
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">require</span> '<span style="color: #AE81FF;">org-protocol</span><span style="color: #A1EFE4;">)</span>
 
-<span style="color: #546D7A;">;;; </span><span style="color: #546D7A;">Org Capture</span>
-<span style="color: #546D7A;">;;;; </span><span style="color: #546D7A;">Thank you random guy from StackOverflow</span>
-<span style="color: #546D7A;">;;;; </span><span style="color: #546D7A;">http://stackoverflow.com/questions/23517372/hook-or-advice-when-aborting-org-capture-before-template-selection</span>
+<span style="color: #75715E;">;;; </span><span style="color: #75715E;">Org Capture</span>
+<span style="color: #75715E;">;;;; </span><span style="color: #75715E;">Thank you random guy from StackOverflow</span>
+<span style="color: #75715E;">;;;; </span><span style="color: #75715E;">http://stackoverflow.com/questions/23517372/hook-or-advice-when-aborting-org-capture-before-template-selection</span>
 
-<span style="color: #FF516D;">(</span><span style="color: #F9D339; font-weight: bold;">defadvice</span> <span style="color: #FF516D;">org-capture</span>
-    <span style="color: #F9D339;">(</span>after make-full-window-frame activate<span style="color: #F9D339;">)</span>
-  <span style="color: #9FC59F;">"Advise capture to be the only window when used as a popup"</span>
-  <span style="color: #F9D339;">(</span><span style="color: #F9D339; font-weight: bold;">if</span> <span style="color: #74CBC4;">(</span>equal <span style="color: #74CBC4;">"emacs-capture"</span> <span style="color: #74CBC4;">(</span>frame-parameter nil 'name<span style="color: #74CBC4;">)</span><span style="color: #74CBC4;">)</span>
-      <span style="color: #74CBC4;">(</span>delete-other-windows<span style="color: #74CBC4;">)</span><span style="color: #F9D339;">)</span><span style="color: #FF516D;">)</span>
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">defadvice</span> <span style="color: #A6E22E;">org-capture</span>
+    <span style="color: #E6DB74;">(</span>after make-full-window-frame activate<span style="color: #E6DB74;">)</span>
+  <span style="color: #75715E;">"Advise capture to be the only window when used as a popup"</span>
+  <span style="color: #E6DB74;">(</span><span style="color: #F92672;">if</span> <span style="color: #66D9EF;">(</span>equal <span style="color: #E6DB74;">"emacs-capture"</span> <span style="color: #FD971F;">(</span>frame-parameter nil 'name<span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+      <span style="color: #66D9EF;">(</span>delete-other-windows<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
 
-<span style="color: #FF516D;">(</span><span style="color: #F9D339; font-weight: bold;">defadvice</span> <span style="color: #FF516D;">org-capture-finalize</span>
-    <span style="color: #F9D339;">(</span>after delete-capture-frame activate<span style="color: #F9D339;">)</span>
-  <span style="color: #9FC59F;">"Advise capture-finalize to close the frame"</span>
-  <span style="color: #F9D339;">(</span><span style="color: #F9D339; font-weight: bold;">if</span> <span style="color: #74CBC4;">(</span>equal <span style="color: #74CBC4;">"emacs-capture"</span> <span style="color: #74CBC4;">(</span>frame-parameter nil 'name<span style="color: #74CBC4;">)</span><span style="color: #74CBC4;">)</span>
-      <span style="color: #74CBC4;">(</span>delete-frame<span style="color: #74CBC4;">)</span><span style="color: #F9D339;">)</span><span style="color: #FF516D;">)</span>
+<span style="color: #A1EFE4;">(</span><span style="color: #F92672;">defadvice</span> <span style="color: #A6E22E;">org-capture-finalize</span>
+    <span style="color: #E6DB74;">(</span>after delete-capture-frame activate<span style="color: #E6DB74;">)</span>
+  <span style="color: #75715E;">"Advise capture-finalize to close the frame"</span>
+  <span style="color: #E6DB74;">(</span><span style="color: #F92672;">if</span> <span style="color: #66D9EF;">(</span>equal <span style="color: #E6DB74;">"emacs-capture"</span> <span style="color: #FD971F;">(</span>frame-parameter nil 'name<span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+      <span style="color: #66D9EF;">(</span>delete-frame<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
 
-<span style="color: #546D7A;">;;; </span><span style="color: #546D7A;">Capture Templates</span>
-<span style="color: #546D7A;">;;;; </span><span style="color: #546D7A;">Add idea, mind-onanism, contacts, movies to download das</span>
-<span style="color: #FF516D;">(</span>setq org-capture-templates
-      '<span style="color: #F9D339;">(</span><span style="color: #74CBC4;">(</span><span style="color: #74CBC4;">"l"</span> <span style="color: #74CBC4;">"Temp Links from the interwebs"</span> item
-         <span style="color: #74CBC4;">(</span>file+headline <span style="color: #74CBC4;">"links.org"</span> <span style="color: #74CBC4;">"Temporary Links"</span><span style="color: #74CBC4;">)</span>
-         <span style="color: #74CBC4;">"%?\nEntered on %U\n \%i\n %a"</span><span style="color: #74CBC4;">)</span><span style="color: #F9D339;">)</span><span style="color: #FF516D;">)</span>
+<span style="color: #75715E;">;;; </span><span style="color: #75715E;">Capture Templates</span>
+<span style="color: #75715E;">;;;; </span><span style="color: #75715E;">Add idea, mind-onanism, contacts, movies to download das</span>
+<span style="color: #A1EFE4;">(</span>setq org-capture-templates
+      '<span style="color: #E6DB74;">(</span><span style="color: #66D9EF;">(</span><span style="color: #E6DB74;">"l"</span> <span style="color: #E6DB74;">"Temp Links from the interwebs"</span> item
+         <span style="color: #FD971F;">(</span>file+headline <span style="color: #E6DB74;">"links.org"</span> <span style="color: #E6DB74;">"Temporary Links"</span><span style="color: #FD971F;">)</span>
+         <span style="color: #E6DB74;">"%?\nEntered on %U\n \%i\n %a"</span><span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
 
@@ -203,6 +203,43 @@ bottom) and upload it to the extensions manually in your browser.
 I hope you find this useful, and if you have any suggestions, PRs are welcome at
 <a href="https://github.com/CestDiego/org-capture-chrome">https://github.com/CestDiego/org-capture-chrome</a>. Leave a comment suggesting how
 would you use org-capture as well ☺. 
+</p>
+
+<p>
+<b>* UPDATE 1*</b>
+</p>
+
+<p>
+So thanks to user <b>/u/shackra</b> on <a href="http://emacs.reddit.com">/r/emacs</a> I can share with you another use for
+non-chrome users, you'll need to have the Emacs lisp above, and also the
+<code>emacs-capture</code> script in your <code>PATH</code>.
+</p>
+
+<p>
+In your WM or Desktop Environment check how to run commands with key bindings,
+and bind any key you want (I'm using Super+Space here for i3) and then pass the
+extra argument <code>-e "(org-capture nil \"l\")" =</code> where <code>l</code> in this case is the
+template I defined above, I have others (like <code>i</code> for jotting ideas)
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span><span style="color: #E6DB74;">"i"</span> <span style="color: #E6DB74;">"Jotting ideas fast"</span> entry
+ <span style="color: #E6DB74;">(</span>file+headline <span style="color: #E6DB74;">"gtd.org"</span> <span style="color: #E6DB74;">"Ideas"</span><span style="color: #E6DB74;">)</span>
+ <span style="color: #E6DB74;">"* %?\n %i\n%t\n%A"</span><span style="color: #A1EFE4;">)</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-conf">bindsym $mod+space emacs-capture -e <span style="color: #E6DB74;">"(org-capture nil \"l\")"</span>
+bindsym $mod+Shift+space emacs-capture -e <span style="color: #E6DB74;">"(org-capture nil \"i\")"</span>
+</pre>
+</div>
+
+<p>
+And so you can have multiple key bindings to register many capture actions, go
+nuts. 
 </p>
 
     </article>
