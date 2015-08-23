@@ -114,7 +114,7 @@ because no matter how hard I tried I couldn't add the arguments I needed into th
 <div class="org-src-container">
 
 <pre class="src src-sh"><span class="org-comment-delimiter">#</span><span class="org-comment">!/bin/</span><span class="org-keyword">sh</span>
-<span class="org-keyword">exec</span> emacsclient -c -F <span class="org-string">"((name . \"emacs-capture\") (height . 10) (width . 80))"</span> $<span class="org-variable-name">*</span>
+emacsclient -c -F <span class="org-string">"((name . \"emacs-capture\") (height . 10) (width . 80))"</span> <span class="org-string">"$@"</span>
 </pre>
 </div>
 
@@ -232,8 +232,8 @@ template I defined above, I have others (like <code>i</code> for jotting ideas)
 
 <div class="org-src-container">
 
-<pre class="src src-conf">bindsym $mod+space emacs-capture -e <span class="org-string">"(org-capture nil \"l\")"</span>
-bindsym $mod+Shift+space emacs-capture -e <span class="org-string">"(org-capture nil \"i\")"</span>
+<pre class="src src-conf">bindsym $mod+space       exec emacs-capture --eval <span class="org-string">'(org-capture nil "l")'</span>
+bindsym $mod+Shift+space exec emacs-capture --eval <span class="org-string">'(org-capture nil "i")'</span>
 </pre>
 </div>
 
