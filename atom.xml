@@ -4,12 +4,33 @@
   <title>Diego Berrocal</title>
   <subtitle>it&#39;s personal</subtitle>
   <link href="http://cestdiego.github.io/"/>
-  <updated>Sun, 23 Aug 2015 13:30:13 CDT</updated>
+  <updated>Sun, 06 Sep 2015 12:56:36 CDT</updated>
+  <entry>
+    <title>How to &lt;i&gt;make&lt;/i&gt; &lt;b&gt;this&lt;/b&gt; &lt;code&gt;blog&lt;/code&gt; with emacs</title>
+    <link href="http://cestdiego.github.io/blog/2015/05/24/how-to-make-a-blog-with-emacs"/>
+    <summary>Or how to use org-page and emacs to publish a blog with GitHub Pages</summary>
+    <updated>2015-09-06</updated>
+    <id>http://cestdiego.github.io/blog/2015/05/24/how-to-make-a-blog-with-emacs</id>
+  </entry>
+  <entry>
+    <title>Resuming nand2tetris with a touch of emacs</title>
+    <link href="http://cestdiego.github.io/blog/2015/08/09/resuming-nand2tetris-with-a-touch-of-emacs"/>
+    <summary>In this blog I attempt to create nand2tetris mode and finish the course in a week</summary>
+    <updated>2015-09-06</updated>
+    <id>http://cestdiego.github.io/blog/2015/08/09/resuming-nand2tetris-with-a-touch-of-emacs</id>
+  </entry>
+  <entry>
+    <title>Creating an assembler for Nand2tetris</title>
+    <link href="http://cestdiego.github.io/blog/2015/09/05/creating-an-assembler-for-nand2tetris"/>
+    <summary>&lt;TODO: insert your description here&gt;</summary>
+    <updated>2015-09-06</updated>
+    <id>http://cestdiego.github.io/blog/2015/09/05/creating-an-assembler-for-nand2tetris</id>
+  </entry>
   <entry>
     <title>Using org-capture with org-protocol be like</title>
     <link href="http://cestdiego.github.io/blog/2015/08/19/org-protocol"/>
     <summary>In which I share my configuration and my own chrome extension for this </summary>
-    <updated>2015-08-21</updated>
+    <updated>2015-09-06</updated>
     <id>http://cestdiego.github.io/blog/2015/08/19/org-protocol</id>
   </entry>
   <entry>
@@ -25,19 +46,5 @@
     <summary>Where I want to keep improving the nand2tetris package</summary>
     <updated>2015-08-12</updated>
     <id>http://cestdiego.github.io/blog/2015/08/11/extending-nand2tetris</id>
-  </entry>
-  <entry>
-    <title>How to &lt;i&gt;make&lt;/i&gt; &lt;b&gt;this&lt;/b&gt; &lt;code&gt;blog&lt;/code&gt; with emacs</title>
-    <link href="http://cestdiego.github.io/blog/2015/05/24/how-to-make-a-blog-with-emacs"/>
-    <summary>Or how to use org-page and emacs to publish a blog with GitHub Pages</summary>
-    <updated>2015-08-10</updated>
-    <id>http://cestdiego.github.io/blog/2015/05/24/how-to-make-a-blog-with-emacs</id>
-  </entry>
-  <entry>
-    <title>Resuming nand2tetris with a touch of emacs</title>
-    <link href="http://cestdiego.github.io/blog/2015/08/09/resuming-nand2tetris-with-a-touch-of-emacs"/>
-    <summary>In this blog I attempt to create nand2tetris mode and finish the course in a week</summary>
-    <updated>2015-08-10</updated>
-    <id>http://cestdiego.github.io/blog/2015/08/09/resuming-nand2tetris-with-a-touch-of-emacs</id>
   </entry>
 </feed>
