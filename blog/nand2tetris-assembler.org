@@ -1,0 +1,16 @@
+#+TITLE:       Creating an assembler for Nand2tetris
+#+AUTHOR:      Diego Berrocal
+#+EMAIL:       jarvis@nixos.att.net
+#+DATE:        2015-09-06 Sun
+#+URI:         /blog/%y/%m/%d/creating-an-assembler-for-nand2tetris
+#+KEYWORDS:    <TODO: insert your keywords here>
+#+TAGS:        <TODO: insert your tags here>
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: <TODO: insert your description here>
+
+So I ended up creating a nand2tetris assembler it was pretty nice and in
+emacs-lisp!. Code is [[https://github.com/CestDiego/nand2tetris.el/blob/master/nand2tetris-assembler.el][here]] but I highly recommend to only read it once you have
+built it yourself. I have plans on extending the nand2tetris-mode more so that I
+can experiment with more features about emacs-lisp package development. If you
+have any suggestions give 'em :P.
