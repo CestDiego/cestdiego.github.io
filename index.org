@@ -16,6 +16,7 @@ go.
 #+end_quote
 
 * Fun Facts
+- Crafted an assembler in [[https://github.com/CestDiego/nand2tetris.el/blob/master/nand2tetris-assembler.el][lisp]] (nand2tetris course)
 - Contributes to [[https://github.com/syl20bnr/spacemacs][Spacemacs]] to support ending the =Editor Wars= and settle with
   emacs ;)
 - Doesn't get mad at job offers ~wink~ ( ͡~ ͜ʖ ͡°)
