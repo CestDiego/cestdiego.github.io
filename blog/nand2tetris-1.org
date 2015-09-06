@@ -1,6 +1,6 @@
 #+TITLE:       Resuming nand2tetris with a touch of emacs
 #+AUTHOR:      Diego Berrocal
-#+EMAIL:       jarvis@nixos.att.net
+#+EMAIL:       cestdiego@gmail.com
 #+DATE:        2015-08-10 Mon
 #+URI:         /blog/%y/%m/%d/resuming-nand2tetris-with-a-touch-of-emacs
 #+KEYWORDS:    nand2tetris, emacs, major mode, elips

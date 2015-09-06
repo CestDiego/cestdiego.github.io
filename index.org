@@ -14,6 +14,7 @@ go.
 
 @@html:<p class="author">@@ Diego Berrocal @@html:</p>@@
 #+end_quote
+
 * Fun Facts
 - Contributes to [[https://github.com/syl20bnr/spacemacs][Spacemacs]] to support ending the =Editor Wars= and settle with
   emacs ;)

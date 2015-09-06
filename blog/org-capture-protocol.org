@@ -1,6 +1,6 @@
 #+TITLE:       Using org-capture with org-protocol be like
 #+AUTHOR:      Diego Berrocal
-#+EMAIL:       jarvis@nixos.att.net
+#+EMAIL:       cestdiego@gmail.com
 #+DATE:        2015-08-20 Thu
 #+URI:         /blog/%y/%m/%d/org-protocol
 #+KEYWORDS:    emacs, org, org-protocol
@@ -16,8 +16,8 @@ trying it and you were overwhelmed at how many ways of customizing it to suit
 your needs are there. Also you might find that you could switch your lifestyle
 to plain text, but don't know where to start. That's why I think this could be a
 first introduction post on how to use org-capture to manage your bookmarks,
-remember you could store the org file a file synchronizer of your choice and
-have it also in your android phone.
+remember you could store the org file into a file synchronizer of your choice
+and have it also in your phone.
 
 It'll look something like this:
 
@@ -46,7 +46,7 @@ because no matter how hard I tried I couldn't add the arguments I needed into th
 
 #+begin_src sh
   #!/bin/sh
-  exec emacsclient -c -F "((name . \"emacs-capture\") (height . 10) (width . 80))" $*
+  emacsclient -c -F "((name . \"emacs-capture\") (height . 10) (width . 80))" "$@"
 #+end_src
 
 You'll have to put it somewhere in your =PATH=, preferably =~/bin=? just double
@@ -101,16 +101,44 @@ The Capture template could be improved, I'd suggest to anyone that wants to dive
 into this type of integration to check out how to make cool templates, you can
 even make it ask you for tags, and it will complete the tags you have there. :)
 
-We have now achieved the emacs related part of this, congratz!
+We have now achieved the emacs related part of this, congratz, m8!
 
 Now we have to have something in our browser that allows us to bind
 =Control+Shift+L= (or any key you may want, just modify the setting in
 chrome://extensions). We'll use an extension that I made especially for this
 case, as I didn't find another that worked, I'm planning on supporting
-auto-detection of templates needed depending on the current web page, for example
-if it's a youtube video we are bookmarking it should maybe store more stuff,
-even we could store the current time in the video or whatever :), the sky is the
-limit when it comes to Emacs.
+auto-detection of templates needed depending on the current web page, for
+example if it's a YouTube video we are bookmarking it should maybe store more
+stuff, even we could store the current time in the video or whatever :), the sky
+is the limit when it comes to Emacs. However, I'm currently unable to pay the $5
+needed to publish this app ( ;_;), so you'll just have to clone my repo (link at the
+bottom) and upload it to the extensions manually in your browser.
 
-I hope you find this useful, and if you have any suggestions, PRs are welcome
-at https://github.com/CestDiego/org-capture-chrome.
+I hope you find this useful, and if you have any suggestions, PRs are welcome at
+https://github.com/CestDiego/org-capture-chrome. Leave a comment suggesting how
+would you use org-capture as well ☺. 
+
+ ** UPDATE 1**
+
+ So thanks to user */u/shackra* on [[http://emacs.reddit.com][/r/emacs]] I can share with you another use for
+ non-chrome users, you'll need to have the Emacs lisp above, and also the
+ =emacs-capture= script in your =PATH=.
+
+ In your WM or Desktop Environment check how to run commands with key bindings,
+ and bind any key you want (I'm using Super+Space here for i3) and then pass the
+ extra argument =-e "(org-capture nil \"l\")" == where =l= in this case is the
+ template I defined above, I have others (like =i= for jotting ideas)
+ 
+ #+begin_src emacs-lisp :tangle yes
+   ("i" "Jotting ideas fast" entry
+    (file+headline "gtd.org" "Ideas")
+    "* %?\n %i\n%t\n%A")
+ #+end_src
+ 
+#+begin_src conf
+  bindsym $mod+space       exec emacs-capture --eval '(org-capture nil "l")'
+  bindsym $mod+Shift+space exec emacs-capture --eval '(org-capture nil "i")'
+#+end_src
+ 
+And so you can have multiple key bindings to register many capture actions, go
+nuts. 
