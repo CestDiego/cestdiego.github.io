@@ -1,0 +1,23 @@
+#+TITLE:       Moving to NY and starting a new chapter
+#+AUTHOR:      Diego Berrocal
+#+EMAIL:       jarvis@nixos.att.net
+#+DATE:        2015-09-21 Mon
+#+URI:         /blog/%y/%m/%d/moving-to-ny-and-starting-a-new-chapter
+#+KEYWORDS:    recurse, center, new york
+#+TAGS:        recurse
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: In which I break the news that I'm a Recurser now
+
+So I'm pretty sure most of you know of the [[http://recurse.com][Recurse Center]], the awesome
+programming community located in New York, well I'll be spending the next three
+months there and I couldn't be more excited!
+
+It'll surely be very challenging to move into such a big city such as NY coming
+from Lima, Perú. Certainly finding a place to stay was as hard as I expected but
+I got a lot of help from great friends.
+
+I guess now I'll have to use this blog ever so often to try and show the world
+what have I been doing during my stay at RC.
+
+Happy Hacking!
