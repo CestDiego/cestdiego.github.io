@@ -9,6 +9,9 @@
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: In which I share my configuration and my own chrome extension for this 
 
+
+### Update: I finally [[https://chrome.google.com/webstore/detail/ultimate-org-capture/ijcpiacdhbjjpfookgaodhblgainmcbf][published]] my Chrome Extension :) 
+
 Hello friend,
 
 I know that you have heard about org, and how great it is. But then you started

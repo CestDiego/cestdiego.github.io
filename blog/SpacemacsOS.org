@@ -1,0 +1,85 @@
+#+TITLE:       EXWM + Spacemacs = Spacemacs OS
+#+AUTHOR:      Diego Berrocal
+#+EMAIL:       jarvis@nixos
+#+DATE:        2015-09-26 Sat
+#+URI:         /blog/%y/%m/%d/exwm-+-spacemacs-=-spacemacsos
+#+KEYWORDS:    spacemacs, window, managers
+#+TAGS:        elisp
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Using Spacemacs as a Window Manager is awesome, here is why
+
+I've been using Spacemacs for a little less than a year now, and since then it
+has only showed improvement because of the awesome community around it. Around
+the same time I started to love using Window Managers instead of Desktop
+Environments, and I'm sure that I'm not alone in saying that sometimes the
+window manager that only mattered are the ones that let you spawn Emacs and have
+it full screen without unneeded panels or borders or "unity dashboards" ugh. 
+
+But then came the other features and goodies like Automatic Tiling (BSPWM, i3),
+Tabbing (i3, StumpWM), Floating windows that can act as a scratchpad that you
+can have quick acces to, all of these I have always looked for in WM,
+configurability also is something to worry about, scripts for BSPWM, or the
+choice of using i3bar or i3blocks for i3 which was nice, and also having a nice
+panel that made heads turn when they saw your setup was something I always ended
+up spending lots of time on, but in the end I would always just use windows in
+full screen in my laptop even though I have decent screen realstate (1080p).
+
+[[file:SpacemacsOS.jpg]]
+
+Having tried EXWM I feel that I really don't need a panel anymore, and what is
+more awesome is that using Spacemacs with it makes it so simple to configure
+because the somewhat hard stuff to make Emacs behave like a WM, like
+window-management, resizing, fonts, mode-line with useful information, shells
+that pop (using the *shell* layer), are already there. But not only that, but
+new things which are even more awesome and are not seen in normal WMs are also
+brought to the table: Org Agenda "native" integration (like the last post I
+made. you don't need to spawn an emacsclient now :P), Window-purpose so that you
+can use X windows instead of buffers for compilation, tree, live-view of your
+project in a Chrome window connected to your Emacs with swankjs, etc.
+
+I'm sure that by now you are more or less convinced that EXWM rocks, you can try
+it with your own Emacs configuration but if you are in Spacemacs, try the EXWM
+layer. Instructions on how to use EXWM are pretty straight forward, I'm afraid I
+can't help Ubuntu users as I'm pretty sure you'll need to create a session file
+that links to a Desktop file that executes Emacs and have =(exwm-enable)=
+somewhere in your Emacs configuration file. So I'm gonna be pretty straight
+forward and just share what command I have on my initialization script.
+
+#+begin_src sh 
+  # ~/.xinitrc
+  exec dbus-launch --exit-with-session emacs --eval "(exwm-enable)"
+#+end_src
+
+You may wonder why do I have the last eval part to enable exwm, well it's
+Spacemacs right? so people might want to try the layer and use more than one WM
+while they get used to EXWM, it's ok. I used to use i3 and Unity too, and I
+guess that's a normal part of adapting, so I want those users to still be able
+to use other WM or DE of their choice without exwm giving trouble. The layer
+configures everything exwm related but doesn't activate it until you call it
+with this setting. Also I use dbus-launch so that when the user quits Emacs it
+also quits the session, which is great. Want to log out? no need to define new
+keybindings, =C-x C-c= (I know not very Spacemacs-y but you know: "Old habits,
+they die hard")
+
+
+Once you have the Spacemacs Layer up and running you will be able to move into
+workspaces, move through windows by =Super-hjkl= Go to last workspace with
+=Super-Tab=, undo/redo window layouts with =Super-u/U= and many things more, if
+you want a detailed description check out the layer on Spacemacs. You'll find it
+hard to use any other WM, in EXWM *windows* finally mean windows as we know
+them.
+
+
+There are some downsides though, given the not good concurrency in Emacs, when
+an elisp action takes too much time it *will* freeze the system because there
+are no threads whatsoever, so if you become very passionate about EXWM go ahead
+and try to implement async in Emacs :P I think change in Emacs won't happen
+unless people are really hyped in changing stuff. Also contribute back to EXWM
+and XELB and report bugs @ch11nge has done a great work with EXWM and XELB and
+he is a very responsive maintainer, I'm really impressed but how much work might
+have gone into making these tools.
+
+
+
+
