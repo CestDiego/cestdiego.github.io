@@ -1,0 +1,276 @@
+#+TITLE:       Y Combinator in Emacs Lisp
+#+AUTHOR:      Diego Berrocal
+#+EMAIL:       cestdiego@gmail.com
+#+DATE:        2015-10-13 Tue
+#+URI:         /blog/%y/%m/%d/y-combinator-in-emacs-lisp
+#+KEYWORDS:    ycombinator, lambda, emacs, elisp
+#+TAGS:        Emacs Lisp, lambda calculus
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Or how to implement the YCombinator in Emacs Lisp
+
+I talked today with Prabhakar Ragde, who is a resident at the Recurse Center
+until Oct15, and I was enlightened by lambda calculus as we figured out how to
+deduce the Y Combinator that is used a lot to make recursive functions.
+
+Here I plan to post the implementation and derivation of the Y Combinator in
+Emacs Lisp. 
+
+:DISCLAIMER_BEGIN: 
+
+You will need to have lexical binding enabled for most of the examples to work,
+it is a buffer-local variable so make sure you paste everything on the same
+buffer.
+
+#+begin_src emacs-lisp :tangle yes
+(setq lexical-binding t)
+#+end_src
+
+:DISCLAIMER_END:
+
+We'll take =factorial= as it's good example of a recursive function
+
+#+begin_src emacs-lisp 
+  (defun factorial (number)
+    (if (eq number 0) 1
+      (* number (funcall #'factorial (1- number)))))
+
+  (factorial 5) ;; 120
+  (factorial 4) ;; 24
+#+end_src
+
+#+RESULTS:
+: 24
+
+The recursion looks trivial right? Now lets try to implement it without
+referencing the name of the function, should be easy as well.
+
+#+begin_src emacs-lisp 
+  ;; factorial
+  (lambda (number)
+    (if (eq number 0)
+        1
+      (* number (funcall fact? (1- number)))))
+#+end_src
+
+We find that we cannot reference back to the same lambda function as we don't
+have a name for it, that's why we use *fact?* we'll have to figure out what to
+put in there. Lets say that we have another function that *looks* like =factorial=.
+
+#+begin_src emacs-lisp  :tangle yes
+  ;; proto-factorial
+  (lambda (fun)
+    (lambda (number)
+      (if (eq number 0)
+          1
+        (* number (funcall fun (1- number))))))
+#+end_src
+
+This is great! now we have a function that can take another function and that
+returns a function that looks like =factorial=. There is one little detail
+though, the function that =proto-factorial= accepts only takes a number, so we
+could say that.
+
+#+begin_src emacs-lisp :tangle yes
+  (let ((proto-factorial (lambda (fun)
+                           (lambda (number)
+                             (if (eq number 0)
+                                 1
+                               (* number (funcall fun (1- number))))))))
+    (eq (funcall 'factorial 4)
+        (funcall (funcall proto-factorial 'factorial) 4)))
+#+end_src
+
+
+This holds true but it's not what we want. We show that applying
+=proto-factorial= to =factorial= gives us back =factorial= which is cool, but we
+need to not use =factorial= at all, let's see if using =proto-factorial= on itself
+might work
+
+#+begin_src emacs-lisp :tangle yes
+  (let ((proto-factorial (lambda (fun)
+                           (lambda (number)
+                             (if (eq number 0)
+                                 1
+                               (* number (funcall fun (1- number))))))))
+    (funcall (funcall proto-factorial proto-factorial) 4))
+#+end_src
+
+It didn't T_T. What this tells us is that we have not provided enough arguments,
+and that's true, because proto-factorial, the function we send, takes a function
+and and returns a function that takes number, and the outer =funcall= just takes
+another number but no function. this is tricky, but we can have a way of doing
+it, let's call the function on itself as an argument before passing another
+number!
+
+#+begin_src emacs-lisp :tangle yes
+  ;; meta-factorial
+  (lambda (fun)
+    (lambda (number)
+      (if (eq number 0)
+          1
+        (* number (funcall (funcall fun fun) (1- number))))))
+#+end_src
+
+This looks more promising! meta-factorial takes a function and returns a
+function that depends on a number, but in this inner number-dependent function
+instead of applying =fun= to =(1- number)= we apply the function to itself, and
+then apply that result to =(1- number)=, this way we got what we wanted, a
+recursive function!. But still looks ugly, lets arrange it in a better way
+
+#+begin_src emacs-lisp  :tangle yes
+  (let ((meta-factorial (lambda (fun)
+                          (lambda (number)
+                            (if (eq number 0)
+                                1
+                              (* number (funcall (funcall fun fun) (1- number))))))))
+    (eq (funcall 'factorial 4)
+        (funcall (funcall meta-factorial meta-factorial) 4)))
+#+end_src
+
+
+You might be thinking: "Wait what? did we just did a recursion by calling two
+lambdas?" yes we did, it might not look like so here, but if you replace each
+=meta-fact= with the lambda definition, we eliminate references to functions and
+are only left with lambda functions but the recursion still works! and we
+haven't used a reference to a function from within itself. If you don't believe
+me, then this is the ugly version:
+
+#+begin_src emacs-lisp :tangle yes
+  (funcall (funcall #'(lambda (fun)
+                        (lambda (number)
+                          (if (eq number 0)
+                              1
+                            (* number (funcall (funcall fun fun) (1- number))))))
+                    #'(lambda (fun)
+                        (lambda (number)
+                          (if (eq number 0)
+                              1
+                            (* number (funcall (funcall fun fun) (1- number))))))
+                    )
+           4)
+#+end_src
+
+This still returns what we wanted which is =4!=. So what we have now is that
+=meta-factorial= evaluated on itself returns a function that takes a number and
+that function is equivalent to =factorial=.
+
+We want a way to transform from proto-factorial function to =factorial= because in
+that way we can get recursion, out of a simpler function the only things that we
+did was to take out the function call and call it on itself. 
+
+Let's see if we can define one such a function that takes as a parameter the
+proto-factorial and will output the meta-factorial version because in that case
+we would only need to apply that function twice and we would get our so desired
+factorial.
+
+#+begin_src emacs-lisp :tangle yes
+  ;; meta-factorial
+  (lambda (fun)
+    (funcall
+     #'(lambda (fun2)
+         (lambda (number)
+           (if (eq number 0)
+               1
+             (* number (funcall fun2 (1- number))))))
+     (funcall fun fun)))
+#+end_src
+
+What we just did was to wrap the inner number-dependent function so that the
+=(funcall fun fun)= could be abstracted. This is called composing functions,
+kinda like =g(x^2)= could be written as =g(f(x))= where ~f(x) = x^2~ and we find
+that this inner thing is actually, =proto-factorial= !! This is great!, now we
+can write meta =factorial= in terms of proto =factorial=. We just needed to wrap the
+fun2 into a call to itself.
+
+#+begin_src emacs-lisp :tangle yes
+  (let ((meta-factorial (lambda (fun)
+                          (lambda (number)
+                            (if (eq number 0)
+                                1
+                              (* number (funcall (funcall fun fun) (1- number)))))))
+        (proto-factorial (lambda (fun)
+                           (lambda (number)
+                             (if (eq number 0)
+                                 1
+                               (* number (funcall fun (1- number))))))))
+    (eq (funcall 'factorial 4)
+        (funcall (funcall #'(lambda (r)
+                              (funcall proto-factorial (funcall r r)))
+                          #'(lambda (r)
+                              (funcall proto-factorial (funcall r r))))
+                 4)))
+#+end_src
+
+This is basically what we've been going for so much, if we could only make one
+more abstraction so that in case of proto-factorial we could pass any function
+wouldn't it be nice? well it *is* possible and it has a name! it's called the Y
+combinator, and it looks like this:
+
+#+begin_src emacs-lisp :tangle yes
+  (defun YCombinator (fun)
+      (funcall #'(lambda (r)
+                     (funcall fun (funcall r r)))
+               #'(lambda (r)
+                     (funcall fun (funcall r r)))))
+#+end_src
+
+Lets try it with our =factorial= function!
+
+#+begin_src emacs-lisp :tangle yes
+  (funcall
+   (YCombinator #'(lambda (f)
+                    #'(lambda (n)
+                        (if (eq n 0)
+                            1
+                          (* n
+                             (funcall f (1- n))
+                             ))))) 5)
+#+end_src
+
+This should work, but it just goes into an infinite recursive loop, :(.
+
+Fortunately enough, I had been warned about this type of behavior due to the
+non-laziness from elisp, its eagerness it's not letting the code keep on going
+without evaluating stuff that shouldn't be evaluated yet, this doesn't happen in
+other languages such as haskell, but in emacs lisp the YCombinator should look a
+little bit different, like this:
+
+#+begin_src emacs-lisp :tangle yes
+  (defun YCombinator (f)
+    (funcall #'(lambda (x)
+                 (funcall f #'(lambda (y)
+                                (funcall (funcall x x) y))))
+             #'(lambda (x)
+                 (funcall f #'(lambda (y)
+                                (funcall (funcall x x) y))))))
+
+#+end_src
+
+#+RESULTS:
+: YCombinator
+
+
+There! now we have a working YCombinator that doesn't go into an infinite loop
+:) lets try it
+
+#+begin_src emacs-lisp  :tangle yes
+  (funcall
+   (YCombinator
+    #'(lambda (f)
+        #'(lambda (n)
+            (if (eq n 0)
+                1
+              (* n
+                 (funcall f (1- n)))))))
+   8)
+#+end_src
+
+#+RESULTS:
+: 40320
+
+There we go! :) this is the kind of stuff one learns in the Recurse Center. I
+hope you liked it, I've seen implementations done in javascript and even python,
+but not one in Emacs Lisp for the =factorial= function. There was one that got it
+right for the [[https://gist.github.com/yukihr/df9c3fcf9002cc3b3d03][Fibonacci sequence]] but when I tried it on the =factorial= it went
+into the infinite loop,
