@@ -66,11 +66,31 @@ deduce the Y Combinator that is used a lot to make recursive functions.
 
 <p>
 Here I plan to post the implementation and derivation of the Y Combinator in
-Emacs Lisp.
+Emacs Lisp. 
 </p>
 
 <p>
-We'll take factorial as it's good example of a recursive function
+:DISCLAIMER_BEGIN: 
+</p>
+
+<p>
+You will need to have lexical binding enabled for most of the examples to work,
+it is a buffer-local variable so make sure you paste everything on the same
+buffer.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>setq lexical-binding t<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+:DISCLAIMER_END:
+</p>
+
+<p>
+We'll take <code>factorial</code> as it's good example of a recursive function
 </p>
 
 <div class="org-src-container">
@@ -84,13 +104,9 @@ We'll take factorial as it's good example of a recursive function
 </pre>
 </div>
 
-<pre class="example">
-24
-</pre>
-
 <p>
 The recursion looks trivial right? Now lets try to implement it without
-referencing the name of the function, should be easy as well right?
+referencing the name of the function, should be easy as well.
 </p>
 
 <div class="org-src-container">
@@ -103,168 +119,222 @@ referencing the name of the function, should be easy as well right?
 </pre>
 </div>
 
-
 <p>
 We find that we cannot reference back to the same lambda function as we don't
-have a name for it, that's why we use <code>fact?</code> we'll have to figure out what to
-put in there. Lets say that we have another function that looks like factorial.
+have a name for it, that's why we use <b>fact?</b> we'll have to figure out what to
+put in there. Lets say that we have another function that <b>looks</b> like <code>factorial</code>.
 </p>
 
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">proto-factorial</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-2">(</span>fun number<span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-3">(</span>eq number <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-3">)</span>
-      <span class="org-highlight-numbers-number">1</span>
-    <span class="org-rainbow-delimiters-depth-3">(</span>* number <span class="org-rainbow-delimiters-depth-4">(</span>funcall #'fun <span class="org-rainbow-delimiters-depth-5">(</span>1- number<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-2">(</span>fun<span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-3">(</span>number<span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-4">(</span>eq number <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-4">)</span>
+        <span class="org-highlight-numbers-number">1</span>
+      <span class="org-rainbow-delimiters-depth-4">(</span>* number <span class="org-rainbow-delimiters-depth-5">(</span>funcall fun <span class="org-rainbow-delimiters-depth-6">(</span>1- number<span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
 <p>
 This is great! now we have a function that can take another function and that
-looks like factorial doesn't it? Only one little detail though, the function
-that proto-factorial accepts only takes a number, so we could say that.
+returns a function that looks like <code>factorial</code>. There is one little detail
+though, the function that <code>proto-factorial</code> accepts only takes a number, so we
+could say that.
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>proto-factorial <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-5">(</span>fun number<span class="org-rainbow-delimiters-depth-5">)</span>
-                                 <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-6">(</span>eq number <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-6">)</span>
-                                     <span class="org-highlight-numbers-number">1</span>
-                                   <span class="org-rainbow-delimiters-depth-6">(</span>* number <span class="org-rainbow-delimiters-depth-7">(</span>funcall fun <span class="org-rainbow-delimiters-depth-8">(</span>1- number<span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>proto-factorial <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-5">(</span>fun<span class="org-rainbow-delimiters-depth-5">)</span>
+                         <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-6">(</span>number<span class="org-rainbow-delimiters-depth-6">)</span>
+                           <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-7">(</span>eq number <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-7">)</span>
+                               <span class="org-highlight-numbers-number">1</span>
+                             <span class="org-rainbow-delimiters-depth-7">(</span>* number <span class="org-rainbow-delimiters-depth-8">(</span>funcall fun <span class="org-rainbow-delimiters-depth-9">(</span>1- number<span class="org-rainbow-delimiters-depth-9">)</span><span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
   <span class="org-rainbow-delimiters-depth-2">(</span>eq <span class="org-rainbow-delimiters-depth-3">(</span>funcall 'factorial <span class="org-highlight-numbers-number">4</span><span class="org-rainbow-delimiters-depth-3">)</span>
-      <span class="org-rainbow-delimiters-depth-3">(</span>funcall proto-factorial 'factorial <span class="org-highlight-numbers-number">4</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+      <span class="org-rainbow-delimiters-depth-3">(</span>funcall <span class="org-rainbow-delimiters-depth-4">(</span>funcall proto-factorial 'factorial<span class="org-rainbow-delimiters-depth-4">)</span> <span class="org-highlight-numbers-number">4</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
-<pre class="example">
-t
-</pre>
 
 <p>
-This holds true but it's not what we want. We need to not use factorial at all,
-let's see if using <code>proto-factorial</code> on itself might work
+This holds true but it's not what we want. We show that applying
+<code>proto-factorial</code> to <code>factorial</code> gives us back <code>factorial</code> which is cool, but we
+need to not use <code>factorial</code> at all, let's see if using <code>proto-factorial</code> on itself
+might work
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>proto-factorial <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-5">(</span>fun number<span class="org-rainbow-delimiters-depth-5">)</span>
-                                 <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-6">(</span>eq number <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-6">)</span>
-                                     <span class="org-highlight-numbers-number">1</span>
-                                   <span class="org-rainbow-delimiters-depth-6">(</span>* number <span class="org-rainbow-delimiters-depth-7">(</span>funcall fun <span class="org-rainbow-delimiters-depth-8">(</span>1- number<span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>funcall proto-factorial proto-factorial<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>proto-factorial <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-5">(</span>fun<span class="org-rainbow-delimiters-depth-5">)</span>
+                         <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-6">(</span>number<span class="org-rainbow-delimiters-depth-6">)</span>
+                           <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-7">(</span>eq number <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-7">)</span>
+                               <span class="org-highlight-numbers-number">1</span>
+                             <span class="org-rainbow-delimiters-depth-7">(</span>* number <span class="org-rainbow-delimiters-depth-8">(</span>funcall fun <span class="org-rainbow-delimiters-depth-9">(</span>1- number<span class="org-rainbow-delimiters-depth-9">)</span><span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>funcall <span class="org-rainbow-delimiters-depth-3">(</span>funcall proto-factorial proto-factorial<span class="org-rainbow-delimiters-depth-3">)</span> <span class="org-highlight-numbers-number">4</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
-
-<p>
-<code>Error:eieio-oref: Wrong number of arguments: (lambda (fun number) ...), 1</code>
-</p>
 
 <p>
 It didn't T_T. What this tells us is that we have not provided enough arguments,
-and that's true, because proto-factorial, the function we send takes a function
-and a number, and the inner call just takes another number but no function. this
-is tricky, but we can have a way of doing it, let's call the function on itself
-as an argument before passing another number!
+and that's true, because proto-factorial, the function we send, takes a function
+and and returns a function that takes number, and the outer <code>funcall</code> just takes
+another number but no function. this is tricky, but we can have a way of doing
+it, let's call the function on itself as an argument before passing another
+number!
 </p>
 
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">meta-factorial</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-2">(</span>fun number<span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-3">(</span>eq number <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-3">)</span>
-      <span class="org-highlight-numbers-number">1</span>
-    <span class="org-rainbow-delimiters-depth-3">(</span>* number <span class="org-rainbow-delimiters-depth-4">(</span>funcall fun fun <span class="org-rainbow-delimiters-depth-5">(</span>1- number<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-2">(</span>fun<span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-3">(</span>number<span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-4">(</span>eq number <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-4">)</span>
+        <span class="org-highlight-numbers-number">1</span>
+      <span class="org-rainbow-delimiters-depth-4">(</span>* number <span class="org-rainbow-delimiters-depth-5">(</span>funcall <span class="org-rainbow-delimiters-depth-6">(</span>funcall fun fun<span class="org-rainbow-delimiters-depth-6">)</span> <span class="org-rainbow-delimiters-depth-6">(</span>1- number<span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
 <p>
-This looks more promising! meta-factorial takes a function and returns the
-function evaluated with itself, this way we got what we wanted, a recursive
-function!. But still looks ugly, lets arrange it in a better way
+This looks more promising! meta-factorial takes a function and returns a
+function that depends on a number, but in this inner number-dependent function
+instead of applying <code>fun</code> to <code>(1- number)</code> we apply the function to itself, and
+then apply that result to <code>(1- number)</code>, this way we got what we wanted, a
+recursive function!. But still looks ugly, lets arrange it in a better way
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>meta-factorial <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-5">(</span>fun number<span class="org-rainbow-delimiters-depth-5">)</span>
-                        <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-6">(</span>eq number <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-6">)</span>
-                            <span class="org-highlight-numbers-number">1</span>
-                          <span class="org-rainbow-delimiters-depth-6">(</span>* number <span class="org-rainbow-delimiters-depth-7">(</span>funcall fun fun <span class="org-rainbow-delimiters-depth-8">(</span>1- number<span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>eq <span class="org-rainbow-delimiters-depth-3">(</span>factorial <span class="org-highlight-numbers-number">4</span><span class="org-rainbow-delimiters-depth-3">)</span>
-      <span class="org-rainbow-delimiters-depth-3">(</span>funcall meta-factorial meta-factorial <span class="org-highlight-numbers-number">4</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>meta-factorial <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-5">(</span>fun<span class="org-rainbow-delimiters-depth-5">)</span>
+                        <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-6">(</span>number<span class="org-rainbow-delimiters-depth-6">)</span>
+                          <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-7">(</span>eq number <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-7">)</span>
+                              <span class="org-highlight-numbers-number">1</span>
+                            <span class="org-rainbow-delimiters-depth-7">(</span>* number <span class="org-rainbow-delimiters-depth-8">(</span>funcall <span class="org-rainbow-delimiters-depth-9">(</span>funcall fun fun<span class="org-rainbow-delimiters-depth-9">)</span> <span class="org-rainbow-delimiters-depth-9">(</span>1- number<span class="org-rainbow-delimiters-depth-9">)</span><span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>eq <span class="org-rainbow-delimiters-depth-3">(</span>funcall 'factorial <span class="org-highlight-numbers-number">4</span><span class="org-rainbow-delimiters-depth-3">)</span>
+      <span class="org-rainbow-delimiters-depth-3">(</span>funcall <span class="org-rainbow-delimiters-depth-4">(</span>funcall meta-factorial meta-factorial<span class="org-rainbow-delimiters-depth-4">)</span> <span class="org-highlight-numbers-number">4</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
-<pre class="example">
-t
-</pre>
 
 <p>
 You might be thinking: "Wait what? did we just did a recursion by calling two
 lambdas?" yes we did, it might not look like so here, but if you replace each
 <code>meta-fact</code> with the lambda definition, we eliminate references to functions and
 are only left with lambda functions but the recursion still works! and we
-haven't used a reference to a function from within itself.
+haven't used a reference to a function from within itself. If you don't believe
+me, then this is the ugly version:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>funcall <span class="org-rainbow-delimiters-depth-2">(</span>funcall #'<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-4">(</span>fun<span class="org-rainbow-delimiters-depth-4">)</span>
+                      <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-5">(</span>number<span class="org-rainbow-delimiters-depth-5">)</span>
+                        <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-6">(</span>eq number <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-6">)</span>
+                            <span class="org-highlight-numbers-number">1</span>
+                          <span class="org-rainbow-delimiters-depth-6">(</span>* number <span class="org-rainbow-delimiters-depth-7">(</span>funcall <span class="org-rainbow-delimiters-depth-8">(</span>funcall fun fun<span class="org-rainbow-delimiters-depth-8">)</span> <span class="org-rainbow-delimiters-depth-8">(</span>1- number<span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+                  #'<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-4">(</span>fun<span class="org-rainbow-delimiters-depth-4">)</span>
+                      <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-5">(</span>number<span class="org-rainbow-delimiters-depth-5">)</span>
+                        <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-6">(</span>eq number <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-6">)</span>
+                            <span class="org-highlight-numbers-number">1</span>
+                          <span class="org-rainbow-delimiters-depth-6">(</span>* number <span class="org-rainbow-delimiters-depth-7">(</span>funcall <span class="org-rainbow-delimiters-depth-8">(</span>funcall fun fun<span class="org-rainbow-delimiters-depth-8">)</span> <span class="org-rainbow-delimiters-depth-8">(</span>1- number<span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+                  <span class="org-rainbow-delimiters-depth-2">)</span>
+         <span class="org-highlight-numbers-number">4</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+This still returns what we wanted which is <code>4!</code>. So what we have now is that
+<code>meta-factorial</code> evaluated on itself returns a function that takes a number and
+that function is equivalent to <code>factorial</code>.
 </p>
 
 <p>
-Let's see now how it looks like. We want a way to transform from proto-factorial
-function to meta-factorial because in that way we can get recursion the only
-things that we did was to take out the function call and call it on itself.
+We want a way to transform from proto-factorial function to <code>factorial</code> because in
+that way we can get recursion, out of a simpler function the only things that we
+did was to take out the function call and call it on itself. 
+</p>
+
+<p>
 Let's see if we can define one such a function that takes as a parameter the
-proto-factorial and will output the meta-factorial version. Then we have to take
-into account how the proto-factorial relates to the factorial and so we end up
-with the <a href="http://www.wikiwand.com/en/Fixed-point_combinator#/Derivation_of_the_Y_combinator">YCombinator notation</a> in lambda calculus. In simple terms the
-YCombinator looks like this:
+proto-factorial and will output the meta-factorial version because in that case
+we would only need to apply that function twice and we would get our so desired
+factorial.
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">YCombinator</span> <span class="org-rainbow-delimiters-depth-2">(</span>fun<span class="org-rainbow-delimiters-depth-2">)</span>
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">meta-factorial</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-2">(</span>fun<span class="org-rainbow-delimiters-depth-2">)</span>
   <span class="org-rainbow-delimiters-depth-2">(</span>funcall
-   #'<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-4">(</span>r<span class="org-rainbow-delimiters-depth-4">)</span>
-       <span class="org-rainbow-delimiters-depth-4">(</span>funcall fun <span class="org-rainbow-delimiters-depth-5">(</span>funcall r r<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
-   #'<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-4">(</span>r<span class="org-rainbow-delimiters-depth-4">)</span>
-       <span class="org-rainbow-delimiters-depth-4">(</span>funcall fun <span class="org-rainbow-delimiters-depth-5">(</span>funcall r r<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+   #'<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-4">(</span>fun2<span class="org-rainbow-delimiters-depth-4">)</span>
+       <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-5">(</span>number<span class="org-rainbow-delimiters-depth-5">)</span>
+         <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-6">(</span>eq number <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-6">)</span>
+             <span class="org-highlight-numbers-number">1</span>
+           <span class="org-rainbow-delimiters-depth-6">(</span>* number <span class="org-rainbow-delimiters-depth-7">(</span>funcall fun2 <span class="org-rainbow-delimiters-depth-8">(</span>1- number<span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+   <span class="org-rainbow-delimiters-depth-3">(</span>funcall fun fun<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
-<p>
-What this does basically is that it will take a function fun that supposedly depends on 
-</p>
 
 <p>
-But we have to be careful in Emacs lisp as it does not have lexical binding
-unless we ask for it. So it <b>really</b> looks like this:
+What we just did was to wrap the inner number-dependent function so that the
+<code>(funcall fun fun)</code> could be abstracted. This is called composing functions,
+kinda like <code>g(x^2)</code> could be written as <code>g(f(x))</code> where <code>f(x) = x^2</code> and we find
+that this inner thing is actually, <code>proto-factorial</code> !! This is great!, now we
+can write meta <code>factorial</code> in terms of proto <code>factorial</code>. We just needed to wrap the
+fun2 into a call to itself.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>meta-factorial <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-5">(</span>fun<span class="org-rainbow-delimiters-depth-5">)</span>
+                        <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-6">(</span>number<span class="org-rainbow-delimiters-depth-6">)</span>
+                          <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-7">(</span>eq number <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-7">)</span>
+                              <span class="org-highlight-numbers-number">1</span>
+                            <span class="org-rainbow-delimiters-depth-7">(</span>* number <span class="org-rainbow-delimiters-depth-8">(</span>funcall <span class="org-rainbow-delimiters-depth-9">(</span>funcall fun fun<span class="org-rainbow-delimiters-depth-9">)</span> <span class="org-rainbow-delimiters-depth-9">(</span>1- number<span class="org-rainbow-delimiters-depth-9">)</span><span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+      <span class="org-rainbow-delimiters-depth-3">(</span>proto-factorial <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-5">(</span>fun<span class="org-rainbow-delimiters-depth-5">)</span>
+                         <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-6">(</span>number<span class="org-rainbow-delimiters-depth-6">)</span>
+                           <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-7">(</span>eq number <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-7">)</span>
+                               <span class="org-highlight-numbers-number">1</span>
+                             <span class="org-rainbow-delimiters-depth-7">(</span>* number <span class="org-rainbow-delimiters-depth-8">(</span>funcall fun <span class="org-rainbow-delimiters-depth-9">(</span>1- number<span class="org-rainbow-delimiters-depth-9">)</span><span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>eq <span class="org-rainbow-delimiters-depth-3">(</span>funcall 'factorial <span class="org-highlight-numbers-number">4</span><span class="org-rainbow-delimiters-depth-3">)</span>
+      <span class="org-rainbow-delimiters-depth-3">(</span>funcall <span class="org-rainbow-delimiters-depth-4">(</span>funcall #'<span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-6">(</span>r<span class="org-rainbow-delimiters-depth-6">)</span>
+                            <span class="org-rainbow-delimiters-depth-6">(</span>funcall proto-factorial <span class="org-rainbow-delimiters-depth-7">(</span>funcall r r<span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
+                        #'<span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-6">(</span>r<span class="org-rainbow-delimiters-depth-6">)</span>
+                            <span class="org-rainbow-delimiters-depth-6">(</span>funcall proto-factorial <span class="org-rainbow-delimiters-depth-7">(</span>funcall r r<span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
+               <span class="org-highlight-numbers-number">4</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+This is basically what we've been going for so much, if we could only make one
+more abstraction so that in case of proto-factorial we could pass any function
+wouldn't it be nice? well it <b>is</b> possible and it has a name! it's called the Y
+combinator, and it looks like this:
 </p>
 
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">YCombinator</span> <span class="org-rainbow-delimiters-depth-2">(</span>fun<span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>lexical-let <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>f fun<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
-    <span class="org-rainbow-delimiters-depth-3">(</span>funcall #'<span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-5">(</span>rest<span class="org-rainbow-delimiters-depth-5">)</span>
-                 <span class="org-rainbow-delimiters-depth-5">(</span>lexical-let <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-rainbow-delimiters-depth-7">(</span>r rest<span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span>
-                   <span class="org-rainbow-delimiters-depth-6">(</span>funcall f <span class="org-rainbow-delimiters-depth-7">(</span>funcall r r<span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
-             #'<span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-5">(</span>rest<span class="org-rainbow-delimiters-depth-5">)</span>
-                 <span class="org-rainbow-delimiters-depth-5">(</span>lexical-let <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-rainbow-delimiters-depth-7">(</span>r rest<span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span>
-                   <span class="org-rainbow-delimiters-depth-6">(</span>funcall f <span class="org-rainbow-delimiters-depth-7">(</span>funcall r r<span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+    <span class="org-rainbow-delimiters-depth-2">(</span>funcall #'<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-4">(</span>r<span class="org-rainbow-delimiters-depth-4">)</span>
+                   <span class="org-rainbow-delimiters-depth-4">(</span>funcall fun <span class="org-rainbow-delimiters-depth-5">(</span>funcall r r<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+             #'<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-4">(</span>r<span class="org-rainbow-delimiters-depth-4">)</span>
+                   <span class="org-rainbow-delimiters-depth-4">(</span>funcall fun <span class="org-rainbow-delimiters-depth-5">(</span>funcall r r<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
 <p>
-Lets try it with our factorial function!
+Lets try it with our <code>factorial</code> function!
 </p>
 
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>funcall
  <span class="org-rainbow-delimiters-depth-2">(</span>YCombinator #'<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-4">(</span>f<span class="org-rainbow-delimiters-depth-4">)</span>
-                  <span class="org-rainbow-delimiters-depth-4">(</span>lexical-let <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-rainbow-delimiters-depth-6">(</span>f1 f<span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
-                    #'<span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-6">(</span>n<span class="org-rainbow-delimiters-depth-6">)</span>
-                        <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-7">(</span>eq n <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-7">)</span>
-                            <span class="org-highlight-numbers-number">1</span>
-                          <span class="org-rainbow-delimiters-depth-7">(</span>* n
-                             <span class="org-rainbow-delimiters-depth-8">(</span>funcall f1 <span class="org-rainbow-delimiters-depth-9">(</span>1- n<span class="org-rainbow-delimiters-depth-9">)</span><span class="org-rainbow-delimiters-depth-8">)</span>
-                             <span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-highlight-numbers-number">7</span><span class="org-rainbow-delimiters-depth-1">)</span>
+                  #'<span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-5">(</span>n<span class="org-rainbow-delimiters-depth-5">)</span>
+                      <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-6">(</span>eq n <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-6">)</span>
+                          <span class="org-highlight-numbers-number">1</span>
+                        <span class="org-rainbow-delimiters-depth-6">(</span>* n
+                           <span class="org-rainbow-delimiters-depth-7">(</span>funcall f <span class="org-rainbow-delimiters-depth-8">(</span>1- n<span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span>
+                           <span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-highlight-numbers-number">5</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -283,25 +353,19 @@ little bit different, like this:
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">YCombinator</span> <span class="org-rainbow-delimiters-depth-2">(</span>f<span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>lexical-let <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>f1 f<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
-    <span class="org-rainbow-delimiters-depth-3">(</span>funcall
-     #'<span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-5">(</span>x<span class="org-rainbow-delimiters-depth-5">)</span>
-         <span class="org-rainbow-delimiters-depth-5">(</span>lexical-let <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-rainbow-delimiters-depth-7">(</span>x1 x<span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span>
-           <span class="org-rainbow-delimiters-depth-6">(</span>funcall f1 #'<span class="org-rainbow-delimiters-depth-7">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-8">(</span>y<span class="org-rainbow-delimiters-depth-8">)</span>
-                           <span class="org-rainbow-delimiters-depth-8">(</span>lexical-let <span class="org-rainbow-delimiters-depth-9">(</span><span class="org-rainbow-delimiters-depth-1">(</span>y1 y<span class="org-rainbow-delimiters-depth-1">)</span><span class="org-rainbow-delimiters-depth-9">)</span>
-                             <span class="org-rainbow-delimiters-depth-9">(</span>funcall <span class="org-rainbow-delimiters-depth-1">(</span>funcall x1 x1<span class="org-rainbow-delimiters-depth-1">)</span> y<span class="org-rainbow-delimiters-depth-9">)</span><span class="org-rainbow-delimiters-depth-8">)</span>
-                           <span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
-     #'<span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-5">(</span>x<span class="org-rainbow-delimiters-depth-5">)</span>
-         <span class="org-rainbow-delimiters-depth-5">(</span>lexical-let <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-rainbow-delimiters-depth-7">(</span>x1 x<span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span>
-           <span class="org-rainbow-delimiters-depth-6">(</span>funcall f1 #'<span class="org-rainbow-delimiters-depth-7">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-8">(</span>y<span class="org-rainbow-delimiters-depth-8">)</span>
-                           <span class="org-rainbow-delimiters-depth-8">(</span>lexical-let <span class="org-rainbow-delimiters-depth-9">(</span><span class="org-rainbow-delimiters-depth-1">(</span>y1 y<span class="org-rainbow-delimiters-depth-1">)</span><span class="org-rainbow-delimiters-depth-9">)</span>
-                             <span class="org-rainbow-delimiters-depth-9">(</span>funcall <span class="org-rainbow-delimiters-depth-1">(</span>funcall x1 x1<span class="org-rainbow-delimiters-depth-1">)</span> y<span class="org-rainbow-delimiters-depth-9">)</span><span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>funcall #'<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-4">(</span>x<span class="org-rainbow-delimiters-depth-4">)</span>
+               <span class="org-rainbow-delimiters-depth-4">(</span>funcall f #'<span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-6">(</span>y<span class="org-rainbow-delimiters-depth-6">)</span>
+                              <span class="org-rainbow-delimiters-depth-6">(</span>funcall <span class="org-rainbow-delimiters-depth-7">(</span>funcall x x<span class="org-rainbow-delimiters-depth-7">)</span> y<span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+           #'<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-4">(</span>x<span class="org-rainbow-delimiters-depth-4">)</span>
+               <span class="org-rainbow-delimiters-depth-4">(</span>funcall f #'<span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-6">(</span>y<span class="org-rainbow-delimiters-depth-6">)</span>
+                              <span class="org-rainbow-delimiters-depth-6">(</span>funcall <span class="org-rainbow-delimiters-depth-7">(</span>funcall x x<span class="org-rainbow-delimiters-depth-7">)</span> y<span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
 
 <p>
-There! now we have a working YCombinator :) lets try it
+There! now we have a working YCombinator that doesn't go into an infinite loop
+:) lets try it
 </p>
 
 <div class="org-src-container">
@@ -309,25 +373,21 @@ There! now we have a working YCombinator :) lets try it
 <pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>funcall
  <span class="org-rainbow-delimiters-depth-2">(</span>YCombinator
   #'<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-4">(</span>f<span class="org-rainbow-delimiters-depth-4">)</span>
-      <span class="org-rainbow-delimiters-depth-4">(</span>lexical-let <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-rainbow-delimiters-depth-6">(</span>f1 f<span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
-        #'<span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-6">(</span>n<span class="org-rainbow-delimiters-depth-6">)</span>
-            <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-7">(</span>eq n <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-7">)</span>
-                <span class="org-highlight-numbers-number">1</span>
-              <span class="org-rainbow-delimiters-depth-7">(</span>* n
-                 <span class="org-rainbow-delimiters-depth-8">(</span>funcall f1 <span class="org-rainbow-delimiters-depth-9">(</span>1- n<span class="org-rainbow-delimiters-depth-9">)</span><span class="org-rainbow-delimiters-depth-8">)</span>
-                 <span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+      #'<span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-5">(</span>n<span class="org-rainbow-delimiters-depth-5">)</span>
+          <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-6">(</span>eq n <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-6">)</span>
+              <span class="org-highlight-numbers-number">1</span>
+            <span class="org-rainbow-delimiters-depth-6">(</span>* n
+               <span class="org-rainbow-delimiters-depth-7">(</span>funcall f <span class="org-rainbow-delimiters-depth-8">(</span>1- n<span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
  <span class="org-highlight-numbers-number">8</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
-<pre class="example">
-40320
-</pre>
-
 <p>
 There we go! :) this is the kind of stuff one learns in the Recurse Center. I
 hope you liked it, I've seen implementations done in javascript and even python,
-but not so many in emacs lisp. I hope it was clear enough to understand.
+but not one in Emacs Lisp for the <code>factorial</code> function. There was one that got it
+right for the <a href="https://gist.github.com/yukihr/df9c3fcf9002cc3b3d03">Fibonacci sequence</a> but when I tried it on the <code>factorial</code> it went
+into the infinite loop,
 </p>
 
     </article>
