@@ -4,13 +4,27 @@
   <title>Diego Berrocal</title>
   <subtitle>it&#39;s personal</subtitle>
   <link href="http://cestdiego.github.io/"/>
-  <updated>Sat, 10 Oct 2015 22:26:12 EDT</updated>
+  <updated>Tue, 13 Oct 2015 20:42:17 EDT</updated>
+  <entry>
+    <title>Y Combinator in Emacs Lisp</title>
+    <link href="http://cestdiego.github.io/blog/2015/10/12/y-combinator-in-emacs-lisp"/>
+    <summary>Or how to implement the YCombinator in Emacs Lisp</summary>
+    <updated>2015-10-13</updated>
+    <id>http://cestdiego.github.io/blog/2015/10/12/y-combinator-in-emacs-lisp</id>
+  </entry>
   <entry>
     <title>EXWM + Spacemacs = Spacemacs OS</title>
     <link href="http://cestdiego.github.io/blog/2015/09/25/exwm-+-spacemacs-=-spacemacsos"/>
     <summary>Using Spacemacs as a Window Manager is awesome, here is why</summary>
-    <updated>2015-09-29</updated>
+    <updated>2015-10-11</updated>
     <id>http://cestdiego.github.io/blog/2015/09/25/exwm-+-spacemacs-=-spacemacsos</id>
+  </entry>
+  <entry>
+    <title>Using org-capture with org-protocol be like</title>
+    <link href="http://cestdiego.github.io/blog/2015/08/19/org-protocol"/>
+    <summary>In which I share my configuration and my own chrome extension for this </summary>
+    <updated>2015-10-11</updated>
+    <id>http://cestdiego.github.io/blog/2015/08/19/org-protocol</id>
   </entry>
   <entry>
     <title>Moving to NY and starting a new chapter</title>
@@ -39,13 +53,6 @@
     <summary>&lt;TODO: insert your description here&gt;</summary>
     <updated>2015-09-06</updated>
     <id>http://cestdiego.github.io/blog/2015/09/05/creating-an-assembler-for-nand2tetris</id>
-  </entry>
-  <entry>
-    <title>Using org-capture with org-protocol be like</title>
-    <link href="http://cestdiego.github.io/blog/2015/08/19/org-protocol"/>
-    <summary>In which I share my configuration and my own chrome extension for this </summary>
-    <updated>2015-09-06</updated>
-    <id>http://cestdiego.github.io/blog/2015/08/19/org-protocol</id>
   </entry>
   <entry>
     <title>Day 3 Nand2Tetris: Another Chapter and mode improvements</title>
