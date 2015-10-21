@@ -4,12 +4,19 @@
   <title>Diego Berrocal</title>
   <subtitle>it&#39;s personal</subtitle>
   <link href="http://cestdiego.github.io/"/>
-  <updated>Wed, 14 Oct 2015 22:58:43 EDT</updated>
+  <updated>Wed, 21 Oct 2015 17:39:17 EDT</updated>
+  <entry>
+    <title>Requesting video on Chrome Extension</title>
+    <link href="http://cestdiego.github.io/blog/2015/10/19/video-on-chrome-extension"/>
+    <summary>Tutorial on how to get video source inside a chrome extension</summary>
+    <updated>2015-10-21</updated>
+    <id>http://cestdiego.github.io/blog/2015/10/19/video-on-chrome-extension</id>
+  </entry>
   <entry>
     <title>Y Combinator in Emacs Lisp</title>
     <link href="http://cestdiego.github.io/blog/2015/10/12/y-combinator-in-emacs-lisp"/>
     <summary>Or how to implement the YCombinator in Emacs Lisp</summary>
-    <updated>2015-10-13</updated>
+    <updated>2015-10-21</updated>
     <id>http://cestdiego.github.io/blog/2015/10/12/y-combinator-in-emacs-lisp</id>
   </entry>
   <entry>
