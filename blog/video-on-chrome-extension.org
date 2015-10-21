@@ -1,0 +1,31 @@
+#+TITLE:       Requesting video on Chrome Extension
+#+AUTHOR:      Diego Berrocal
+#+EMAIL:       cestdiego@gmail.com
+#+DATE:        2015-10-20 Tue
+#+URI:         /blog/%y/%m/%d/video-on-chrome-extension
+#+KEYWORDS:    <TODO: insert your keywords here>
+#+TAGS:        <TODO: insert your tags here>
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Tutorial on how to get video source inside a chrome extension
+
+I had an idea of an extension that lets you fist bump people on the internet
+with a chrome extension. But in order to have I would have to first have a video
+feed in the popup generated from a Chrome Extension. 
+
+If you've ever worked with requesting a webcam feed in a webpage you might be
+familiar with the =getUserMedia= API. According to the [[https://developer.chrome.com/apps/declare_permissions][doc]] we only had to put
+=videoCapture= on the permissions object in our =manifest.json= to be able to
+use this API in the extension, but the story doesn't end there, chrome doesn't
+let extensions ask for such permissions, it only allows chrome apps to do so,
+which is a bummer because we want video feed in the popup from the extension!
+
+There is a way around that though, we can use the Options page for the extension
+to ask for such permissions, and if the user grants permissions to that Options
+page, it actually grants permissions to the whole domain, and what other files
+are in that domain you may ask: our PopUp page of course! So what we did on
+[[https://chrome.google.com/webstore/detail/gifbump/bacfjdhpbcepapbkibpdmpaikphomene][GifBump]] was to handle the error of not having permissions for the Camera in the
+popup page, and letting users know they should go to the options page and give
+that permission to our extension, and we would be all set! :) It's been very fun
+to get to use React in a Chrome extension and it wouldn't have been possible
+without the help of recursers such as @BarakChamo. 
