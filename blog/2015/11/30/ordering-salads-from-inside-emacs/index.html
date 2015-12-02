@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <title>Creating an assembler for Nand2tetris - Diego Berrocal</title>
+    <title>Ordering salads from inside Emacs - Diego Berrocal</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Diego Berrocal">
@@ -56,15 +56,52 @@
 
     <article class="post">
       <header>
-          <h1 class="post-title">Creating an assembler for Nand2tetris</h1>
-          <time class="post-date">Sep 05, 2015</time>
+          <h1 class="post-title">Ordering salads from inside Emacs</h1>
+          <time class="post-date">Nov 30, 2015</time>
       </header>
       <p>
-So I ended up creating a nand2tetris assembler it was pretty nice and in
-emacs-lisp!. Code is <a href="https://github.com/CestDiego/nand2tetris.el/blob/master/nand2tetris-assembler.el">here</a> but I highly recommend to only read it once you have
-built it yourself. I have plans on extending the nand2tetris-mode more so that I
-can experiment with more features about emacs-lisp package development. If you
-have any suggestions give 'em :P.
+So many things have happened at the <a href="http://recurse.com/">Recurse Center</a> and in my life these past few
+weeks, and among them is the appearance of one of my Emacs packages
+(<a href="https://github.com/CestDiego/sweetgreen.el">sweetgreen.el</a>) in Hacker News.
+</p>
+
+<p>
+I want to share how this ridiculous idea came to be. I always find myself
+tweaking Emacs, it's like the more I learn about it, the more I realize how much
+more I still don't know and I just keep digging deeper and deeper, I fear for my
+future productivity. This wasn't unnoticed by one of my friends, who later said.
+</p>
+
+<blockquote>
+<p>
+Diego, you spent so much time using Emacs, and you loose precious time going to
+Sweetgreen[salad place]. You should just get your Sweetgreen from inside Emacs!
+[lol]
+</p>
+</blockquote>
+
+<p>
+I took this too seriously and wondered how difficult would it be, I knew they
+had some kind of online ordering stuff going on. So I checked it out, and using
+the Chrome Developer Tools I could where every request in each part of the
+checkout was sent. It felt like solving puzzles and putting pieces together, I
+then used curl to do some initial testing of what I thought would be good
+payloads to send and got my first obstacle: Cookie Headers.
+</p>
+
+<p>
+I decided then that using curl wasn't Emacsy at all, so after some research I
+ended up using the <a href="http://tkf.github.io/emacs-request/">request.el</a> library and going through the documentation to
+learn more about it. I will present about this in the <a href="http://emacsnyc.org/2015/11/10/how-to-order-salads-from-inside-emacs.html">Emacs NYC</a> Meetup talk on
+Dec 7th at <a href="https://thoughtbot.com/">Thouthtbot</a>.
+</p>
+
+<p>
+All in all, I had a great time learning more about how requests are made, Emacs
+Lisp packages, functional programming, and ingredients of salads. If you
+would've told me months ago I would make an Emacs package to order salads online
+and it would reach the front page of Hacker News I'd still be laughing out loud,
+this just makes me plain happy.
 </p>
 
     </article>
@@ -88,8 +125,8 @@ have any suggestions give 'em :P.
             <div id="disqus_thread"></div>
             <script type="text/javascript">
              /* * * CONFIGURATION VARIABLES * * */
-             var disqus_identifier = "/blog/2015/09/06/creating-an-assembler-for-nand2tetris";
-             var disqus_url = "http://cestdiego.github.io/blog/2015/09/06/creating-an-assembler-for-nand2tetris";
+             var disqus_identifier = "/blog/2015/12/01/ordering-salads-from-inside-emacs";
+             var disqus_url = "http://cestdiego.github.io/blog/2015/12/01/ordering-salads-from-inside-emacs";
              var disqus_shortname = 'cestdiego';
 
              /* * * DON'T EDIT BELOW THIS LINE * * */

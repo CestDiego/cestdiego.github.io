@@ -4,7 +4,14 @@
   <title>Diego Berrocal</title>
   <subtitle>it&#39;s personal</subtitle>
   <link href="http://cestdiego.github.io/"/>
-  <updated>Sun, 15 Nov 2015 18:22:44 EST</updated>
+  <updated>Tue, 01 Dec 2015 21:15:36 EST</updated>
+  <entry>
+    <title>Ordering salads from inside Emacs</title>
+    <link href="http://cestdiego.github.io/blog/2015/11/30/ordering-salads-from-inside-emacs"/>
+    <summary>&lt;TODO: insert your description here&gt;</summary>
+    <updated>2015-12-01</updated>
+    <id>http://cestdiego.github.io/blog/2015/11/30/ordering-salads-from-inside-emacs</id>
+  </entry>
   <entry>
     <title>Requesting video on Chrome Extension</title>
     <link href="http://cestdiego.github.io/blog/2015/10/19/video-on-chrome-extension"/>
@@ -67,12 +74,5 @@
     <summary>In which I keep telling the story of the development of nand2tetris.el mode</summary>
     <updated>2015-08-14</updated>
     <id>http://cestdiego.github.io/blog/2015/08/13/day-3-nand2tetris-another-chapter-and-mode-improvements</id>
-  </entry>
-  <entry>
-    <title>Extending nand2tetris.el</title>
-    <link href="http://cestdiego.github.io/blog/2015/08/11/extending-nand2tetris"/>
-    <summary>Where I want to keep improving the nand2tetris package</summary>
-    <updated>2015-08-12</updated>
-    <id>http://cestdiego.github.io/blog/2015/08/11/extending-nand2tetris</id>
   </entry>
 </feed>
