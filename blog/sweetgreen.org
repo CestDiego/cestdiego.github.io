@@ -1,0 +1,43 @@
+#+TITLE:       Ordering salads from inside Emacs
+#+AUTHOR:      Diego Berrocal
+#+EMAIL:       cestdiego@gmail.com
+#+DATE:        2015-12-01 Tue
+#+URI:         /blog/%y/%m/%d/ordering-salads-from-inside-emacs
+#+KEYWORDS:    <TODO: insert your keywords here>
+#+TAGS:        <TODO: insert your tags here>
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: <TODO: insert your description here>
+
+So many things have happened at the [[http://recurse.com][Recurse Center]] and in my life these past few
+weeks, and among them is the appearance of one of my Emacs packages
+([[https://github.com/CestDiego/sweetgreen.el][sweetgreen.el]]) in Hacker News.
+
+I want to share how this ridiculous idea came to be. I always find myself
+tweaking Emacs, it's like the more I learn about it, the more I realize how much
+more I still don't know and I just keep digging deeper and deeper, I fear for my
+future productivity. This wasn't unnoticed by one of my friends, who later said.
+
+#+begin_quote
+Diego, you spent so much time using Emacs, and you loose precious time going to
+Sweetgreen[salad place]. You should just get your Sweetgreen from inside Emacs!
+[lol]
+#+end_quote
+
+I took this too seriously and wondered how difficult would it be, I knew they
+had some kind of online ordering stuff going on. So I checked it out, and using
+the Chrome Developer Tools I could where every request in each part of the
+checkout was sent. It felt like solving puzzles and putting pieces together, I
+then used curl to do some initial testing of what I thought would be good
+payloads to send and got my first obstacle: Cookie Headers.
+
+I decided then that using curl wasn't Emacsy at all, so after some research I
+ended up using the [[http://tkf.github.io/emacs-request/][request.el]] library and going through the documentation to
+learn more about it. I will present about this in the [[http://emacsnyc.org/2015/11/10/how-to-order-salads-from-inside-emacs.html][Emacs NYC]] Meetup talk on
+Dec 7th at [[https://thoughtbot.com/][Thouthtbot]].
+
+All in all, I had a great time learning more about how requests are made, Emacs
+Lisp packages, functional programming, and ingredients of salads. If you
+would've told me months ago I would make an Emacs package to order salads online
+and it would reach the front page of Hacker News I'd still be laughing out loud,
+this just makes me plain happy.
