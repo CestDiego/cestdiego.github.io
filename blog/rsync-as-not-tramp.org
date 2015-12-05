@@ -1,0 +1,75 @@
+#+TITLE:       Using Rsync when Tramp is too much
+#+AUTHOR:      Diego Berrocal
+#+EMAIL:       jarvis@nixos
+#+DATE:        2015-12-05 Sat
+#+URI:         /blog/%y/%m/%d/using-rsync-when-tramp-is-too-much
+#+KEYWORDS:    <TODO: insert your keywords here>
+#+TAGS:        <TODO: insert your tags here>
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Rsync stuff
+
+So, during the [[http://sachachua.com/blog/2015/11/2015-11-18-emacs-hangout/][Nov 18th Emacs Hangout]] I mentioned that I stopped using TRAMP a
+while ago and instead started using rsync to do remote stuff.
+
+
+It's time to share my setup. This are the things I used:
+
+** Requirements:
+- [[https://github.com/wasamasa/firestarter][Firestarter]]
+- [[http://batsov.com/projectile/][Projectile]]
+
+** Resources:
+- [[https://www.digitalocean.com/community/tutorials/how-to-copy-files-with-rsync-over-ssh][ssh-options to not ask for confirmation of the server everytime]]
+- [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Directory-Variables.html][Directory local variables Documentation (.dir-locals.el)]]
+
+
+
+In short, =directory local variables= are variables that are set for every file
+that is opened that belongs to the target directory, in this case, our project
+directory.
+
+With the =Firestarter= package, we assign the =firestarter= variable to a
+function and the package will execute it each time a file in our project is
+saved. The only question left is "What function should we use to sync our project
+with our server?"
+
+We'll call rsync from within Emacs, we want it to obey the .gitignore rules as
+well, and maybe also send the .git directory so that we have all the commits and
+everything in the server (these options should all be customizable)
+
+Create a =.dir-locals.el= file in the root of the project directory, then insert
+the following things here (I'm synchronizing my current folder with a test
+folder in my server that has user nope and IP 40.756.140.43 (yes, 756 is not in
+the IP range, this is on purpose so bots don't go pinging this IP), therefore
+the whole path looks like =nope@40.756.140.43:test/=
+
+#+begin_src emacs-lisp
+  ;; .dir-locals.el
+
+  ((nil
+    .
+    ((firestarter . (save-window-excursion
+                      (let ((rsync-stuff--obey-gitignore t)
+                            (rsync-stuff--exclude-git  nil))
+                        (async-shell-command
+                         (mapconcat
+                          #'identity
+                          `("rsync"
+                            "-aP"
+                            "'ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'"
+                            "--delete"
+                            ,(when (and rsync-stuff--obey-gitignore
+                                        (file-exists-p ".gitignore"))
+                               "--filter=':- .gitignore'")
+                            ,(when rsync-stuff--exclude-git
+                               "--exclude='.git/'")
+                            ,(projectile-project-root)
+                            "nope@40.756.140.43:test/")
+                          " "))))))))
+#+end_src
+
+I hope this is useful to someone that has had issues with TRAMP before as well.
+Rsync will manage to only copy stuff that is different. But I don't know how
+good it is with binary data, but I know git is not good with it. Please comment
+if this is an issue.
