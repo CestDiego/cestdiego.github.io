@@ -19,14 +19,14 @@ more I still don't know and I just keep digging deeper and deeper, I fear for my
 future productivity. This wasn't unnoticed by one of my friends, who later said.
 
 #+begin_quote
-Diego, you spent so much time using Emacs, and you loose precious time going to
+Diego, you spent so much time using Emacs, and you lose precious time going to
 Sweetgreen[salad place]. You should just get your Sweetgreen from inside Emacs!
 [lol]
 #+end_quote
 
 I took this too seriously and wondered how difficult would it be, I knew they
 had some kind of online ordering stuff going on. So I checked it out, and using
-the Chrome Developer Tools I could where every request in each part of the
+the Chrome Developer Tools I could see where every request in each part of the
 checkout was sent. It felt like solving puzzles and putting pieces together, I
 then used curl to do some initial testing of what I thought would be good
 payloads to send and got my first obstacle: Cookie Headers.
@@ -34,7 +34,7 @@ payloads to send and got my first obstacle: Cookie Headers.
 I decided then that using curl wasn't Emacsy at all, so after some research I
 ended up using the [[http://tkf.github.io/emacs-request/][request.el]] library and going through the documentation to
 learn more about it. I will present about this in the [[http://emacsnyc.org/2015/11/10/how-to-order-salads-from-inside-emacs.html][Emacs NYC]] Meetup talk on
-Dec 7th at [[https://thoughtbot.com/][Thouthtbot]].
+Dec 7th at [[https://thoughtbot.com/][Thoughtbot]].
 
 All in all, I had a great time learning more about how requests are made, Emacs
 Lisp packages, functional programming, and ingredients of salads. If you
