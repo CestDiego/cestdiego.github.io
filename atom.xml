@@ -4,12 +4,19 @@
   <title>Diego Berrocal</title>
   <subtitle>it&#39;s personal</subtitle>
   <link href="http://cestdiego.github.io/"/>
-  <updated>Wed, 02 Dec 2015 17:49:53 EST</updated>
+  <updated>Sun, 06 Dec 2015 14:35:11 EST</updated>
+  <entry>
+    <title>Using Rsync when Tramp is too much</title>
+    <link href="http://cestdiego.github.io/blog/2015/12/04/using-rsync-when-tramp-is-too-much"/>
+    <summary>Rsync stuff</summary>
+    <updated>2015-12-06</updated>
+    <id>http://cestdiego.github.io/blog/2015/12/04/using-rsync-when-tramp-is-too-much</id>
+  </entry>
   <entry>
     <title>Ordering salads from inside Emacs</title>
     <link href="http://cestdiego.github.io/blog/2015/11/30/ordering-salads-from-inside-emacs"/>
     <summary>&lt;TODO: insert your description here&gt;</summary>
-    <updated>2015-12-01</updated>
+    <updated>2015-12-05</updated>
     <id>http://cestdiego.github.io/blog/2015/11/30/ordering-salads-from-inside-emacs</id>
   </entry>
   <entry>
@@ -67,12 +74,5 @@
     <summary>&lt;TODO: insert your description here&gt;</summary>
     <updated>2015-09-06</updated>
     <id>http://cestdiego.github.io/blog/2015/09/05/creating-an-assembler-for-nand2tetris</id>
-  </entry>
-  <entry>
-    <title>Day 3 Nand2Tetris: Another Chapter and mode improvements</title>
-    <link href="http://cestdiego.github.io/blog/2015/08/13/day-3-nand2tetris-another-chapter-and-mode-improvements"/>
-    <summary>In which I keep telling the story of the development of nand2tetris.el mode</summary>
-    <updated>2015-08-14</updated>
-    <id>http://cestdiego.github.io/blog/2015/08/13/day-3-nand2tetris-another-chapter-and-mode-improvements</id>
   </entry>
 </feed>
