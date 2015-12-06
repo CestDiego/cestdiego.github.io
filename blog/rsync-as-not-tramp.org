@@ -46,28 +46,25 @@ the whole path looks like =nope@40.756.140.43:test/=
 
 #+begin_src emacs-lisp
   ;; .dir-locals.el
-
   ((nil
     .
-    ((firestarter . (save-window-excursion
-                      (let ((rsync-stuff--obey-gitignore t)
-                            (rsync-stuff--exclude-git  nil))
-                        (async-shell-command
-                         (mapconcat
-                          #'identity
-                          `("rsync"
-                            "-aP"
-                            "'ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'"
-                            "--delete"
-                            ,(when (and rsync-stuff--obey-gitignore
-                                        (file-exists-p ".gitignore"))
-                               "--filter=':- .gitignore'")
-                            ,(when rsync-stuff--exclude-git
-                               "--exclude='.git/'")
-                            ,(projectile-project-root)
-                            "nope@40.756.140.43:test/")
-                          " "))))))))
+    ((firestarter . (let* ((rsync--obey-gitignore t)
+                           (rsync--exclude-git nil)
+                           (args `("-aP"
+                                   "'ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'"
+                                   "--delete"
+                                   ,(when (and rsync--obey-gitignore
+                                               (file-exists-p ".gitignore"))
+                                      "--filter=':- .gitignore'")
+                                   ,(when rsync--exclude-git
+                                      "--exclude='.git/'")
+                                   ,(projectile-project-root)
+                                   "nope@40.756.140.43:test/")))
+                      (apply 'start-process "rsync" nil "rsync" args))))))
 #+end_src
+
+**Update** Thank you @wasamasa for the suggestion on not using
+=async-shell-command=
 
 I hope this is useful to someone that has had issues with TRAMP before as well.
 Rsync will manage to only copy stuff that is different. But I don't know how

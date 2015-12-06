@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Moving to NY and starting a new chapter - Diego Berrocal</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Diego Berrocal">
+    <meta name="description" content="In which I break the news that I&#39;m a Recurser now">
+    <meta name="keywords" content="recurse, center, new york">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Fira+Sans:400,700,400italic,700italic|Lora:400,700|Source+Code+Pro:400,700">
+    <link rel="stylesheet" href="/media/css/normalize.css">
+    <link rel="stylesheet" href="/media/css/dark.css" id="darkTheme">
+    <link rel="stylesheet" href="/media/css/light.css" id="lightTheme">
+    <link href="http://cestdiego.github.io/atom.xml" type="application/atom+xml" rel="alternate" title="Diego Berrocal" />
+    <script>
+     var lightTheme = document.querySelector("#lightTheme");
+     var darkTheme = document.querySelector("#darkTheme");
+
+     var toggleTheme = function () {
+         var isDefaultDisabled = lightTheme.disabled;
+         darkTheme.disabled = isDefaultDisabled;
+         lightTheme.disabled = !isDefaultDisabled;
+
+         var switchLights = document.querySelector(".switch-lights");
+         switchLights.textContent = "lights " + (isDefaultDisabled ? "off" : "on");
+
+         return !isDefaultDisabled;
+     };
+
+     if (localStorage.darkTheme === "1") {
+         toggleTheme();
+     }
+    </script>
+    <link rel="stylesheet" href="/media/css/main.css">
+    <noscript>
+        <style>
+         .toggle-colors{
+             display: none;
+         }
+        </style>
+    </noscript>
+  </head>
+
+  <body>
+    <div id="wrapper">
+    <nav class="site-nav">
+      <ul class="links">
+        <li><a href="/">Diego Berrocal</a></li>
+         <li><a href="/about/">about</a></li>
+        <li><a href="/blog/">blog</a></li>
+        <li><a href="/atom.xml">atom</a></li>
+        <li><button class="switch-lights">lights off</button></li>
+      </ul>
+    </nav>
+
+    <article class="post">
+      <header>
+          <h1 class="post-title">Moving to NY and starting a new chapter</h1>
+          <time class="post-date">Sep 20, 2015</time>
+      </header>
+      <p>
+So I'm pretty sure most of you know of the <a href="http://recurse.com/">Recurse Center</a>, the awesome
+programming community located in New York, well I'll be spending the next three
+months there and I couldn't be more excited!
+</p>
+
+<p>
+It'll surely be very challenging to move into such a big city such as NY coming
+from Lima, Perú. Certainly finding a place to stay was as hard as I expected but
+I got a lot of help from great friends.
+</p>
+
+<p>
+I guess now I'll have to use this blog ever so often to try and show the world
+what have I been doing during my stay at RC.
+</p>
+
+<p>
+Happy Hacking!
+</p>
+
+    </article>
+
+<footer class="site-footer">
+    <div class="back-to-top">
+        <a href="#">back to top</a>
+        <a id="show-comments"  onclick="loadDisqus()"> show comments</a>
+    </div>
+    <script src="/media/js/main.js"></script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+        <script>
+         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                                  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+         ga('create', 'UA-40864129-3', 'auto');
+         ga('send', 'pageview');
+        </script>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+             /* * * CONFIGURATION VARIABLES * * */
+             var disqus_identifier = "/blog/2015/09/21/moving-to-ny-and-starting-a-new-chapter";
+             var disqus_url = "http://cestdiego.github.io/blog/2015/09/21/moving-to-ny-and-starting-a-new-chapter";
+             var disqus_shortname = 'cestdiego';
+
+             /* * * DON'T EDIT BELOW THIS LINE * * */
+             var ds_loaded = false;
+             var le_top = document.getElementById("disqus_thread").offsetTop;
+
+             function loadDisqus(){
+                 ds_loaded = true;
+                 (function() {
+                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                 })();
+                 document.getElementById("show-comments").style.visibility = "hidden"
+             }
+
+             var reload_disqus = function(){
+                 DISQUS.reset({
+                     reload: true,
+                     config: function () {
+                         this.page.identifier = cestdiego;
+                     }
+                 });
+             }
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</footer>
+
+    </div>
+  </body>
+</html>

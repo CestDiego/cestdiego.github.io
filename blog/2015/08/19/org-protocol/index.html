@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Using org-capture with org-protocol be like - Diego Berrocal</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Diego Berrocal">
+    <meta name="description" content="In which I share my configuration and my own chrome extension for this ">
+    <meta name="keywords" content="emacs, org, org-protocol">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Fira+Sans:400,700,400italic,700italic|Lora:400,700|Source+Code+Pro:400,700">
+    <link rel="stylesheet" href="/media/css/normalize.css">
+    <link rel="stylesheet" href="/media/css/dark.css" id="darkTheme">
+    <link rel="stylesheet" href="/media/css/light.css" id="lightTheme">
+    <link href="http://cestdiego.github.io/atom.xml" type="application/atom+xml" rel="alternate" title="Diego Berrocal" />
+    <script>
+     var lightTheme = document.querySelector("#lightTheme");
+     var darkTheme = document.querySelector("#darkTheme");
+
+     var toggleTheme = function () {
+         var isDefaultDisabled = lightTheme.disabled;
+         darkTheme.disabled = isDefaultDisabled;
+         lightTheme.disabled = !isDefaultDisabled;
+
+         var switchLights = document.querySelector(".switch-lights");
+         switchLights.textContent = "lights " + (isDefaultDisabled ? "off" : "on");
+
+         return !isDefaultDisabled;
+     };
+
+     if (localStorage.darkTheme === "1") {
+         toggleTheme();
+     }
+    </script>
+    <link rel="stylesheet" href="/media/css/main.css">
+    <noscript>
+        <style>
+         .toggle-colors{
+             display: none;
+         }
+        </style>
+    </noscript>
+  </head>
+
+  <body>
+    <div id="wrapper">
+    <nav class="site-nav">
+      <ul class="links">
+        <li><a href="/">Diego Berrocal</a></li>
+         <li><a href="/about/">about</a></li>
+        <li><a href="/blog/">blog</a></li>
+        <li><a href="/atom.xml">atom</a></li>
+        <li><button class="switch-lights">lights off</button></li>
+      </ul>
+    </nav>
+
+    <article class="post">
+      <header>
+          <h1 class="post-title">Using org-capture with org-protocol be like</h1>
+          <time class="post-date">Aug 19, 2015</time>
+      </header>
+      <p>
+### Update: I finally <a href="https://chrome.google.com/webstore/detail/ultimate-org-capture/ijcpiacdhbjjpfookgaodhblgainmcbf">published</a> my Chrome Extension :) 
+</p>
+
+<p>
+Hello friend,
+</p>
+
+<p>
+I know that you have heard about org, and how great it is. But then you started
+trying it and you were overwhelmed at how many ways of customizing it to suit
+your needs are there. Also you might find that you could switch your lifestyle
+to plain text, but don't know where to start. That's why I think this could be a
+first introduction post on how to use org-capture to manage your bookmarks,
+remember you could store the org file into a file synchronizer of your choice
+and have it also in your phone.
+</p>
+
+<p>
+It'll look something like this:
+</p>
+
+
+<figure>
+<p><img src="http://i.imgur.com/3NiiRU5.gif" alt="3NiiRU5.gif">
+</p>
+</figure>
+
+
+<p>
+<b>* Disclaimer *</b> I'm no way an org-mode power user, and the advice here could
+be improved a lot, and that's why you can also make <code>constructive</code> comments :)
+</p>
+
+<p>
+We take the desktop file from this <a href="http://www.chawdhary.co.uk/2012/07/04/xdg-org-protocol.html">blog post</a> which explaining how we could use
+org-protocol with a button in the bookmark bar. But I think we may be able to do better :) -psst, I'll give you a hint: we'll use a chrome extension-
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-conf"><span class="org-comment-delimiter"># </span><span class="org-comment">~/.local/share/applications/emacs-capture.desktop or wherever it can be found</span>
+[<span class="org-type">Desktop Entry</span>]
+<span class="org-variable-name">Name</span>=Emacs Client
+<span class="org-variable-name">Exec</span>=emacs-capture %u 
+<span class="org-variable-name">Icon</span>=emacs-icon
+<span class="org-variable-name">Type</span>=Application
+<span class="org-variable-name">Terminal</span>=false
+<span class="org-variable-name">MimeType</span>=x-scheme-handler/org-protocol;
+</pre>
+</div>
+
+<p>
+You might find that we used <code>emacs-capture</code> instead of emacsclient, that's
+because no matter how hard I tried I couldn't add the arguments I needed into the <code>.desktop</code> file, this is how the <code>emacs-capture</code> script looks like:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh"><span class="org-comment-delimiter">#</span><span class="org-comment">!/bin/</span><span class="org-keyword">sh</span>
+emacsclient -c -F <span class="org-string">"((name . \"emacs-capture\") (height . 10) (width . 80))"</span> <span class="org-string">"$@"</span>
+</pre>
+</div>
+
+<p>
+You'll have to put it somewhere in your <code>PATH</code>, preferably <code>~/bin</code>? just double
+check. The <code>-c</code> means we want a new frame (we want a pop-up after all) and the
+<code>-F</code> flag just tells emacs to create the new frame with the frame-properties
+defined in the alist given to it, the name property is special for reasons
+you'll see later but it's specially important for us Tiling Window Manager
+users, because we have to define which type of windows we want as <code>floating</code>. In
+i3, this would look like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-conf"><span class="org-variable-name">for_window [instance</span>=<span class="org-string">"emacs-capture"</span>] floating enable
+</pre>
+</div>
+
+<p>
+Let's jump in the Emacs part though, we have to set up org-protocol somehow,
+this code will be enough:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">require</span> '<span class="org-constant">org-capture</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">require</span> '<span class="org-constant">org-protocol</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Org Capture</span>
+<span class="org-comment-delimiter">;;;; </span><span class="org-comment">Thank you random guy from StackOverflow</span>
+<span class="org-comment-delimiter">;;;; </span><span class="org-comment">http://stackoverflow.com/questions/23517372/hook-or-advice-when-aborting-org-capture-before-template-selection</span>
+
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defadvice</span> <span class="org-function-name">org-capture</span>
+    <span class="org-rainbow-delimiters-depth-2">(</span>after make-full-window-frame activate<span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-doc">"Advise capture to be the only window when used as a popup"</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-3">(</span>equal <span class="org-string">"emacs-capture"</span> <span class="org-rainbow-delimiters-depth-4">(</span>frame-parameter nil 'name<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+      <span class="org-rainbow-delimiters-depth-3">(</span>delete-other-windows<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defadvice</span> <span class="org-function-name">org-capture-finalize</span>
+    <span class="org-rainbow-delimiters-depth-2">(</span>after delete-capture-frame activate<span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-doc">"Advise capture-finalize to close the frame"</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-3">(</span>equal <span class="org-string">"emacs-capture"</span> <span class="org-rainbow-delimiters-depth-4">(</span>frame-parameter nil 'name<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+      <span class="org-rainbow-delimiters-depth-3">(</span>delete-frame<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Capture Templates</span>
+<span class="org-comment-delimiter">;;;; </span><span class="org-comment">Add idea, mind-onanism, contacts, movies to download das</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>setq org-capture-templates
+      '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"l"</span> <span class="org-string">"Temp Links from the interwebs"</span> item
+         <span class="org-rainbow-delimiters-depth-4">(</span>file+headline <span class="org-string">"links.org"</span> <span class="org-string">"Temporary Links"</span><span class="org-rainbow-delimiters-depth-4">)</span>
+         <span class="org-string">"%?\nEntered on %U\n \%i\n %a"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Remember that <code>emacs-capture</code> was part of the frame-properties? this is why, we
+can advise the capture function to do certain stuff only in this popup frame
+that we would not normally like when we use org-capture normally, like closing
+the frame after it's done.
+</p>
+
+<p>
+The Capture template could be improved, I'd suggest to anyone that wants to dive
+into this type of integration to check out how to make cool templates, you can
+even make it ask you for tags, and it will complete the tags you have there. :)
+</p>
+
+<p>
+We have now achieved the emacs related part of this, congratz, m8!
+</p>
+
+<p>
+Now we have to have something in our browser that allows us to bind
+<code>Control+Shift+L</code> (or any key you may want, just modify the setting in
+chrome://extensions). We'll use an extension that I made especially for this
+case, as I didn't find another that worked, I'm planning on supporting
+auto-detection of templates needed depending on the current web page, for
+example if it's a YouTube video we are bookmarking it should maybe store more
+stuff, even we could store the current time in the video or whatever :), the sky
+is the limit when it comes to Emacs. However, I'm currently unable to pay the $5
+needed to publish this app ( ;_;), so you'll just have to clone my repo (link at the
+bottom) and upload it to the extensions manually in your browser.
+</p>
+
+<p>
+I hope you find this useful, and if you have any suggestions, PRs are welcome at
+<a href="https://github.com/CestDiego/org-capture-chrome">https://github.com/CestDiego/org-capture-chrome</a>. Leave a comment suggesting how
+would you use org-capture as well ☺. 
+</p>
+
+<p>
+<b>* UPDATE 1*</b>
+</p>
+
+<p>
+So thanks to user <b>/u/shackra</b> on <a href="http://emacs.reddit.com/">/r/emacs</a> I can share with you another use for
+non-chrome users, you'll need to have the Emacs lisp above, and also the
+<code>emacs-capture</code> script in your <code>PATH</code>.
+</p>
+
+<p>
+In your WM or Desktop Environment check how to run commands with key bindings,
+and bind any key you want (I'm using Super+Space here for i3) and then pass the
+extra argument <code>-e "(org-capture nil \"l\")" =</code> where <code>l</code> in this case is the
+template I defined above, I have others (like <code>i</code> for jotting ideas)
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"i"</span> <span class="org-string">"Jotting ideas fast"</span> entry
+ <span class="org-rainbow-delimiters-depth-2">(</span>file+headline <span class="org-string">"gtd.org"</span> <span class="org-string">"Ideas"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+ <span class="org-string">"* %?\n %i\n%t\n%A"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-conf">bindsym $mod+space       exec emacs-capture --eval <span class="org-string">'(org-capture nil "l")'</span>
+bindsym $mod+Shift+space exec emacs-capture --eval <span class="org-string">'(org-capture nil "i")'</span>
+</pre>
+</div>
+
+<p>
+And so you can have multiple key bindings to register many capture actions, go
+nuts. 
+</p>
+
+    </article>
+
+<footer class="site-footer">
+    <div class="back-to-top">
+        <a href="#">back to top</a>
+        <a id="show-comments"  onclick="loadDisqus()"> show comments</a>
+    </div>
+    <script src="/media/js/main.js"></script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+        <script>
+         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                                  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+         ga('create', 'UA-40864129-3', 'auto');
+         ga('send', 'pageview');
+        </script>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+             /* * * CONFIGURATION VARIABLES * * */
+             var disqus_identifier = "/blog/2015/08/20/org-protocol";
+             var disqus_url = "http://cestdiego.github.io/blog/2015/08/20/org-protocol";
+             var disqus_shortname = 'cestdiego';
+
+             /* * * DON'T EDIT BELOW THIS LINE * * */
+             var ds_loaded = false;
+             var le_top = document.getElementById("disqus_thread").offsetTop;
+
+             function loadDisqus(){
+                 ds_loaded = true;
+                 (function() {
+                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                 })();
+                 document.getElementById("show-comments").style.visibility = "hidden"
+             }
+
+             var reload_disqus = function(){
+                 DISQUS.reset({
+                     reload: true,
+                     config: function () {
+                         this.page.identifier = cestdiego;
+                     }
+                 });
+             }
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</footer>
+
+    </div>
+  </body>
+</html>

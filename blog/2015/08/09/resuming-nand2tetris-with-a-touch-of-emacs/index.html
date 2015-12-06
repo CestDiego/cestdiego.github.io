@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Resuming nand2tetris with a touch of emacs - Diego Berrocal</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Diego Berrocal">
+    <meta name="description" content="In this blog I attempt to create nand2tetris mode and finish the course in a week">
+    <meta name="keywords" content="nand2tetris, emacs, major mode, elips">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Fira+Sans:400,700,400italic,700italic|Lora:400,700|Source+Code+Pro:400,700">
+    <link rel="stylesheet" href="/media/css/normalize.css">
+    <link rel="stylesheet" href="/media/css/dark.css" id="darkTheme">
+    <link rel="stylesheet" href="/media/css/light.css" id="lightTheme">
+    <link href="http://cestdiego.github.io/atom.xml" type="application/atom+xml" rel="alternate" title="Diego Berrocal" />
+    <script>
+     var lightTheme = document.querySelector("#lightTheme");
+     var darkTheme = document.querySelector("#darkTheme");
+
+     var toggleTheme = function () {
+         var isDefaultDisabled = lightTheme.disabled;
+         darkTheme.disabled = isDefaultDisabled;
+         lightTheme.disabled = !isDefaultDisabled;
+
+         var switchLights = document.querySelector(".switch-lights");
+         switchLights.textContent = "lights " + (isDefaultDisabled ? "off" : "on");
+
+         return !isDefaultDisabled;
+     };
+
+     if (localStorage.darkTheme === "1") {
+         toggleTheme();
+     }
+    </script>
+    <link rel="stylesheet" href="/media/css/main.css">
+    <noscript>
+        <style>
+         .toggle-colors{
+             display: none;
+         }
+        </style>
+    </noscript>
+  </head>
+
+  <body>
+    <div id="wrapper">
+    <nav class="site-nav">
+      <ul class="links">
+        <li><a href="/">Diego Berrocal</a></li>
+         <li><a href="/about/">about</a></li>
+        <li><a href="/blog/">blog</a></li>
+        <li><a href="/atom.xml">atom</a></li>
+        <li><button class="switch-lights">lights off</button></li>
+      </ul>
+    </nav>
+
+    <article class="post">
+      <header>
+          <h1 class="post-title">Resuming nand2tetris with a touch of emacs</h1>
+          <time class="post-date">Aug 09, 2015</time>
+      </header>
+      <p>
+So I have been following the nand2tetris course in <a href="https://www.coursera.org/course/nand2tetris1">Coursera</a>, but I find it could
+have a better integration with emacs. So here I am declaring that I'll do a
+major mode for nand2tetris. You can follow my progress <a href="https://github.com/cestdiego/nand2tetris.el">here</a>. And I'll keep
+updating you on improvements. 
+</p>
+
+<hr >
+
+<p>
+So First things I did was to copy <code>python-mode</code> because I kinda feel more
+comfortable with it, even though I don't understand much of it.
+</p>
+
+<p>
+We first assume people are gonna get the nand2tetris source dir, so we can do
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">nand2tetris-source-dir</span> nil
+  <span class="org-doc">"Source directory where nadn2tetris has been downloaded"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Now we define the major mode:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">define-derived-mode</span> <span class="org-function-name">nand2tetris-mode</span> prog-mode
+  <span class="org-string">"nand2tetris"</span>
+  <span class="org-doc">"Major mode for editing HDL files for the course Nand2Tetris.</span>
+
+<span class="org-doc">\\{nand2tetris-mode-map}"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+This will use nand2tetris-mode-syntax-table by default, so let's also define that:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defconst</span> <span class="org-variable-name">nand2tetris-mode-syntax-table</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>table <span class="org-rainbow-delimiters-depth-5">(</span>make-syntax-table<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>c-populate-syntax-table table<span class="org-rainbow-delimiters-depth-3">)</span>
+    table<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+We inherit the C syntax table because it will do the <code>//</code> and <code>/* ... */</code>
+comments for free. and now our mode has syntax highlighting for comments and
+stuff. Now we only need font-locking.
+</p>
+
+<p>
+So far I've seen these keywords <code>CHIP, IN, OUT, PARTS</code>, so let's see how it looks:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">nand2tetris-font-lock-keywords</span>
+  <span class="org-comment-delimiter">;;</span><span class="org-comment">Keywords</span>
+  `<span class="org-rainbow-delimiters-depth-2">(</span>,<span class="org-rainbow-delimiters-depth-3">(</span>rx symbol-start
+         <span class="org-rainbow-delimiters-depth-4">(</span>or <span class="org-string">"CHIP"</span> <span class="org-string">"IN"</span> <span class="org-string">"OUT"</span> <span class="org-string">"PARTS"</span><span class="org-rainbow-delimiters-depth-4">)</span>
+         symbol-end<span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">CHIP &lt;ChipName&gt;</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>,<span class="org-rainbow-delimiters-depth-4">(</span>rx symbol-start <span class="org-string">"CHIP"</span> <span class="org-rainbow-delimiters-depth-5">(</span>1+ space<span class="org-rainbow-delimiters-depth-5">)</span> <span class="org-rainbow-delimiters-depth-5">(</span>group <span class="org-rainbow-delimiters-depth-6">(</span>1+ <span class="org-rainbow-delimiters-depth-7">(</span>or word ?_<span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
+     <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-highlight-numbers-number">1</span> font-lock-type-face<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">&lt;ChipName&gt; (in=in, out=out);</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>,<span class="org-rainbow-delimiters-depth-4">(</span>rx symbol-start <span class="org-rainbow-delimiters-depth-5">(</span>group <span class="org-rainbow-delimiters-depth-6">(</span>1+ <span class="org-rainbow-delimiters-depth-7">(</span>or word ?_<span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
+          <span class="org-rainbow-delimiters-depth-5">(</span>? space<span class="org-rainbow-delimiters-depth-5">)</span> <span class="org-rainbow-delimiters-depth-5">(</span>seq <span class="org-string">"("</span> <span class="org-rainbow-delimiters-depth-6">(</span>0+ not-newline<span class="org-rainbow-delimiters-depth-6">)</span> <span class="org-string">")"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
+     <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-highlight-numbers-number">1</span> font-lock-variable-name-face<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Lets add it to the major-mode:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">define-derived-mode</span> <span class="org-function-name">nand2tetris-mode</span> prog-mode
+  <span class="org-string">"nand2tetris"</span>
+  <span class="org-doc">"Major mode for editing HDL files for the course Nand2Tetris.</span>
+
+<span class="org-doc">\\{nand2tetris-mode-map}"</span>
+
+  <span class="org-rainbow-delimiters-depth-2">(</span>set <span class="org-rainbow-delimiters-depth-3">(</span>make-local-variable 'font-lock-defaults<span class="org-rainbow-delimiters-depth-3">)</span>
+       '<span class="org-rainbow-delimiters-depth-3">(</span>nand2tetris-font-lock-keywords nil nil nil nil<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Now, the hard part will be to bind the hdl files. As I know <code>hdl</code> is a very
+common extension (maybe? correct me if I'm wrong plz) I will just limit this
+major mode to bind to all <code>.hdl</code> files inside the <code>nand2tetris-source-dir</code>.
+</p>
+
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>add-to-list 'auto-mode-alist
+             `<span class="org-rainbow-delimiters-depth-2">(</span>,<span class="org-rainbow-delimiters-depth-3">(</span>concat <span class="org-rainbow-delimiters-depth-4">(</span>expand-file-name nand2tetris-source-dir<span class="org-rainbow-delimiters-depth-4">)</span> <span class="org-string">"\.*\\.hdl"</span><span class="org-rainbow-delimiters-depth-3">)</span>
+               . nand2tetris-mode<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+And that's been it for today. it all looks like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;;; </span><span class="org-comment">nand2tetris.el --- Major Mode for HDL files in the Nand2Tetris Course</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">https://www.coursera.org/course/nand2tetris1</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Copyright (C) 2015 Diego Berrocal</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Author: Diego Berrocal <a href="mailto:cestdiego%40gmail.com">&lt;cestdiego@gmail.com&gt;</a></span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Created: 10 August 2015</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Keywords: nand2tetris, hdl</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Homepage: http://www.github.com/CestDiego/nand2tetris.el/</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Version: 0.0.1</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">This file is not part of GNU Emacs.</span>
+
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">License: GPLv3</span>
+
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Commentary:</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Useful functions to make following the coursera course easier.</span>
+
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Code:</span>
+
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">nand2tetris-source-dir</span> nil
+  <span class="org-doc">"Source directory where nadn2tetris has been downloaded"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defconst</span> <span class="org-variable-name">nand2tetris-mode-syntax-table</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>table <span class="org-rainbow-delimiters-depth-5">(</span>make-syntax-table<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>c-populate-syntax-table table<span class="org-rainbow-delimiters-depth-3">)</span>
+    table<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">nand2tetris-font-lock-keywords</span>
+  <span class="org-comment-delimiter">;;</span><span class="org-comment">Keywords</span>
+  `<span class="org-rainbow-delimiters-depth-2">(</span>,<span class="org-rainbow-delimiters-depth-3">(</span>rx symbol-start
+         <span class="org-rainbow-delimiters-depth-4">(</span>or <span class="org-string">"CHIP"</span> <span class="org-string">"IN"</span> <span class="org-string">"OUT"</span> <span class="org-string">"PARTS"</span><span class="org-rainbow-delimiters-depth-4">)</span>
+         symbol-end<span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">CHIP &lt;ChipName&gt;</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>,<span class="org-rainbow-delimiters-depth-4">(</span>rx symbol-start <span class="org-string">"CHIP"</span> <span class="org-rainbow-delimiters-depth-5">(</span>1+ space<span class="org-rainbow-delimiters-depth-5">)</span> <span class="org-rainbow-delimiters-depth-5">(</span>group <span class="org-rainbow-delimiters-depth-6">(</span>1+ <span class="org-rainbow-delimiters-depth-7">(</span>or word ?_<span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
+     <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-highlight-numbers-number">1</span> font-lock-type-face<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">&lt;ChipName&gt; (in=in, out=out);</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>,<span class="org-rainbow-delimiters-depth-4">(</span>rx symbol-start <span class="org-rainbow-delimiters-depth-5">(</span>group <span class="org-rainbow-delimiters-depth-6">(</span>1+ <span class="org-rainbow-delimiters-depth-7">(</span>or word ?_<span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
+          <span class="org-rainbow-delimiters-depth-5">(</span>? space<span class="org-rainbow-delimiters-depth-5">)</span> <span class="org-rainbow-delimiters-depth-5">(</span>seq <span class="org-string">"("</span> <span class="org-rainbow-delimiters-depth-6">(</span>0+ not-newline<span class="org-rainbow-delimiters-depth-6">)</span> <span class="org-string">")"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
+     <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-highlight-numbers-number">1</span> font-lock-variable-name-face<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">define-derived-mode</span> <span class="org-function-name">nand2tetris-mode</span> prog-mode
+  <span class="org-string">"nand2tetris"</span>
+  <span class="org-doc">"Major mode for editing HDL files for the course Nand2Tetris.</span>
+
+<span class="org-doc">\\{nand2tetris-mode-map}"</span>
+
+  <span class="org-rainbow-delimiters-depth-2">(</span>set <span class="org-rainbow-delimiters-depth-3">(</span>make-local-variable 'font-lock-defaults<span class="org-rainbow-delimiters-depth-3">)</span>
+       '<span class="org-rainbow-delimiters-depth-3">(</span>nand2tetris-font-lock-keywords nil nil nil nil<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-rainbow-delimiters-depth-1">(</span>add-to-list 'auto-mode-alist
+             `<span class="org-rainbow-delimiters-depth-2">(</span>,<span class="org-rainbow-delimiters-depth-3">(</span>concat <span class="org-rainbow-delimiters-depth-4">(</span>expand-file-name nand2tetris-source-dir<span class="org-rainbow-delimiters-depth-4">)</span> <span class="org-string">"\.*\\.hdl"</span><span class="org-rainbow-delimiters-depth-3">)</span>
+               . nand2tetris-mode<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">provide</span> '<span class="org-constant">nand2tetris</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Next things is to actually use the scripts that nand2tetris gives us.
+</p>
+
+    </article>
+
+<footer class="site-footer">
+    <div class="back-to-top">
+        <a href="#">back to top</a>
+        <a id="show-comments"  onclick="loadDisqus()"> show comments</a>
+    </div>
+    <script src="/media/js/main.js"></script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+        <script>
+         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                                  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+         ga('create', 'UA-40864129-3', 'auto');
+         ga('send', 'pageview');
+        </script>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+             /* * * CONFIGURATION VARIABLES * * */
+             var disqus_identifier = "/blog/2015/08/10/resuming-nand2tetris-with-a-touch-of-emacs";
+             var disqus_url = "http://cestdiego.github.io/blog/2015/08/10/resuming-nand2tetris-with-a-touch-of-emacs";
+             var disqus_shortname = 'cestdiego';
+
+             /* * * DON'T EDIT BELOW THIS LINE * * */
+             var ds_loaded = false;
+             var le_top = document.getElementById("disqus_thread").offsetTop;
+
+             function loadDisqus(){
+                 ds_loaded = true;
+                 (function() {
+                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                 })();
+                 document.getElementById("show-comments").style.visibility = "hidden"
+             }
+
+             var reload_disqus = function(){
+                 DISQUS.reset({
+                     reload: true,
+                     config: function () {
+                         this.page.identifier = cestdiego;
+                     }
+                 });
+             }
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</footer>
+
+    </div>
+  </body>
+</html>
