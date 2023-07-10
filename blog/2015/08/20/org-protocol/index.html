@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Using org-capture with org-protocol be like - org-page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Diego Berrocal">
+    <meta name="description" content="In which I share my configuration and my own chrome extension for this ">
+    <meta name="keywords" content="emacs, org, org-protocol">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Fira+Sans:400,700,400italic,700italic|Lora:400,700|Source+Code+Pro:400,700">
+    <link rel="stylesheet" href="/media/css/normalize.css">
+    <link rel="stylesheet" href="/media/css/dark.css" id="darkTheme">
+    <link rel="stylesheet" href="/media/css/light.css" id="lightTheme">
+    <link href="http://cestdiego.github.io/atom.xml" type="application/atom+xml" rel="alternate" title="Diego Berrocal" />
+    <script>
+     var lightTheme = document.querySelector("#lightTheme");
+     var darkTheme = document.querySelector("#darkTheme");
+
+     var toggleTheme = function () {
+         var isDefaultDisabled = lightTheme.disabled;
+         darkTheme.disabled = isDefaultDisabled;
+         lightTheme.disabled = !isDefaultDisabled;
+
+         var switchLights = document.querySelector(".switch-lights");
+         switchLights.textContent = "lights " + (isDefaultDisabled ? "off" : "on");
+
+         return !isDefaultDisabled;
+     };
+
+     if (localStorage.darkTheme === "1") {
+         toggleTheme();
+     }
+    </script>
+    <link rel="stylesheet" href="/media/css/main.css">
+    <noscript>
+        <style>
+         .toggle-colors{
+             display: none;
+         }
+        </style>
+    </noscript>
+  </head>
+
+  <body>
+    <div id="wrapper">
+    <nav class="site-nav">
+      <ul class="links">
+        <li><a href="/">org-page</a></li>
+         <li><a href="/about/">about</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/tags/">Tags</a></li>
+        <li><a href="/atom.xml">atom</a></li>
+        <li><button class="switch-lights">lights off</button></li>
+      </ul>
+    </nav>
+
+    <article class="post">
+      <header>
+          <h1 class="post-title">Using org-capture with org-protocol be like</h1>
+      </header>
+      <p>
+### Update: I finally <a href="https://chrome.google.com/webstore/detail/ultimate-org-capture/ijcpiacdhbjjpfookgaodhblgainmcbf">published</a> my Chrome Extension :) 
+</p>
+
+<p>
+Hello friend,
+</p>
+
+<p>
+I know that you have heard about org, and how great it is. But then you started
+trying it and you were overwhelmed at how many ways of customizing it to suit
+your needs are there. Also you might find that you could switch your lifestyle
+to plain text, but don&rsquo;t know where to start. That&rsquo;s why I think this could be a
+first introduction post on how to use org-capture to manage your bookmarks,
+remember you could store the org file into a file synchronizer of your choice
+and have it also in your phone.
+</p>
+
+<p>
+It&rsquo;ll look something like this:
+</p>
+
+
+<figure id="orgaba1c53">
+<img src="http://i.imgur.com/3NiiRU5.gif" alt="3NiiRU5.gif">
+
+</figure>
+
+
+<p>
+<b>* Disclaimer *</b> I&rsquo;m no way an org-mode power user, and the advice here could
+be improved a lot, and that&rsquo;s why you can also make <code>constructive</code> comments :)
+</p>
+
+<p>
+We take the desktop file from this <a href="http://www.chawdhary.co.uk/2012/07/04/xdg-org-protocol.html">blog post</a> which explaining how we could use
+org-protocol with a button in the bookmark bar. But I think we may be able to do better :) -psst, I&rsquo;ll give you a hint: we&rsquo;ll use a chrome extension-
+</p>
+
+<div class="org-src-container">
+<pre class="src src-conf">  # ~/.local/share/applications/emacs-capture.desktop or wherever it can be found
+  [Desktop Entry]
+  Name=Emacs Client
+  Exec=emacs-capture %u 
+  Icon=emacs-icon
+  Type=Application
+  Terminal=false
+  MimeType=x-scheme-handler/org-protocol;
+</pre>
+</div>
+
+<p>
+You might find that we used <code>emacs-capture</code> instead of emacsclient, that&rsquo;s
+because no matter how hard I tried I couldn&rsquo;t add the arguments I needed into the <code>.desktop</code> file, this is how the <code>emacs-capture</code> script looks like:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">  #!/bin/sh
+  emacsclient -c -F "((name . \"emacs-capture\") (height . 10) (width . 80))" "$@"
+</pre>
+</div>
+
+<p>
+You&rsquo;ll have to put it somewhere in your <code>PATH</code>, preferably <code>~/bin</code>? just double
+check. The <code>-c</code> means we want a new frame (we want a pop-up after all) and the
+<code>-F</code> flag just tells emacs to create the new frame with the frame-properties
+defined in the alist given to it, the name property is special for reasons
+you&rsquo;ll see later but it&rsquo;s specially important for us Tiling Window Manager
+users, because we have to define which type of windows we want as <code>floating</code>. In
+i3, this would look like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-conf">  for_window [instance="emacs-capture"] floating enable
+</pre>
+</div>
+
+<p>
+Let&rsquo;s jump in the Emacs part though, we have to set up org-protocol somehow,
+this code will be enough:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  (require 'org-capture)
+  (require 'org-protocol)
+
+  ;;; Org Capture
+  ;;;; Thank you random guy from StackOverflow
+  ;;;; http://stackoverflow.com/questions/23517372/hook-or-advice-when-aborting-org-capture-before-template-selection
+
+  (defadvice org-capture
+      (after make-full-window-frame activate)
+    "Advise capture to be the only window when used as a popup"
+    (if (equal "emacs-capture" (frame-parameter nil 'name))
+        (delete-other-windows)))
+
+  (defadvice org-capture-finalize
+      (after delete-capture-frame activate)
+    "Advise capture-finalize to close the frame"
+    (if (equal "emacs-capture" (frame-parameter nil 'name))
+        (delete-frame)))
+
+  ;;; Capture Templates
+  ;;;; Add idea, mind-onanism, contacts, movies to download das
+  (setq org-capture-templates
+        '(("l" "Temp Links from the interwebs" item
+           (file+headline "links.org" "Temporary Links")
+           "%?\nEntered on %U\n \%i\n %a")))
+</pre>
+</div>
+
+<p>
+Remember that <code>emacs-capture</code> was part of the frame-properties? this is why, we
+can advise the capture function to do certain stuff only in this popup frame
+that we would not normally like when we use org-capture normally, like closing
+the frame after it&rsquo;s done.
+</p>
+
+<p>
+The Capture template could be improved, I&rsquo;d suggest to anyone that wants to dive
+into this type of integration to check out how to make cool templates, you can
+even make it ask you for tags, and it will complete the tags you have there. :)
+</p>
+
+<p>
+We have now achieved the emacs related part of this, congratz, m8!
+</p>
+
+<p>
+Now we have to have something in our browser that allows us to bind
+<code>Control+Shift+L</code> (or any key you may want, just modify the setting in
+chrome://extensions). We&rsquo;ll use an extension that I made especially for this
+case, as I didn&rsquo;t find another that worked, I&rsquo;m planning on supporting
+auto-detection of templates needed depending on the current web page, for
+example if it&rsquo;s a YouTube video we are bookmarking it should maybe store more
+stuff, even we could store the current time in the video or whatever :), the sky
+is the limit when it comes to Emacs. However, I&rsquo;m currently unable to pay the $5
+needed to publish this app ( ;_;), so you&rsquo;ll just have to clone my repo (link at the
+bottom) and upload it to the extensions manually in your browser.
+</p>
+
+<p>
+I hope you find this useful, and if you have any suggestions, PRs are welcome at
+<a href="https://github.com/CestDiego/org-capture-chrome">https://github.com/CestDiego/org-capture-chrome</a>. Leave a comment suggesting how
+would you use org-capture as well ☺. 
+</p>
+
+<p>
+<b>* UPDATE 1*</b>
+</p>
+
+<p>
+So thanks to user <b>/u/shackra</b> on <a href="http://emacs.reddit.com">/r/emacs</a> I can share with you another use for
+non-chrome users, you&rsquo;ll need to have the Emacs lisp above, and also the
+<code>emacs-capture</code> script in your <code>PATH</code>.
+</p>
+
+<p>
+In your WM or Desktop Environment check how to run commands with key bindings,
+and bind any key you want (I&rsquo;m using Super+Space here for i3) and then pass the
+extra argument <code>-e "(org-capture nil \"l\")" =</code> where <code>l</code> in this case is the
+template I defined above, I have others (like <code>i</code> for jotting ideas)
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">   ("i" "Jotting ideas fast" entry
+    (file+headline "gtd.org" "Ideas")
+    "* %?\n %i\n%t\n%A")
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-conf">  bindsym $mod+space       exec emacs-capture --eval '(org-capture nil "l")'
+  bindsym $mod+Shift+space exec emacs-capture --eval '(org-capture nil "i")'
+</pre>
+</div>
+
+<p>
+And so you can have multiple key bindings to register many capture actions, go
+nuts. 
+</p>
+
+    </article>
+
+<footer class="site-footer">
+    <div class="back-to-top">
+        <a href="#">back to top</a>
+        <a id="show-comments"  onclick="loadDisqus()"> show comments</a>
+    </div>
+    <script src="/media/js/main.js"></script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</footer>
+
+    </div>
+  </body>
+</html>

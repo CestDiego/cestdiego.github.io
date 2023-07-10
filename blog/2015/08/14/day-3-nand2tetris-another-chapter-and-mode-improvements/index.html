@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Day 3 Nand2Tetris: Another Chapter and mode improvements - org-page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Diego Berrocal">
+    <meta name="description" content="In which I keep telling the story of the development of nand2tetris.el mode">
+    <meta name="keywords" content="emacs, nand2tetris, elisp">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Fira+Sans:400,700,400italic,700italic|Lora:400,700|Source+Code+Pro:400,700">
+    <link rel="stylesheet" href="/media/css/normalize.css">
+    <link rel="stylesheet" href="/media/css/dark.css" id="darkTheme">
+    <link rel="stylesheet" href="/media/css/light.css" id="lightTheme">
+    <link href="http://cestdiego.github.io/atom.xml" type="application/atom+xml" rel="alternate" title="Diego Berrocal" />
+    <script>
+     var lightTheme = document.querySelector("#lightTheme");
+     var darkTheme = document.querySelector("#darkTheme");
+
+     var toggleTheme = function () {
+         var isDefaultDisabled = lightTheme.disabled;
+         darkTheme.disabled = isDefaultDisabled;
+         lightTheme.disabled = !isDefaultDisabled;
+
+         var switchLights = document.querySelector(".switch-lights");
+         switchLights.textContent = "lights " + (isDefaultDisabled ? "off" : "on");
+
+         return !isDefaultDisabled;
+     };
+
+     if (localStorage.darkTheme === "1") {
+         toggleTheme();
+     }
+    </script>
+    <link rel="stylesheet" href="/media/css/main.css">
+    <noscript>
+        <style>
+         .toggle-colors{
+             display: none;
+         }
+        </style>
+    </noscript>
+  </head>
+
+  <body>
+    <div id="wrapper">
+    <nav class="site-nav">
+      <ul class="links">
+        <li><a href="/">org-page</a></li>
+         <li><a href="/about/">about</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/tags/">Tags</a></li>
+        <li><a href="/atom.xml">atom</a></li>
+        <li><button class="switch-lights">lights off</button></li>
+      </ul>
+    </nav>
+
+    <article class="post">
+      <header>
+          <h1 class="post-title">Day 3 Nand2Tetris: Another Chapter and mode improvements</h1>
+      </header>
+      <p>
+Just after finishing the nand2tetris hdl file mode I think I made a mistake
+naming it `nand2tetris` mode because after Week 3 the use of hdl files drops
+dramatically. And the use of <code>assembler</code> files that are in some <code>Hack Assembly</code>
+language are the main focus. Makes sense, but I&rsquo;m kinda sad that the mode was
+just useful for a couple of &ldquo;weeks&rdquo;. Still I hope it is of use for other people.
+</p>
+
+<p>
+Anyway, I made some other improvements on the nand2tetris hdl mode (I think I
+might rename the mode later on, you&rsquo;ll see why) 
+</p>
+
+<div id="outline-container-org98afef1" class="outline-2">
+<h2 id="org98afef1">Company</h2>
+<div class="outline-text-2" id="text-org98afef1">
+<p>
+I added support for the popup from company, it just looks like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  (defvar nand2tetris-builtin-chips
+    '(("Add16" . (("description" .
+                   "16-bit bitwise And:
+
+  IN a[16], b[16];
+  OUT out[16];
+
+  for i = 0..15: out[i] = (a[i] and b[i])")
+                  ("spec" . "Add16(a= ,b= ,out= )")))
+      ;; ...
+      ))
+
+  (defun company-nand2tetris--doc-buffer (candidate)
+    "Return documentation buffer for chosen CANDIDATE."
+    (let ((doc (cdr (assoc "description"
+                           (assoc candidate nand2tetris-builtin-chips)))))
+      (and doc (nand2tetris-doc-buffer doc))))
+
+
+  ;;;###autoload
+  (defun company-nand2tetris (command &amp;optional arg &amp;rest ignored)
+    "Company backend for `nand2tetris-mode'."
+    (interactive (list 'interactive))
+    (cl-case command
+      (interactive (company-begin-backend 'company-nand2tetris))
+      (prefix (company-nand2tetris--prefix))
+      (candidates (company-nand2tetris--candidates arg))
+      (doc-buffer (company-nand2tetris--doc-buffer arg))
+      (annotation (company-nand2tetris--annotation arg))))
+</pre>
+</div>
+
+<p>
+So I just put one example of the many alists... I had to add another
+<code>description</code> entry and was mostly done by hand. I found it very useful when
+doing the PC, ALU and RAM chips :)
+</p>
+</div>
+</div>
+
+<div id="outline-container-org79b2cf5" class="outline-2">
+<h2 id="org79b2cf5">ElDoc (It works better now!)</h2>
+<div class="outline-text-2" id="text-org79b2cf5">
+<p>
+SO after lots of reading on how regular expressions work in Emacs I think I got
+it now :) at least I feel way more comfortable than before, even though this is
+my first go at emacs lisp package development I feel confident that there are
+bearable rough edges.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  ;;; ElDoc
+  (require 'eldoc)
+
+  (defun get-chip-at-line ()
+    "Gets the chip currently used, so that placing the cursor at
+  any point in the line:
+     Not16 (in=a, out=out)
+  Will return Not16"
+    (save-excursion
+      (beginning-of-line)
+      (search-forward-regexp
+       (rx (group (* word))
+           (? space ) "("))
+      (match-string 1)))
+
+  (defun nand2tetris-eldoc-function ()
+    "Get help on SYMBOL using `help'.
+  Interactively, prompt for symbol."
+    (let ((symbol (get-chip-at-line))
+          (enable-recursive-minibuffers t))
+      (message (cdr (assoc "spec" (assoc symbol nand2tetris-builtin-chips))))))
+</pre>
+</div>
+
+<p>
+So now ElDoc information shows even if you don&rsquo;t have the cursor exactly at the
+end of the CHIP.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org791086a" class="outline-2">
+<h2 id="org791086a">nand2tetris material coming up</h2>
+<div class="outline-text-2" id="text-org791086a">
+<p>
+After completing week 5 I see that a custom assembly mode would be awesome for
+nand2tetris and also maybe..syntax highlighting for the bit lines in the machine
+code? so one could actually see what it means :) it would be awesome to have but
+that might be very difficult, I&rsquo;m gonna attempt to make the HackAssembly mode
+with Keybindings to also Test the current assembly, just like <code>C-c C-c</code> does
+currently in nand2tetris-mode.
+</p>
+</div>
+</div>
+
+    </article>
+
+<footer class="site-footer">
+    <div class="back-to-top">
+        <a href="#">back to top</a>
+        <a id="show-comments"  onclick="loadDisqus()"> show comments</a>
+    </div>
+    <script src="/media/js/main.js"></script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</footer>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>EXWM + Spacemacs = Spacemacs OS - org-page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Diego Berrocal">
+    <meta name="description" content="Using Spacemacs as a Window Manager is awesome, here is why">
+    <meta name="keywords" content="spacemacs, window, managers">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Fira+Sans:400,700,400italic,700italic|Lora:400,700|Source+Code+Pro:400,700">
+    <link rel="stylesheet" href="/media/css/normalize.css">
+    <link rel="stylesheet" href="/media/css/dark.css" id="darkTheme">
+    <link rel="stylesheet" href="/media/css/light.css" id="lightTheme">
+    <link href="http://cestdiego.github.io/atom.xml" type="application/atom+xml" rel="alternate" title="Diego Berrocal" />
+    <script>
+     var lightTheme = document.querySelector("#lightTheme");
+     var darkTheme = document.querySelector("#darkTheme");
+
+     var toggleTheme = function () {
+         var isDefaultDisabled = lightTheme.disabled;
+         darkTheme.disabled = isDefaultDisabled;
+         lightTheme.disabled = !isDefaultDisabled;
+
+         var switchLights = document.querySelector(".switch-lights");
+         switchLights.textContent = "lights " + (isDefaultDisabled ? "off" : "on");
+
+         return !isDefaultDisabled;
+     };
+
+     if (localStorage.darkTheme === "1") {
+         toggleTheme();
+     }
+    </script>
+    <link rel="stylesheet" href="/media/css/main.css">
+    <noscript>
+        <style>
+         .toggle-colors{
+             display: none;
+         }
+        </style>
+    </noscript>
+  </head>
+
+  <body>
+    <div id="wrapper">
+    <nav class="site-nav">
+      <ul class="links">
+        <li><a href="/">org-page</a></li>
+         <li><a href="/about/">about</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/tags/">Tags</a></li>
+        <li><a href="/atom.xml">atom</a></li>
+        <li><button class="switch-lights">lights off</button></li>
+      </ul>
+    </nav>
+
+    <article class="post">
+      <header>
+          <h1 class="post-title">EXWM + Spacemacs = Spacemacs OS</h1>
+      </header>
+      <p>
+I&rsquo;ve been using Spacemacs for a little less than a year now, and since then it
+has only showed improvement because of the awesome community around it. Around
+the same time I started to love using Window Managers instead of Desktop
+Environments, and I&rsquo;m sure that I&rsquo;m not alone in saying that sometimes the
+window manager that only mattered are the ones that let you spawn Emacs and have
+it full screen without unneeded panels or borders or &ldquo;unity dashboards&rdquo; ugh. 
+</p>
+
+<p>
+But then came the other features and goodies like Automatic Tiling (BSPWM, i3),
+Tabbing (i3, StumpWM), Floating windows that can act as a scratchpad that you
+can have quick acces to, all of these I have always looked for in WM,
+configurability also is something to worry about, scripts for BSPWM, or the
+choice of using i3bar or i3blocks for i3 which was nice, and also having a nice
+panel that made heads turn when they saw your setup was something I always ended
+up spending lots of time on, but in the end I would always just use windows in
+full screen in my laptop even though I have decent screen realstate (1080p).
+</p>
+
+
+<figure id="org6163a2f">
+<img src="/assets/blog/2015/09/26/exwm-+-spacemacs-=-spacemacsos/SpacemacsOS.jpg" alt="/assets/blog/2015/09/26/exwm-+-spacemacs-=-spacemacsos/SpacemacsOS.jpg">
+
+</figure>
+
+<p>
+Having tried EXWM I feel that I really don&rsquo;t need a panel anymore, and what is
+more awesome is that using Spacemacs with it makes it so simple to configure
+because the somewhat hard stuff to make Emacs behave like a WM, like
+window-management, resizing, fonts, mode-line with useful information, shells
+that pop (using the <b>shell</b> layer), are already there. But not only that, but
+new things which are even more awesome and are not seen in normal WMs are also
+brought to the table: Org Agenda &ldquo;native&rdquo; integration (like the last post I
+made. you don&rsquo;t need to spawn an emacsclient now :P), Window-purpose so that you
+can use X windows instead of buffers for compilation, tree, live-view of your
+project in a Chrome window connected to your Emacs with swankjs, etc.
+</p>
+
+<p>
+I&rsquo;m sure that by now you are more or less convinced that EXWM rocks, you can try
+it with your own Emacs configuration but if you are in Spacemacs, try the EXWM
+layer. Instructions on how to use EXWM are pretty straight forward, I&rsquo;m afraid I
+can&rsquo;t help Ubuntu users as I&rsquo;m pretty sure you&rsquo;ll need to create a session file
+that links to a Desktop file that executes Emacs and have <code>(exwm-enable)</code>
+somewhere in your Emacs configuration file. So I&rsquo;m gonna be pretty straight
+forward and just share what command I have on my initialization script.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">  # ~/.xinitrc
+  exec dbus-launch --exit-with-session emacs --eval "(exwm-enable)"
+</pre>
+</div>
+
+<p>
+You may wonder why do I have the last eval part to enable exwm, well it&rsquo;s
+Spacemacs right? so people might want to try the layer and use more than one WM
+while they get used to EXWM, it&rsquo;s ok. I used to use i3 and Unity too, and I
+guess that&rsquo;s a normal part of adapting, so I want those users to still be able
+to use other WM or DE of their choice without exwm giving trouble. The layer
+configures everything exwm related but doesn&rsquo;t activate it until you call it
+with this setting. Also I use dbus-launch so that when the user quits Emacs it
+also quits the session, which is great. Want to log out? no need to define new
+keybindings, <code>C-x C-c</code> (I know not very Spacemacs-y but you know: &ldquo;Old habits,
+they die hard&rdquo;)
+</p>
+
+
+<p>
+Once you have the Spacemacs Layer up and running you will be able to move into
+workspaces, move through windows by <code>Super-hjkl</code> Go to last workspace with
+<code>Super-Tab</code>, undo/redo window layouts with <code>Super-u/U</code> and many things more, if
+you want a detailed description check out the layer on Spacemacs. You&rsquo;ll find it
+hard to use any other WM, in EXWM <b>windows</b> finally mean windows as we know
+them.
+</p>
+
+
+<p>
+There are some downsides though, given the not good concurrency in Emacs, when
+an elisp action takes too much time it <b>will</b> freeze the system because there
+are no threads whatsoever, so if you become very passionate about EXWM go ahead
+and try to implement async in Emacs :P I think change in Emacs won&rsquo;t happen
+unless people are really hyped in changing stuff. Also contribute back to EXWM
+and XELB and report bugs @ch11nge has done a great work with EXWM and XELB and
+he is a very responsive maintainer, I&rsquo;m really impressed but how much work might
+have gone into making these tools.
+</p>
+
+    </article>
+
+<footer class="site-footer">
+    <div class="back-to-top">
+        <a href="#">back to top</a>
+        <a id="show-comments"  onclick="loadDisqus()"> show comments</a>
+    </div>
+    <script src="/media/js/main.js"></script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</footer>
+
+    </div>
+  </body>
+</html>

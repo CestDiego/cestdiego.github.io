@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Resuming nand2tetris with a touch of emacs - org-page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Diego Berrocal">
+    <meta name="description" content="In this blog I attempt to create nand2tetris mode and finish the course in a week">
+    <meta name="keywords" content="nand2tetris, emacs, major mode, elips">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Fira+Sans:400,700,400italic,700italic|Lora:400,700|Source+Code+Pro:400,700">
+    <link rel="stylesheet" href="/media/css/normalize.css">
+    <link rel="stylesheet" href="/media/css/dark.css" id="darkTheme">
+    <link rel="stylesheet" href="/media/css/light.css" id="lightTheme">
+    <link href="http://cestdiego.github.io/atom.xml" type="application/atom+xml" rel="alternate" title="Diego Berrocal" />
+    <script>
+     var lightTheme = document.querySelector("#lightTheme");
+     var darkTheme = document.querySelector("#darkTheme");
+
+     var toggleTheme = function () {
+         var isDefaultDisabled = lightTheme.disabled;
+         darkTheme.disabled = isDefaultDisabled;
+         lightTheme.disabled = !isDefaultDisabled;
+
+         var switchLights = document.querySelector(".switch-lights");
+         switchLights.textContent = "lights " + (isDefaultDisabled ? "off" : "on");
+
+         return !isDefaultDisabled;
+     };
+
+     if (localStorage.darkTheme === "1") {
+         toggleTheme();
+     }
+    </script>
+    <link rel="stylesheet" href="/media/css/main.css">
+    <noscript>
+        <style>
+         .toggle-colors{
+             display: none;
+         }
+        </style>
+    </noscript>
+  </head>
+
+  <body>
+    <div id="wrapper">
+    <nav class="site-nav">
+      <ul class="links">
+        <li><a href="/">org-page</a></li>
+         <li><a href="/about/">about</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/tags/">Tags</a></li>
+        <li><a href="/atom.xml">atom</a></li>
+        <li><button class="switch-lights">lights off</button></li>
+      </ul>
+    </nav>
+
+    <article class="post">
+      <header>
+          <h1 class="post-title">Resuming nand2tetris with a touch of emacs</h1>
+      </header>
+      <p>
+So I have been following the nand2tetris course in <a href="https://www.coursera.org/course/nand2tetris1">Coursera</a>, but I find it could
+have a better integration with emacs. So here I am declaring that I&rsquo;ll do a
+major mode for nand2tetris. You can follow my progress <a href="https://github.com/cestdiego/nand2tetris.el">here</a>. And I&rsquo;ll keep
+updating you on improvements. 
+</p>
+
+<hr>
+
+<p>
+So First things I did was to copy <code>python-mode</code> because I kinda feel more
+comfortable with it, even though I don&rsquo;t understand much of it.
+</p>
+
+<p>
+We first assume people are gonna get the nand2tetris source dir, so we can do
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  (defvar nand2tetris-source-dir nil
+    "Source directory where nadn2tetris has been downloaded")
+</pre>
+</div>
+
+<p>
+Now we define the major mode:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  (define-derived-mode nand2tetris-mode prog-mode
+    "nand2tetris"
+    "Major mode for editing HDL files for the course Nand2Tetris.
+
+  \\{nand2tetris-mode-map}")
+</pre>
+</div>
+
+<p>
+This will use nand2tetris-mode-syntax-table by default, so let&rsquo;s also define that:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defconst nand2tetris-mode-syntax-table
+  (let ((table (make-syntax-table)))
+    (c-populate-syntax-table table)
+    table))
+</pre>
+</div>
+
+<p>
+We inherit the C syntax table because it will do the <code>//</code> and <code>/* ... */</code>
+comments for free. and now our mode has syntax highlighting for comments and
+stuff. Now we only need font-locking.
+</p>
+
+<p>
+So far I&rsquo;ve seen these keywords <code>CHIP, IN, OUT, PARTS</code>, so let&rsquo;s see how it looks:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  (defvar nand2tetris-font-lock-keywords
+    ;;Keywords
+    `(,(rx symbol-start
+           (or "CHIP" "IN" "OUT" "PARTS")
+           symbol-end)
+      ;; CHIP &lt;ChipName&gt;
+      (,(rx symbol-start "CHIP" (1+ space) (group (1+ (or word ?_))))
+       (1 font-lock-type-face))
+      ;; &lt;ChipName&gt; (in=in, out=out);
+      (,(rx symbol-start (group (1+ (or word ?_)))
+            (? space) (seq "(" (0+ not-newline) ")"))
+       (1 font-lock-variable-name-face))))
+</pre>
+</div>
+
+<p>
+Lets add it to the major-mode:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  (define-derived-mode nand2tetris-mode prog-mode
+    "nand2tetris"
+    "Major mode for editing HDL files for the course Nand2Tetris.
+
+  \\{nand2tetris-mode-map}"
+
+    (set (make-local-variable 'font-lock-defaults)
+         '(nand2tetris-font-lock-keywords nil nil nil nil)))
+</pre>
+</div>
+
+<p>
+Now, the hard part will be to bind the hdl files. As I know <code>hdl</code> is a very
+common extension (maybe? correct me if I&rsquo;m wrong plz) I will just limit this
+major mode to bind to all <code>.hdl</code> files inside the <code>nand2tetris-source-dir</code>.
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist
+             `(,(concat (expand-file-name nand2tetris-source-dir) "\.*\\.hdl")
+               . nand2tetris-mode))
+</pre>
+</div>
+
+<p>
+And that&rsquo;s been it for today. it all looks like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  ;;; nand2tetris.el --- Major Mode for HDL files in the Nand2Tetris Course
+  ;;; https://www.coursera.org/course/nand2tetris1
+
+  ;; Copyright (C) 2015 Diego Berrocal
+
+  ;; Author: Diego Berrocal &lt;cestdiego@gmail.com&gt;
+  ;; Created: 10 August 2015
+
+  ;; Keywords: nand2tetris, hdl
+  ;; Homepage: http://www.github.com/CestDiego/nand2tetris.el/
+  ;; Version: 0.0.1
+
+  ;; This file is not part of GNU Emacs.
+
+  ;;; License: GPLv3
+
+  ;;; Commentary:
+
+  ;; Useful functions to make following the coursera course easier.
+
+  ;;; Code:
+
+  (defvar nand2tetris-source-dir nil
+    "Source directory where nadn2tetris has been downloaded")
+
+  (defconst nand2tetris-mode-syntax-table
+    (let ((table (make-syntax-table)))
+      (c-populate-syntax-table table)
+      table))
+
+  (defvar nand2tetris-font-lock-keywords
+    ;;Keywords
+    `(,(rx symbol-start
+           (or "CHIP" "IN" "OUT" "PARTS")
+           symbol-end)
+      ;; CHIP &lt;ChipName&gt;
+      (,(rx symbol-start "CHIP" (1+ space) (group (1+ (or word ?_))))
+       (1 font-lock-type-face))
+      ;; &lt;ChipName&gt; (in=in, out=out);
+      (,(rx symbol-start (group (1+ (or word ?_)))
+            (? space) (seq "(" (0+ not-newline) ")"))
+       (1 font-lock-variable-name-face))))
+
+  (define-derived-mode nand2tetris-mode prog-mode
+    "nand2tetris"
+    "Major mode for editing HDL files for the course Nand2Tetris.
+
+  \\{nand2tetris-mode-map}"
+
+    (set (make-local-variable 'font-lock-defaults)
+         '(nand2tetris-font-lock-keywords nil nil nil nil)))
+
+  (add-to-list 'auto-mode-alist
+               `(,(concat (expand-file-name nand2tetris-source-dir) "\.*\\.hdl")
+                 . nand2tetris-mode))
+
+  (provide 'nand2tetris)
+</pre>
+</div>
+
+<p>
+Next things is to actually use the scripts that nand2tetris gives us.
+</p>
+
+    </article>
+
+<footer class="site-footer">
+    <div class="back-to-top">
+        <a href="#">back to top</a>
+        <a id="show-comments"  onclick="loadDisqus()"> show comments</a>
+    </div>
+    <script src="/media/js/main.js"></script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</footer>
+
+    </div>
+  </body>
+</html>

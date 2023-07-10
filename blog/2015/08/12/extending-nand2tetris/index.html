@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Extending nand2tetris.el - org-page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Diego Berrocal">
+    <meta name="description" content="Where I want to keep improving the nand2tetris package">
+    <meta name="keywords" content="nand2tetris, emacs, emacs-lisp">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Fira+Sans:400,700,400italic,700italic|Lora:400,700|Source+Code+Pro:400,700">
+    <link rel="stylesheet" href="/media/css/normalize.css">
+    <link rel="stylesheet" href="/media/css/dark.css" id="darkTheme">
+    <link rel="stylesheet" href="/media/css/light.css" id="lightTheme">
+    <link href="http://cestdiego.github.io/atom.xml" type="application/atom+xml" rel="alternate" title="Diego Berrocal" />
+    <script>
+     var lightTheme = document.querySelector("#lightTheme");
+     var darkTheme = document.querySelector("#darkTheme");
+
+     var toggleTheme = function () {
+         var isDefaultDisabled = lightTheme.disabled;
+         darkTheme.disabled = isDefaultDisabled;
+         lightTheme.disabled = !isDefaultDisabled;
+
+         var switchLights = document.querySelector(".switch-lights");
+         switchLights.textContent = "lights " + (isDefaultDisabled ? "off" : "on");
+
+         return !isDefaultDisabled;
+     };
+
+     if (localStorage.darkTheme === "1") {
+         toggleTheme();
+     }
+    </script>
+    <link rel="stylesheet" href="/media/css/main.css">
+    <noscript>
+        <style>
+         .toggle-colors{
+             display: none;
+         }
+        </style>
+    </noscript>
+  </head>
+
+  <body>
+    <div id="wrapper">
+    <nav class="site-nav">
+      <ul class="links">
+        <li><a href="/">org-page</a></li>
+         <li><a href="/about/">about</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/tags/">Tags</a></li>
+        <li><a href="/atom.xml">atom</a></li>
+        <li><button class="switch-lights">lights off</button></li>
+      </ul>
+    </nav>
+
+    <article class="post">
+      <header>
+          <h1 class="post-title">Extending nand2tetris.el</h1>
+      </header>
+      <p>
+Great News! nand2tetris.el is now on <a href="http://melpa.org/#/nand2tetris">MELPA</a>.
+</p>
+
+<p>
+So, following last blog post about developing a major mode for nand2tetris
+(which by the way is following the recommendations <a href="http://www.wilfred.me.uk/blog/2015/03/19/adding-a-new-language-to-emacs/">here</a>, I went on adding a
+company, eldoc(WIP), and yasnippet backend.
+</p>
+
+<p>
+First things first: I did a horrible mistake in last blog post by suggesting
+indirectly that it&rsquo;s fine to have top-level symbols like <code>HardwareSimulator</code>
+which was pointed out by @purcell (sry m8) in the <a href="https://github.com/milkypostman/melpa/pull/3009">MELPA PR</a>.
+</p>
+
+<p>
+Now, off to the Implementation of features
+</p>
+<div id="outline-container-org29a10b4" class="outline-2">
+<h2 id="org29a10b4">Company Backend</h2>
+<div class="outline-text-2" id="text-org29a10b4">
+<p>
+I used the <a href="http://www.nand2tetris.org/software/HDL%2520Survival%2520Guide.html">HDL Survival Guide</a> from the course resources to have all the possible
+builtin chips and tried to have a little alist that holds the name of the chip
+and it&rsquo;s spec. (My next goal is to have a Doc Buffer with more info about the
+Chip).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp" id="org4b3299f">  ;;; Company
+  (require 'company)
+  (require 'cl-lib)
+
+  (defvar nand2tetris-builtin-chips
+    '(("Add16" . (("spec" . "Add16(a= ,b= ,out= )")))
+      ("ALU" . (("spec" . "ALU(x= ,y= ,zx= ,nx= ,zy= ,ny= ,f= ,no= ,out= ,zr= ,ng= )")))
+      ("And16" .  (("spec" . "And16(a= ,b= ,out= )")))
+      ("And" . (("spec" . "And(a= ,b= ,out= )")))
+      ("ARegister" . (("spec" . "ARegister(in= ,load= ,out= )")))
+      ("Bit" . (("spec" . "Bit(in= ,load= ,out= )")))
+      ("CPU" . (("spec" . "CPU(inM= ,instruction= ,reset= ,outM= ,writeM= ,addressM= ,pc= )")))
+      ("DFF" . (("spec" . "DFF(in= ,out= )")))
+      ("DMux4Way" . (("spec" . "DMux4Way(in= ,sel= ,a= ,b= ,c= ,d= )")))
+      ("DMux8Way" . (("spec" . "DMux8Way(in= ,sel= ,a= ,b= ,c= ,d= ,e= ,f= ,g= ,h= )")))
+      ("DMux" . (("spec" . "DMux(in= ,sel= ,a= ,b= )")))
+      ("DRegister" . (("spec" . "DRegister(in= ,load= ,out= )")))
+      ("FullAdder" . (("spec" . "FullAdder(a= ,b= ,c= ,sum= ,carry= )")))
+      ("HalfAdder" . (("spec" . "HalfAdder(a= ,b= ,sum= , carry= )")))
+      ("Inc16" . (("spec" . "Inc16(in= ,out= )")))
+      ("Keyboard" . (("spec" . "Keyboard(out= )")))
+      ("Memory" . (("spec" . "Memory(in= ,load= ,address= ,out= )")))
+      ("Mux16" . (("spec" . "Mux16(a= ,b= ,sel= ,out= )")))
+      ("Mux4Way16" . (("spec" . "Mux4Way16(a= ,b= ,c= ,d= ,sel= ,out= )")))
+      ("Mux8Way16" . (("spec" . "Mux8Way16(a= ,b= ,c= ,d= ,e= ,f= ,g= ,h= ,sel= ,out= )")))
+      ("Mux" . (("spec" . "Mux(a= ,b= ,sel= ,out= )")))
+      ("Nand" . (("spec" . "Nand(a= ,b= ,out= )")))
+      ("Not16" . (("spec" . "Not16(in= ,out= )")))
+      ("Not" . (("spec" . "Not(in= ,out= )")))
+      ("Or16" . (("spec" . "Or16(a= ,b= ,out= )")))
+      ("Or8Way" . (("spec" . "Or8Way(in= ,out= )")))
+      ("Or" . (("spec" . "Or(a= ,b= ,out= )")))
+      ("PC" . (("spec" . "PC(in= ,load= ,inc= ,reset= ,out= )")))
+      ("RAM16K" . (("spec" . "RAM16K(in= ,load= ,address= ,out= )")))
+      ("RAM4K" . (("spec" . "RAM4K(in= ,load= ,address= ,out= )")))
+      ("RAM512" . (("spec" . "RAM512(in= ,load= ,address= ,out= )")))
+      ("RAM64" . (("spec" . "RAM64(in= ,load= ,address= ,out= )")))
+      ("RAM8" . (("spec" . "RAM8(in= ,load= ,address= ,out= )")))
+      ("Register" . (("spec" . "Register(in= ,load= ,out= )")))
+      ("ROM32K" . (("spec" . "ROM32K(address= ,out= )")))
+      ("Screen" . (("spec" . "Screen(in= ,load= ,address= ,out= )")))
+      ("Xor" . (("spec" . "Xor(a= ,b= ,out= )"))))
+    "Built In Chips Alist")
+
+  (defun company-nand2tetris--candidates (prefix)
+    (let ((res))
+      (dolist (option nand2tetris-builtin-chips)
+        (let ((name (car option)))
+          (when (string-prefix-p prefix name)
+            (push name res))))
+      res))
+
+  (defun company-nand2tetris--annotation (candidate)
+    (message candidate)
+    (let ((spec (cdr (assoc "spec" (assoc candidate nand2tetris-builtin-chips)))))
+      (format "\t%s" spec)))
+
+  (defun company-nand2tetris--grab-symbol ()
+        (buffer-substring (point) (save-excursion (skip-syntax-backward "w_.")
+                                                  (point))))
+
+  (defun company-nand2tetris--prefix ()
+    "Grab prefix at point."
+    (or (company-nand2tetris--grab-symbol)
+        'stop))
+
+  ;;;###autoload
+  (defun company-nand2tetris (command &amp;optional arg &amp;rest ignored)
+    (interactive (list 'interactive))
+    (cl-case command
+      (interactive (company-begin-backend 'company-nand2tetris))
+      (prefix (company-nand2tetris--prefix))
+      (candidates (company-nand2tetris--candidates arg))
+      (annotation (company-nand2tetris--annotation arg))))
+
+</pre>
+</div>
+
+<p>
+Then you&rsquo;d just have to add this company-nand2tetris backend to company-backeds
+and you are good to go! :). Here we also define a
+<code>company-nand2tetris--grab-symbol</code> function that will come handy when creating
+the ElDoc integration (actually, it goes half way as it only gets the part of
+the symbol before the current position, any help is appreciated). I followed
+company-backend creation from <a href="https://github.com/company-mode/company-mode/wiki/Writing-backends">their -official?- wiki</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org02efe35" class="outline-2">
+<h2 id="org02efe35">ElDoc</h2>
+<div class="outline-text-2" id="text-org02efe35">
+<p>
+ElDoc support is pretty straight forward, although I still don&rsquo;t get some stuff.
+In few words, each time your cursor is iddle, the value of the variable
+<code>eldoc-documentation-function</code> is called, and what is printed is printed in the
+minibuffer. 
+</p>
+
+<p>
+What we do for nand2tetris is that each time you rest on <b>the end</b> of a Chip Name it tries to give you the specificatino for such chip, kinda like the annotations from company-nand2tetris, but this time you can <code>access</code> them at any time without the popup showing.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  ;;; ElDoc
+  (require 'eldoc)
+  (defun nand2tetris-eldoc-function ()
+    "Get help on SYMBOL using `help'.
+  Interactively, prompt for symbol."
+    (let ((symbol (company-nand2tetris--grab-symbol))
+          (enable-recursive-minibuffers t))
+    (message (cdr (assoc "spec" (assoc symbol nand2tetris-builtin-chips))))))
+
+  (define-derived-mode nand2tetris-mode prog-mode
+    "nand2tetris"
+    "Major mode for editing HDL files for the course Nand2Tetris.
+
+  \\{nand2tetris-mode-map}"
+
+    (set (make-local-variable 'eldoc-documentation-function)
+         #'nand2tetris-eldoc-function)
+
+    ;; Fix Comment Syntax
+    (set (make-local-variable 'comment-start) "// ")
+    (set (make-local-variable 'comment-start-skip) "//+\\s-*")
+
+    (set (make-local-variable 'font-lock-defaults)
+         '(nand2tetris-font-lock-keywords nil nil nil nil)))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1de4313" class="outline-2">
+<h2 id="org1de4313">YASnippet</h2>
+<div class="outline-text-2" id="text-org1de4313">
+<p>
+Finally YASnippet integration is one of the features I always wanted for this
+mode, ever since the first time I opened the <code>hdl</code> files, unfortunately,
+snippets for this are pretty straight forward, just create functions to add the
+snippet dir when yasnippet gets loaded. As we don&rsquo;t want to bother the user with
+a dependency we use eval-after-load so if the user doesn&rsquo;t use yasnippets it&rsquo;s
+not a problem.... I ... guess?
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  ;;; Yasnippet
+
+  (defconst nand2tetris::dir (file-name-directory (or load-file-name
+                                                  buffer-file-name)))
+  ;;;###autoload
+  (defun nand2tetris//snippets-initialize ()
+    (let ((snip-dir (expand-file-name "snippets" nand2tetris::dir)))
+      (add-to-list 'yas-snippet-dirs snip-dir t)
+      (yas-load-directory snip-dir)))
+
+  ;;;###autoload
+  (eval-after-load 'yasnippet
+    '(nand2tetris//snippets-initialize))
+</pre>
+</div>
+
+<p>
+You can see how snippets are supposed to look like in the <a href="https://github.com/CestDiego/nand2tetris.el/tree/master/snippets/nand2tetris-mode">rep</a>o.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6a22952" class="outline-2">
+<h2 id="org6a22952">Conclusion</h2>
+<div class="outline-text-2" id="text-org6a22952">
+<p>
+That was all I did today and I&rsquo;m sharing it with ya :) I hope this might
+eventually be featured in the nand2tetris official course :) because it would be
+awesome, so if someone can make this happen, plz do.
+</p>
+</div>
+</div>
+
+    </article>
+
+<footer class="site-footer">
+    <div class="back-to-top">
+        <a href="#">back to top</a>
+        <a id="show-comments"  onclick="loadDisqus()"> show comments</a>
+    </div>
+    <script src="/media/js/main.js"></script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</footer>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Y Combinator in Emacs Lisp - org-page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Diego Berrocal">
+    <meta name="description" content="Or how to implement the YCombinator in Emacs Lisp">
+    <meta name="keywords" content="ycombinator, lambda, emacs, elisp">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Fira+Sans:400,700,400italic,700italic|Lora:400,700|Source+Code+Pro:400,700">
+    <link rel="stylesheet" href="/media/css/normalize.css">
+    <link rel="stylesheet" href="/media/css/dark.css" id="darkTheme">
+    <link rel="stylesheet" href="/media/css/light.css" id="lightTheme">
+    <link href="http://cestdiego.github.io/atom.xml" type="application/atom+xml" rel="alternate" title="Diego Berrocal" />
+    <script>
+     var lightTheme = document.querySelector("#lightTheme");
+     var darkTheme = document.querySelector("#darkTheme");
+
+     var toggleTheme = function () {
+         var isDefaultDisabled = lightTheme.disabled;
+         darkTheme.disabled = isDefaultDisabled;
+         lightTheme.disabled = !isDefaultDisabled;
+
+         var switchLights = document.querySelector(".switch-lights");
+         switchLights.textContent = "lights " + (isDefaultDisabled ? "off" : "on");
+
+         return !isDefaultDisabled;
+     };
+
+     if (localStorage.darkTheme === "1") {
+         toggleTheme();
+     }
+    </script>
+    <link rel="stylesheet" href="/media/css/main.css">
+    <noscript>
+        <style>
+         .toggle-colors{
+             display: none;
+         }
+        </style>
+    </noscript>
+  </head>
+
+  <body>
+    <div id="wrapper">
+    <nav class="site-nav">
+      <ul class="links">
+        <li><a href="/">org-page</a></li>
+         <li><a href="/about/">about</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/tags/">Tags</a></li>
+        <li><a href="/atom.xml">atom</a></li>
+        <li><button class="switch-lights">lights off</button></li>
+      </ul>
+    </nav>
+
+    <article class="post">
+      <header>
+          <h1 class="post-title">Y Combinator in Emacs Lisp</h1>
+      </header>
+      <p>
+I talked today with Prabhakar Ragde, who is a resident at the Recurse Center
+until Oct15, and I was enlightened by lambda calculus as we figured out how to
+deduce the Y Combinator that is used a lot to make recursive functions.
+</p>
+
+<p>
+Here I plan to post the implementation and derivation of the Y Combinator in
+Emacs Lisp. 
+</p>
+
+<p>
+:DISCLAIMER_BEGIN: 
+</p>
+
+<p>
+You will need to have lexical binding enabled for most of the examples to work,
+it is a buffer-local variable so make sure you paste everything on the same
+buffer.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq lexical-binding t)
+</pre>
+</div>
+
+<p>
+:DISCLAIMER_END:
+</p>
+
+<p>
+We&rsquo;ll take <code>factorial</code> as it&rsquo;s good example of a recursive function
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  (defun factorial (number)
+    (if (eq number 0) 1
+      (* number (funcall #'factorial (1- number)))))
+
+  (factorial 5) ;; 120
+  (factorial 4) ;; 24
+</pre>
+</div>
+
+<p>
+The recursion looks trivial right? Now lets try to implement it without
+referencing the name of the function, should be easy as well.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  ;; factorial
+  (lambda (number)
+    (if (eq number 0)
+        1
+      (* number (funcall fact? (1- number)))))
+</pre>
+</div>
+
+<p>
+We find that we cannot reference back to the same lambda function as we don&rsquo;t
+have a name for it, that&rsquo;s why we use <b>fact?</b> we&rsquo;ll have to figure out what to
+put in there. Lets say that we have another function that <b>looks</b> like <code>factorial</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  ;; proto-factorial
+  (lambda (fun)
+    (lambda (number)
+      (if (eq number 0)
+          1
+        (* number (funcall fun (1- number))))))
+</pre>
+</div>
+
+<p>
+This is great! now we have a function that can take another function and that
+returns a function that looks like <code>factorial</code>. There is one little detail
+though, the function that <code>proto-factorial</code> accepts only takes a number, so we
+could say that.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  (let ((proto-factorial (lambda (fun)
+                           (lambda (number)
+                             (if (eq number 0)
+                                 1
+                               (* number (funcall fun (1- number))))))))
+    (eq (funcall 'factorial 4)
+        (funcall (funcall proto-factorial 'factorial) 4)))
+</pre>
+</div>
+
+
+<p>
+This holds true but it&rsquo;s not what we want. We show that applying
+<code>proto-factorial</code> to <code>factorial</code> gives us back <code>factorial</code> which is cool, but we
+need to not use <code>factorial</code> at all, let&rsquo;s see if using <code>proto-factorial</code> on itself
+might work
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  (let ((proto-factorial (lambda (fun)
+                           (lambda (number)
+                             (if (eq number 0)
+                                 1
+                               (* number (funcall fun (1- number))))))))
+    (funcall (funcall proto-factorial proto-factorial) 4))
+</pre>
+</div>
+
+<p>
+It didn&rsquo;t T_T. What this tells us is that we have not provided enough arguments,
+and that&rsquo;s true, because proto-factorial, the function we send, takes a function
+and and returns a function that takes number, and the outer <code>funcall</code> just takes
+another number but no function. this is tricky, but we can have a way of doing
+it, let&rsquo;s call the function on itself as an argument before passing another
+number!
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  ;; meta-factorial
+  (lambda (fun)
+    (lambda (number)
+      (if (eq number 0)
+          1
+        (* number (funcall (funcall fun fun) (1- number))))))
+</pre>
+</div>
+
+<p>
+This looks more promising! meta-factorial takes a function and returns a
+function that depends on a number, but in this inner number-dependent function
+instead of applying <code>fun</code> to <code>(1- number)</code> we apply the function to itself, and
+then apply that result to <code>(1- number)</code>, this way we got what we wanted, a
+recursive function!. But still looks ugly, lets arrange it in a better way
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  (let ((meta-factorial (lambda (fun)
+                          (lambda (number)
+                            (if (eq number 0)
+                                1
+                              (* number (funcall (funcall fun fun) (1- number))))))))
+    (eq (funcall 'factorial 4)
+        (funcall (funcall meta-factorial meta-factorial) 4)))
+</pre>
+</div>
+
+
+<p>
+You might be thinking: &ldquo;Wait what? did we just did a recursion by calling two
+lambdas?&rdquo; yes we did, it might not look like so here, but if you replace each
+<code>meta-fact</code> with the lambda definition, we eliminate references to functions and
+are only left with lambda functions but the recursion still works! and we
+haven&rsquo;t used a reference to a function from within itself. If you don&rsquo;t believe
+me, then this is the ugly version:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  (funcall (funcall #'(lambda (fun)
+                        (lambda (number)
+                          (if (eq number 0)
+                              1
+                            (* number (funcall (funcall fun fun) (1- number))))))
+                    #'(lambda (fun)
+                        (lambda (number)
+                          (if (eq number 0)
+                              1
+                            (* number (funcall (funcall fun fun) (1- number))))))
+                    )
+           4)
+</pre>
+</div>
+
+<p>
+This still returns what we wanted which is <code>4!</code>. So what we have now is that
+<code>meta-factorial</code> evaluated on itself returns a function that takes a number and
+that function is equivalent to <code>factorial</code>.
+</p>
+
+<p>
+We want a way to transform from proto-factorial function to <code>factorial</code> because in
+that way we can get recursion, out of a simpler function the only things that we
+did was to take out the function call and call it on itself. 
+</p>
+
+<p>
+Let&rsquo;s see if we can define one such a function that takes as a parameter the
+proto-factorial and will output the meta-factorial version because in that case
+we would only need to apply that function twice and we would get our so desired
+factorial.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  ;; meta-factorial
+  (lambda (fun)
+    (funcall
+     #'(lambda (fun2)
+         (lambda (number)
+           (if (eq number 0)
+               1
+             (* number (funcall fun2 (1- number))))))
+     (funcall fun fun)))
+</pre>
+</div>
+
+<p>
+What we just did was to wrap the inner number-dependent function so that the
+<code>(funcall fun fun)</code> could be abstracted. This is called composing functions,
+kinda like <code>g(x^2)</code> could be written as <code>g(f(x))</code> where <code>f(x) = x^2</code> and we find
+that this inner thing is actually, <code>proto-factorial</code> !! This is great!, now we
+can write meta <code>factorial</code> in terms of proto <code>factorial</code>. We just needed to wrap the
+fun2 into a call to itself.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  (let ((meta-factorial (lambda (fun)
+                          (lambda (number)
+                            (if (eq number 0)
+                                1
+                              (* number (funcall (funcall fun fun) (1- number)))))))
+        (proto-factorial (lambda (fun)
+                           (lambda (number)
+                             (if (eq number 0)
+                                 1
+                               (* number (funcall fun (1- number))))))))
+    (eq (funcall 'factorial 4)
+        (funcall (funcall #'(lambda (r)
+                              (funcall proto-factorial (funcall r r)))
+                          #'(lambda (r)
+                              (funcall proto-factorial (funcall r r))))
+                 4)))
+</pre>
+</div>
+
+<p>
+This is basically what we&rsquo;ve been going for so much, if we could only make one
+more abstraction so that in case of proto-factorial we could pass any function
+wouldn&rsquo;t it be nice? well it <b>is</b> possible and it has a name! it&rsquo;s called the Y
+combinator, and it looks like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  (defun YCombinator (fun)
+      (funcall #'(lambda (r)
+                     (funcall fun (funcall r r)))
+               #'(lambda (r)
+                     (funcall fun (funcall r r)))))
+</pre>
+</div>
+
+<p>
+Lets try it with our <code>factorial</code> function!
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  (funcall
+   (YCombinator #'(lambda (f)
+                    #'(lambda (n)
+                        (if (eq n 0)
+                            1
+                          (* n
+                             (funcall f (1- n))
+                             ))))) 5)
+</pre>
+</div>
+
+<p>
+This should work, but it just goes into an infinite recursive loop, :(.
+</p>
+
+<p>
+Fortunately enough, I had been warned about this type of behavior due to the
+non-laziness from elisp, its eagerness it&rsquo;s not letting the code keep on going
+without evaluating stuff that shouldn&rsquo;t be evaluated yet, this doesn&rsquo;t happen in
+other languages such as haskell, but in emacs lisp the YCombinator should look a
+little bit different, like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  (defun YCombinator (f)
+    (funcall #'(lambda (x)
+                 (funcall f #'(lambda (y)
+                                (funcall (funcall x x) y))))
+             #'(lambda (x)
+                 (funcall f #'(lambda (y)
+                                (funcall (funcall x x) y))))))
+
+</pre>
+</div>
+
+
+<p>
+There! now we have a working YCombinator that doesn&rsquo;t go into an infinite loop
+:) lets try it
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  (funcall
+   (YCombinator
+    #'(lambda (f)
+        #'(lambda (n)
+            (if (eq n 0)
+                1
+              (* n
+                 (funcall f (1- n)))))))
+   8)
+</pre>
+</div>
+
+<p>
+There we go! :) this is the kind of stuff one learns in the Recurse Center. I
+hope you liked it, I&rsquo;ve seen implementations done in javascript and even python,
+but not one in Emacs Lisp for the <code>factorial</code> function. There was one that got it
+right for the <a href="https://gist.github.com/yukihr/df9c3fcf9002cc3b3d03">Fibonacci sequence</a> but when I tried it on the <code>factorial</code> it went
+into the infinite loop,
+</p>
+
+    </article>
+
+<footer class="site-footer">
+    <div class="back-to-top">
+        <a href="#">back to top</a>
+        <a id="show-comments"  onclick="loadDisqus()"> show comments</a>
+    </div>
+    <script src="/media/js/main.js"></script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</footer>
+
+    </div>
+  </body>
+</html>

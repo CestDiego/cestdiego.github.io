@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Ordering salads from inside Emacs - org-page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Diego Berrocal">
+    <meta name="description" content="&lt;TODO: insert your description here&gt;">
+    <meta name="keywords" content="&lt;TODO: insert your keywords here&gt;">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Fira+Sans:400,700,400italic,700italic|Lora:400,700|Source+Code+Pro:400,700">
+    <link rel="stylesheet" href="/media/css/normalize.css">
+    <link rel="stylesheet" href="/media/css/dark.css" id="darkTheme">
+    <link rel="stylesheet" href="/media/css/light.css" id="lightTheme">
+    <link href="http://cestdiego.github.io/atom.xml" type="application/atom+xml" rel="alternate" title="Diego Berrocal" />
+    <script>
+     var lightTheme = document.querySelector("#lightTheme");
+     var darkTheme = document.querySelector("#darkTheme");
+
+     var toggleTheme = function () {
+         var isDefaultDisabled = lightTheme.disabled;
+         darkTheme.disabled = isDefaultDisabled;
+         lightTheme.disabled = !isDefaultDisabled;
+
+         var switchLights = document.querySelector(".switch-lights");
+         switchLights.textContent = "lights " + (isDefaultDisabled ? "off" : "on");
+
+         return !isDefaultDisabled;
+     };
+
+     if (localStorage.darkTheme === "1") {
+         toggleTheme();
+     }
+    </script>
+    <link rel="stylesheet" href="/media/css/main.css">
+    <noscript>
+        <style>
+         .toggle-colors{
+             display: none;
+         }
+        </style>
+    </noscript>
+  </head>
+
+  <body>
+    <div id="wrapper">
+    <nav class="site-nav">
+      <ul class="links">
+        <li><a href="/">org-page</a></li>
+         <li><a href="/about/">about</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/tags/">Tags</a></li>
+        <li><a href="/atom.xml">atom</a></li>
+        <li><button class="switch-lights">lights off</button></li>
+      </ul>
+    </nav>
+
+    <article class="post">
+      <header>
+          <h1 class="post-title">Ordering salads from inside Emacs</h1>
+      </header>
+      <p>
+So many things have happened at the <a href="http://recurse.com">Recurse Center</a> and in my life these past few
+weeks, and among them is the appearance of one of my Emacs packages
+(<a href="https://github.com/CestDiego/sweetgreen.el">sweetgreen.el</a>) in Hacker News.
+</p>
+
+<p>
+I want to share how this ridiculous idea came to be. I always find myself
+tweaking Emacs, it&rsquo;s like the more I learn about it, the more I realize how much
+more I still don&rsquo;t know and I just keep digging deeper and deeper, I fear for my
+future productivity. This wasn&rsquo;t unnoticed by one of my friends, who later said.
+</p>
+
+<blockquote>
+<p>
+Diego, you spent so much time using Emacs, and you lose precious time going to
+Sweetgreen[salad place]. You should just get your Sweetgreen from inside Emacs!
+[lol]
+</p>
+</blockquote>
+
+<p>
+I took this too seriously and wondered how difficult would it be, I knew they
+had some kind of online ordering stuff going on. So I checked it out, and using
+the Chrome Developer Tools I could see where every request in each part of the
+checkout was sent. It felt like solving puzzles and putting pieces together, I
+then used curl to do some initial testing of what I thought would be good
+payloads to send and got my first obstacle: Cookie Headers.
+</p>
+
+<p>
+I decided then that using curl wasn&rsquo;t Emacsy at all, so after some research I
+ended up using the <a href="http://tkf.github.io/emacs-request/">request.el</a> library and going through the documentation to
+learn more about it. I will present about this in the <a href="http://emacsnyc.org/2015/11/10/how-to-order-salads-from-inside-emacs.html">Emacs NYC</a> Meetup talk on
+Dec 7th at <a href="https://thoughtbot.com/">Thoughtbot</a>.
+</p>
+
+<p>
+All in all, I had a great time learning more about how requests are made, Emacs
+Lisp packages, functional programming, and ingredients of salads. If you
+would&rsquo;ve told me months ago I would make an Emacs package to order salads online
+and it would reach the front page of Hacker News I&rsquo;d still be laughing out loud,
+this just makes me plain happy.
+</p>
+
+    </article>
+
+<footer class="site-footer">
+    <div class="back-to-top">
+        <a href="#">back to top</a>
+        <a id="show-comments"  onclick="loadDisqus()"> show comments</a>
+    </div>
+    <script src="/media/js/main.js"></script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</footer>
+
+    </div>
+  </body>
+</html>
